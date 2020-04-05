@@ -25,7 +25,7 @@ class LoginTest extends TestCase
 
         $response =
             $this->actingAs($user)
-                ->get('/')
+                ->get('/cabinet')
                 ->assertSuccessful();
     }
 
