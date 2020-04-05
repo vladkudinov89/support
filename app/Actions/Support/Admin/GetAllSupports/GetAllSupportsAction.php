@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Actions\Support\GetAllSupports;
+namespace App\Actions\Support\GetAllSupports\Admin;
 
 
 use App\Repositories\Support\SupportRepositoryInterface;

@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers\Api\Admin;
 
-use App\Actions\Support\GetAllSupports\GetAllSupportsAction;
+use App\Actions\Support\GetAllSupports\Admin\GetAllSupportsAction;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 
 class SupportController extends Controller
 {
