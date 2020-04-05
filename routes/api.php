@@ -29,6 +29,18 @@ Route::prefix('v1')->group(function () {
                 Route::get('/supports', 'SupportController@allSupports')->name('supports.all');
             });
 
+        Route::group(
+            [
+                'prefix' => 'client',
+                'as' => 'client.',
+                'namespace' => 'Client',
+                'middleware' => ['auth'],
+            ],
+            function () {
+                Route::get('/supports', 'SupportController@allSupports')->name('supports.all');
+            });
+
+
     });
 
 });

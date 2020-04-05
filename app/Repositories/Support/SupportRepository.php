@@ -14,4 +14,10 @@ class SupportRepository implements SupportRepositoryInterface
         return Support::all();
     }
 
+    public function findAllCurrentUserSupports(int $id): Collection
+    {
+       return Support::where('user_id' , $id)->get();
+    }
+
+
 }
