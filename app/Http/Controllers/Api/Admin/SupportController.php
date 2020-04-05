@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\Admin;
 
 use App\Actions\Support\GetAllSupports\GetAllSupportsAction;
 use App\Http\Controllers\Controller;
@@ -23,7 +23,7 @@ class SupportController extends Controller
         $this->getAllSupportsAction = $getAllSupportsAction;
     }
 
-    public function index()
+    public function allSupports()
     {
         return $this->getAllSupportsAction->execute()->getSupportCollection();
     }

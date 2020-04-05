@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 
 use App\Entities\Support;
+use App\Entities\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -14,9 +15,13 @@ class SupportsTest extends TestCase
     /** @test */
     public function get_all_supports()
     {
+        $user = factory(User::class)->create();
+
         $supports = factory(Support::class, 10)->create();
 
-        $response = $this->get('api/v1/supports')
+        $response = $this
+            ->actingAs($user)
+            ->get('api/v1/admin/supports')
             ->assertSuccessful()
             ->getOriginalContent();
 
