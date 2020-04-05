@@ -8,7 +8,7 @@ use App\Entities\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class SupportsTest extends TestCase
+class ClientSupportsTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -17,7 +17,7 @@ class SupportsTest extends TestCase
     {
         $user = factory(User::class)->create();
 
-        $supports = factory(Support::class, 10)->create();
+        $supports = factory(Support::class, 10)->create(['user_id' => $user->id]);
 
         $response = $this
             ->actingAs($user)
