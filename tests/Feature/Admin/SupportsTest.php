@@ -20,7 +20,7 @@ class SupportsTest extends TestCase
         $supports = factory(Support::class, 10)->create();
 
         $response = $this
-            ->actingAs($user)
+            ->actingAs($user , 'api')
             ->get('api/v1/admin/supports')
             ->assertSuccessful()
             ->getOriginalContent();

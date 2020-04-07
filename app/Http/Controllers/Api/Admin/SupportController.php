@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Api\Admin;
 
 use App\Actions\Support\GetAllSupports\Admin\GetAllSupportsAction;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Api\ApiController;
 
-class SupportController extends Controller
+class SupportController extends ApiController
 {
     /**
      * @var GetAllSupportsAction
@@ -24,6 +24,6 @@ class SupportController extends Controller
 
     public function allSupports()
     {
-        return $this->getAllSupportsAction->execute()->getSupportCollection();
+        return $this->successResponse($this->getAllSupportsAction->execute()->toArray());
     }
 }

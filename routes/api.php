@@ -23,7 +23,7 @@ Route::prefix('v1')->group(function () {
                 'prefix' => 'admin',
                 'as' => 'admin.',
                 'namespace' => 'Admin',
-                'middleware' => ['auth'],
+                'middleware' => ['auth:api'],
             ],
             function () {
                 Route::get('/supports', 'SupportController@allSupports')->name('supports.all');
