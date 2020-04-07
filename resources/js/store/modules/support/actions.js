@@ -1,10 +1,11 @@
 import getters from "./getters";
+import httpService from '../../../services/common/httpService';
 
 export default {
 
     fetchSupport: (context) => {
         return new Promise((resolve, reject) => {
-            axios.get('/api/v1/supports')
+            httpService.get('/admin/supports')
                 .then((response) => {
                     context.commit('SET_SUPPORTS', response.data);
                     resolve(response.data);

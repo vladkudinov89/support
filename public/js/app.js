@@ -1969,68 +1969,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "IndexComponent",
   data: function data() {
-    return {};
+    return {// supports : []
+    };
   },
   created: function created() {
-    this.$store.dispatch('task/fetchTasks');
+    this.$store.dispatch('support/fetchSupport');
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])('support', {
     supports: 'supports'
@@ -37464,11 +37411,7 @@ var render = function() {
         _vm._m(0),
         _vm._v(" "),
         _vm._l(_vm.supports, function(support) {
-          return _c("div", {}, [
-            _c("div", {}, [_vm._v("test")]),
-            _vm._v(" "),
-            _c("div", {}, [_vm._v(_vm._s(support.title))])
-          ])
+          return _c("div", {}, [_c("div", {}, [_vm._v(_vm._s(support))])])
         })
       ],
       2
@@ -53938,6 +53881,109 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
 
 /***/ }),
 
+/***/ "./resources/js/services/common/httpService.js":
+/*!*****************************************************!*\
+  !*** ./resources/js/services/common/httpService.js ***!
+  \*****************************************************/
+/*! exports provided: HttpService, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HttpService", function() { return HttpService; });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _storageService__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./storageService */ "./resources/js/services/common/storageService.js");
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+
+
+var HttpService = /*#__PURE__*/function () {
+  function HttpService() {
+    _classCallCheck(this, HttpService);
+
+    this.axios = axios__WEBPACK_IMPORTED_MODULE_0___default.a.create({
+      baseURL: '/api/v1/'
+    });
+    this.axios.interceptors.request.use(function (config) {
+      if (_storageService__WEBPACK_IMPORTED_MODULE_1__["default"].hasToken()) {
+        config.headers['Authorization'] = 'Bearer ' + _storageService__WEBPACK_IMPORTED_MODULE_1__["default"].getToken();
+        config.headers['Accept'] = 'application/json';
+      }
+
+      return Promise.resolve(config);
+    }, function (error) {
+      return Promise.reject(error);
+    });
+  }
+
+  _createClass(HttpService, [{
+    key: "get",
+    value: function get(url, params) {
+      return this.axios.get(url, params);
+    }
+  }, {
+    key: "post",
+    value: function post(url, data) {
+      return this.axios.post(url, data);
+    }
+  }, {
+    key: "put",
+    value: function put(url, data) {
+      return this.axios.put(url, data);
+    }
+  }, {
+    key: "delete",
+    value: function _delete(url, params) {
+      return this.axios["delete"](url, params);
+    }
+  }]);
+
+  return HttpService;
+}();
+/* harmony default export */ __webpack_exports__["default"] = (new HttpService());
+
+/***/ }),
+
+/***/ "./resources/js/services/common/storageService.js":
+/*!********************************************************!*\
+  !*** ./resources/js/services/common/storageService.js ***!
+  \********************************************************/
+/*! exports provided: storageService, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "storageService", function() { return storageService; });
+var storageService = {
+  keyName: 'user_api_token',
+  get: function get(key) {
+    return localStorage.getItem(key);
+  },
+  set: function set(key, value) {
+    return localStorage.setItem(key, value);
+  },
+  getToken: function getToken() {
+    return this.get(this.keyName);
+  },
+  setToken: function setToken(token) {
+    return this.set(this.keyName, token);
+  },
+  hasToken: function hasToken() {
+    return !!this.get(this.keyName);
+  },
+  removeToken: function removeToken() {
+    return localStorage.removeItem(this.keyName);
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = (storageService);
+
+/***/ }),
+
 /***/ "./resources/js/store/index.js":
 /*!*************************************!*\
   !*** ./resources/js/store/index.js ***!
@@ -53973,11 +54019,13 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _getters__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./getters */ "./resources/js/store/modules/support/getters.js");
+/* harmony import */ var _services_common_httpService__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../services/common/httpService */ "./resources/js/services/common/httpService.js");
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   fetchSupport: function fetchSupport(context) {
     return new Promise(function (resolve, reject) {
-      axios.get('/api/v1/supports').then(function (response) {
+      _services_common_httpService__WEBPACK_IMPORTED_MODULE_1__["default"].get('/admin/supports').then(function (response) {
         context.commit('SET_SUPPORTS', response.data);
         resolve(response.data);
       })["catch"](function (err) {
