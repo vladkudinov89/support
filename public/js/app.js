@@ -54079,6 +54079,50 @@ var HttpService = /*#__PURE__*/function () {
 
 /***/ }),
 
+/***/ "./resources/js/services/common/normalizerService.js":
+/*!***********************************************************!*\
+  !*** ./resources/js/services/common/normalizerService.js ***!
+  \***********************************************************/
+/*! exports provided: normalizerService, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "normalizerService", function() { return normalizerService; });
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var normalizerService = {
+  normalize: function normalize(response) {
+    var shape = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+    var result = {};
+
+    if (Array.isArray(response.data)) {
+      result = this.normalizeArray(response.data, shape);
+    } else {
+      result = this.normalizeObject(response.data, shape);
+    }
+
+    return result;
+  },
+  normalizeArray: function normalizeArray(data, shape) {
+    var _this = this;
+
+    return data.reduce(function (normalizedObject, item) {
+      return Object.assign(normalizedObject, _this.normalizeObject(item, shape));
+    }, {});
+  },
+  normalizeObject: function normalizeObject(data, shape) {
+    if ('id' in data) {
+      return _defineProperty({}, data.id, Object.assign({}, shape, data));
+    } else {
+      return {};
+    }
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = (normalizerService);
+
+/***/ }),
+
 /***/ "./resources/js/services/common/storageService.js":
 /*!********************************************************!*\
   !*** ./resources/js/services/common/storageService.js ***!
@@ -54148,16 +54192,17 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _getters__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./getters */ "./resources/js/store/modules/support/getters.js");
-/* harmony import */ var _services_common_httpService__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../services/common/httpService */ "./resources/js/services/common/httpService.js");
+/* harmony import */ var _services_common_httpService__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../services/common/httpService */ "./resources/js/services/common/httpService.js");
+/* harmony import */ var _services_common_normalizerService__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../services/common/normalizerService */ "./resources/js/services/common/normalizerService.js");
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   fetchSupport: function fetchSupport(context) {
     return new Promise(function (resolve, reject) {
-      _services_common_httpService__WEBPACK_IMPORTED_MODULE_1__["default"].get('/admin/supports').then(function (response) {
-        context.commit('SET_SUPPORTS', response.data);
-        resolve(response.data);
+      _services_common_httpService__WEBPACK_IMPORTED_MODULE_0__["default"].get('/admin/supports').then(function (response) {
+        var normalizerSupports = _services_common_normalizerService__WEBPACK_IMPORTED_MODULE_1__["default"].normalize(response.data);
+        context.commit('SET_SUPPORTS', normalizerSupports);
+        resolve(normalizerSupports);
       })["catch"](function (err) {
         reject(err);
       });

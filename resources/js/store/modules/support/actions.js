@@ -1,5 +1,5 @@
-import getters from "./getters";
 import httpService from '../../../services/common/httpService';
+import normalizerService from "../../../services/common/normalizerService";
 
 export default {
 
@@ -7,8 +7,9 @@ export default {
         return new Promise((resolve, reject) => {
             httpService.get('/admin/supports')
                 .then((response) => {
-                    context.commit('SET_SUPPORTS', response.data);
-                    resolve(response.data);
+                    let normalizerSupports = normalizerService.normalize(response.data);
+                    context.commit('SET_SUPPORTS', normalizerSupports);
+                    resolve(normalizerSupports);
                 }).catch(function (err) {
                 reject(err);
             });
