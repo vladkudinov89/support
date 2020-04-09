@@ -11,9 +11,11 @@
                 </div>
             </div>
 
-            <div class="" v-for="support in supports">
-                <div class="">{{support}}</div>
-            </div>
+            <support-item
+                v-for="(support , index) in supports"
+                :key="support.id"
+                :support.sync="support"
+            ></support-item>
 
         </div>
     </div>
@@ -21,13 +23,13 @@
 
 <script>
     import {mapState, mapGetters, mapActions} from 'vuex';
+    import SupportItem from "./SupportItem";
 
     export default {
         name: "IndexComponent",
+        components: {SupportItem},
         data: function () {
-            return {
-                // supports : []
-            }
+            return {}
         },
         created() {
             this.$store.dispatch('support/fetchSupport');

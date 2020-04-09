@@ -23,6 +23,7 @@ import store from './store';
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('index-component', require('./components/IndexComponent.vue'));
+Vue.component('support-item', require('./components/SupportItem.vue'));
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
