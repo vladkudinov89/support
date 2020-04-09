@@ -17,7 +17,8 @@ class CreateSupportsTable extends Migration
             $table->id();
             $table->string('title');
             $table->text('message');
-            $table->string('status', 16);
+            $table->string('status_activities', 16);
+            $table->string('status_view', 16);
             $table->timestamps();
 
             $table->bigInteger('user_id')->unsigned();
