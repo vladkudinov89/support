@@ -13,7 +13,8 @@
             <tr v-for="support in supportItems">
                 <td>{{support.title}}</td>
                 <td>{{support.message}}</td>
-                <td>{{support.status}}</td>
+                <td>{{support.status_activities}}</td>
+                <td>{{support.status_view}}</td>
             </tr>
             </tbody>
         </table>
@@ -29,7 +30,7 @@
         data: function () {
             return {
                 sortKey: 'title',
-                columns: ['title','message', 'status'],
+                columns: ['title','message','status_activities', 'status_view'],
                 currentSortDir: 'asc'
             }
         },

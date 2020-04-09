@@ -2028,13 +2028,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "SupportItem",
   data: function data() {
     return {
       sortKey: 'title',
-      columns: ['title', 'message', 'status'],
+      columns: ['title', 'message', 'status_activities', 'status_view'],
       currentSortDir: 'asc'
     };
   },
@@ -37566,7 +37567,9 @@ var render = function() {
             _vm._v(" "),
             _c("td", [_vm._v(_vm._s(support.message))]),
             _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(support.status))])
+            _c("td", [_vm._v(_vm._s(support.status_activities))]),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(support.status_view))])
           ])
         }),
         0
