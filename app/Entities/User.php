@@ -55,4 +55,9 @@ class User extends Authenticatable
     {
         return $this->role === self::ROLE_ADMIN;
     }
+
+    public function support()
+    {
+        return $this->hasMany(Support::class);
+    }
 }

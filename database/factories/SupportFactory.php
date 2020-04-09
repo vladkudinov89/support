@@ -11,7 +11,8 @@ $factory->define(Support::class, function (Faker $faker) {
     return [
         'title' => $faker->words('3' , true),
         'message' => $faker->text('100'),
-        'status' => Support::STATUS_ACTIVE,
+        'status_activities' => $faker->boolean() ? Support::STATUS_ACTIVE : Support::STATUS_CLOSED,
+        'status_view' => $faker->boolean() ? Support::STATUS_UNVIEWED : Support::STATUS_VIEWED,
         'user_id' => factory(User::class)->create()->id
     ];
 });
