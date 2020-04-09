@@ -11,11 +11,12 @@
                 </div>
             </div>
 
+
+
             <support-item
-                v-for="(support , index) in supports"
-                :key="support.id"
-                :support.sync="support"
             ></support-item>
+
+
 
         </div>
     </div>
@@ -31,14 +32,14 @@
         data: function () {
             return {}
         },
-        created() {
-            this.$store.dispatch('support/fetchSupport');
-        },
-        computed: {
-            ...mapState('support', {
-                supports: 'supports'
-            }),
-        }
+        // created() {
+        //     this.$store.dispatch('support/fetchSupport');
+        // },
+        // computed: {
+        //     ...mapState('support', {
+        //         supports: 'supports'
+        //     }),
+        // }
     }
 </script>
 

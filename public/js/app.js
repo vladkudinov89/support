@@ -1943,12 +1943,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _SupportItem__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SupportItem */ "./resources/js/components/SupportItem.vue");
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
+//
 //
 //
 //
@@ -1981,13 +1976,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   data: function data() {
     return {};
-  },
-  created: function created() {
-    this.$store.dispatch('support/fetchSupport');
-  },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])('support', {
-    supports: 'supports'
-  }))
+  } // created() {
+  //     this.$store.dispatch('support/fetchSupport');
+  // },
+  // computed: {
+  //     ...mapState('support', {
+  //         supports: 'supports'
+  //     }),
+  // }
+
 });
 
 /***/ }),
@@ -2001,15 +1998,62 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "SupportItem",
-  props: ['support']
+  data: function data() {
+    return {
+      sortKey: 'title',
+      columns: ['title', 'message', 'status'],
+      currentSortDir: 'asc'
+    };
+  },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])('support', {
+    supports: 'supports'
+  }), {
+    supportItems: function supportItems() {
+      return _.orderBy(this.supports, this.sortKey, this.currentSortDir);
+    }
+  }),
+  created: function created() {
+    this.$store.dispatch('support/fetchSupport');
+  },
+  methods: {
+    sortBy: function sortBy(sortKey) {
+      this.currentSortDir = this.currentSortDir === 'asc' ? 'desc' : 'asc';
+      this.sortKey = sortKey;
+    }
+  }
 });
 
 /***/ }),
@@ -37435,22 +37479,8 @@ var render = function() {
     _c(
       "div",
       { staticClass: "container" },
-      [
-        _vm._m(0),
-        _vm._v(" "),
-        _vm._l(_vm.supports, function(support, index) {
-          return _c("support-item", {
-            key: support.id,
-            attrs: { support: support },
-            on: {
-              "update:support": function($event) {
-                support = $event
-              }
-            }
-          })
-        })
-      ],
-      2
+      [_vm._m(0), _vm._v(" "), _c("support-item")],
+      1
     )
   ])
 }
@@ -37506,7 +37536,43 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_c("div", {}, [_vm._v(_vm._s(_vm.support.id))])])
+  return _c("div", [
+    _c("table", { staticClass: "table" }, [
+      _c("thead", [
+        _c(
+          "tr",
+          _vm._l(_vm.columns, function(column) {
+            return _c(
+              "th",
+              {
+                on: {
+                  click: function($event) {
+                    return _vm.sortBy(column)
+                  }
+                }
+              },
+              [_vm._v("\n                " + _vm._s(column) + "\n            ")]
+            )
+          }),
+          0
+        )
+      ]),
+      _vm._v(" "),
+      _c(
+        "tbody",
+        _vm._l(_vm.supportItems, function(support) {
+          return _c("tr", [
+            _c("td", [_vm._v(_vm._s(support.title))]),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(support.message))]),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(support.status))])
+          ])
+        }),
+        0
+      )
+    ])
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
