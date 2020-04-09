@@ -53960,7 +53960,7 @@ var HttpService = /*#__PURE__*/function () {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "storageService", function() { return storageService; });
 var storageService = {
-  keyName: 'user_api_token',
+  keyName: 'laravel_token',
   get: function get(key) {
     return localStorage.getItem(key);
   },
