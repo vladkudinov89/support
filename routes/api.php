@@ -34,10 +34,10 @@ Route::prefix('v1')->group(function () {
                 'prefix' => 'client',
                 'as' => 'client.',
                 'namespace' => 'Client',
-                'middleware' => ['auth'],
+                'middleware' => ['auth:api'],
             ],
             function () {
-                Route::get('/supports', 'SupportController@allSupports')->name('supports.all');
+                Route::get('/support/{id}', 'SupportController@allSupports')->name('supports.client.all');
             });
 
 

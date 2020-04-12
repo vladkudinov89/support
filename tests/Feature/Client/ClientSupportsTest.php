@@ -17,13 +17,17 @@ class ClientSupportsTest extends TestCase
     {
         $user = factory(User::class)->create();
 
-        $supports = factory(Support::class, 10)->create(['user_id' => $user->id]);
+        $supports = factory(Support::class, 15)->create();
+
+        $supports_user = factory(Support::class, 5)->create(['user_id' => $user->id]);
 
         $response = $this
-            ->actingAs($user)
-            ->get('api/v1/client/supports')
+            ->actingAs($user , 'api')
+            ->get('api/v1/client/support/' . $user->id)
             ->assertSuccessful()
             ->getOriginalContent();
+
+        $this->assertEquals(5 , count($response['data']));
 
         for($i = 0;$i > count($supports);$i++){
             $this->assertEquals( $supports[0]->title, $response[0]->title);
