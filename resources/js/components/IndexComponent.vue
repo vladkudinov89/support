@@ -10,9 +10,7 @@
                     </button>
                 </div>
             </div>
-
-
-
+            
             <support-item
             ></support-item>
 
@@ -32,14 +30,6 @@
         data: function () {
             return {}
         },
-        // created() {
-        //     this.$store.dispatch('support/fetchSupport');
-        // },
-        // computed: {
-        //     ...mapState('support', {
-        //         supports: 'supports'
-        //     }),
-        // }
     }
 </script>
 

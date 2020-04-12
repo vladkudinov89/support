@@ -17,7 +17,7 @@ Auth::routes();
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/{any?}', function () {
-        return view('layouts.app');
+        return view('index');
     })->where('any', '^(?!api|dist|storage\b).+');
 
 });

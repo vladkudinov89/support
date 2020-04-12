@@ -27,24 +27,17 @@
 
     export default {
         name: "SupportItem",
+        props: ['supports' , 'columns'],
         data: function () {
             return {
                 sortKey: 'title',
-                columns: ['title','message','status_activities', 'status_view'],
                 currentSortDir: 'asc'
             }
         },
         computed: {
-            ...mapState('support', {
-                supports: 'supports'
-            }),
-
             supportItems() {
                 return _.orderBy(this.supports, this.sortKey, this.currentSortDir );
             },
-        },
-        created() {
-            this.$store.dispatch('support/fetchSupport');
         },
         methods: {
             sortBy: function(sortKey) {

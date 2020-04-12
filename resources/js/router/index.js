@@ -1,6 +1,9 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import IndexComponent from "../components/IndexComponent";
+import CabinetPage from "../pages/CabinetPage";
+import AdminCabinetPage from "../pages/AdminCabinetPage";
+import ClientCabinetPage from "../pages/ClientCabinetPage";
 
 Vue.use(Router);
 
@@ -10,11 +13,23 @@ export default new Router({
     scrollBehavior: () => ({y: 0}),
     routes: [
         {
-            path: '/cabinet/',
-            // name: 'index',
-            components: {
-                indexComponent: IndexComponent
-            }
+            path: '/',
+            redirect: '/cabinet'
+        },
+         {
+            path: '/cabinet',
+            name: 'CabinetPage',
+            component: CabinetPage
+        },
+        {
+            path: '/cabinet/admin',
+            name: 'AdminCabinetPage',
+            component: AdminCabinetPage
+        }, 
+        {
+            path: '/cabinet/client',
+            name: 'ClientCabinetPage',
+            component: ClientCabinetPage
         },
     ]
 });
