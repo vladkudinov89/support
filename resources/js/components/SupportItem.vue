@@ -11,10 +11,12 @@
             </thead>
             <tbody>
             <tr v-for="support in supportItems">
-                <td>{{support.title}}</td>
-                <td>{{support.message}}</td>
-                <td>{{support.status_activities}}</td>
-                <td>{{support.status_view}}</td>
+                <td>{{support.support_title}}</td>
+                <td>{{support.support_message}}</td>
+                <td>{{support.support_status_active}}</td>
+                <td>{{support.support_status_view}}</td>
+                <td>{{support.support_user_name}}</td>
+                <td>{{support.support_user_role}}</td>
             </tr>
             </tbody>
         </table>
@@ -30,13 +32,13 @@
         props: ['supports' , 'columns'],
         data: function () {
             return {
-                sortKey: 'title',
+                sortKey: '',
                 currentSortDir: 'asc'
             }
         },
         computed: {
             supportItems() {
-                return _.orderBy(this.supports, this.sortKey, this.currentSortDir );
+                return _.orderBy(this.supports, 'support_' + this.sortKey, this.currentSortDir );
             },
         },
         methods: {

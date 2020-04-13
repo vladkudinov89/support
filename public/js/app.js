@@ -2001,19 +2001,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "SupportItem",
   props: ['supports', 'columns'],
   data: function data() {
     return {
-      sortKey: 'title',
+      sortKey: '',
       currentSortDir: 'asc'
     };
   },
   computed: {
     supportItems: function supportItems() {
-      return _.orderBy(this.supports, this.sortKey, this.currentSortDir);
+      return _.orderBy(this.supports, 'support_' + this.sortKey, this.currentSortDir);
     }
   },
   methods: {
@@ -2063,7 +2065,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   data: function data() {
     return {
-      columns: ['title', 'message', 'status_activities', 'status_view']
+      columns: ['title', 'message', 'status_activities', 'status_view', 'user_name', 'user_role' // 'support_title',
+      // 'support_message',
+      // 'support_status_activities',
+      // 'support_status_view' ,
+      // 'support_user_name' ,
+      // 'support_user_role'
+      ]
     };
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])('support', {
@@ -37712,13 +37720,17 @@ var render = function() {
         "tbody",
         _vm._l(_vm.supportItems, function(support) {
           return _c("tr", [
-            _c("td", [_vm._v(_vm._s(support.title))]),
+            _c("td", [_vm._v(_vm._s(support.support_title))]),
             _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(support.message))]),
+            _c("td", [_vm._v(_vm._s(support.support_message))]),
             _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(support.status_activities))]),
+            _c("td", [_vm._v(_vm._s(support.support_status_active))]),
             _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(support.status_view))])
+            _c("td", [_vm._v(_vm._s(support.support_status_view))]),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(support.support_user_name))]),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(support.support_user_role))])
           ])
         }),
         0

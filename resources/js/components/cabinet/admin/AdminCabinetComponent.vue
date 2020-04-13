@@ -20,7 +20,14 @@
         },
         data: function () {
             return {
-                columns: ['title', 'message', 'status_activities', 'status_view'],
+                columns: [
+                    'title',
+                    'message',
+                    'status_activities',
+                    'status_view' ,
+                    'user_name' ,
+                    'user_role'
+                ],
             }
         },
         computed: {
