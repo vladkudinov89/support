@@ -2003,6 +2003,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "SupportItem",
@@ -2065,13 +2071,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   data: function data() {
     return {
-      columns: ['title', 'message', 'status_activities', 'status_view', 'user_name', 'user_role' // 'support_title',
-      // 'support_message',
-      // 'support_status_activities',
-      // 'support_status_view' ,
-      // 'support_user_name' ,
-      // 'support_user_role'
-      ]
+      columns: ['title', 'message', 'status_activities', 'status_view', 'user_name']
     };
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])('support', {
@@ -37730,7 +37730,25 @@ var render = function() {
             _vm._v(" "),
             _c("td", [_vm._v(_vm._s(support.support_user_name))]),
             _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(support.support_user_role))])
+            _c(
+              "td",
+              [
+                _c(
+                  "router-link",
+                  {
+                    staticClass: "btn btn-success",
+                    attrs: {
+                      to: {
+                        name: "ClientCabinetPage",
+                        params: { id: support.support_user_id }
+                      }
+                    }
+                  },
+                  [_vm._v("Detail\n            ")]
+                )
+              ],
+              1
+            )
           ])
         }),
         0

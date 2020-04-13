@@ -16,7 +16,13 @@
                 <td>{{support.support_status_active}}</td>
                 <td>{{support.support_status_view}}</td>
                 <td>{{support.support_user_name}}</td>
-                <td>{{support.support_user_role}}</td>
+                <td>
+                    <router-link
+                    class="btn btn-success"
+                    :to="{ name: 'ClientCabinetPage', params: { id: support.support_user_id }}"
+                >Detail
+                </router-link>
+                </td>
             </tr>
             </tbody>
         </table>

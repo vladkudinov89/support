@@ -25,8 +25,7 @@
                     'message',
                     'status_activities',
                     'status_view' ,
-                    'user_name' ,
-                    'user_role'
+                    'user_name'
                 ],
             }
         },
