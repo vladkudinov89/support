@@ -13,23 +13,45 @@ class SupportsTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function get_all_supports()
+    public function get_all_supports_by_admin()
     {
         $user = factory(User::class)->create();
 
         $supports = factory(Support::class, 10)->create();
 
         $response = $this
-            ->actingAs($user , 'api')
+            ->actingAs($user, 'api')
             ->get('api/v1/admin/supports')
-            ->assertSuccessful()
-            ->getOriginalContent();
+            ->assertStatus(201)
+            ->assertHeader('Content-Type', 'application/json');
 
-        for($i = 0;$i > count($supports);$i++){
-            $this->assertEquals( $supports[0]->title, $response[0]->title);
-            $this->assertEquals( $supports[0]->message, $response[0]->message);
-            $this->assertEquals( $supports[0]->status, $response[0]->status);
+        $this->checkJsonStructure($response);
+        dd($response['data']);
+
+        for ($i = 0; $i < count($supports); $i++) {
+            $this->assertEquals($supports[$i]->id, $response['data'][$i]['id']);
+            $this->assertEquals($supports[$i]->title, $response['data'][$i]['support_title']);
+            $this->assertEquals($supports[$i]->message, $response['data'][$i]['support_message']);
+            $this->assertEquals($supports[$i]->user_id, $response['data'][$i]['support_user_id']);
         }
+    }
+
+    public function checkJsonStructure($response)
+    {
+        $response->assertJsonStructure(
+            ['data' =>
+                ['*' =>
+                    [
+                        'id',
+                        'support_title',
+                        'support_message',
+                        'support_status_active',
+                        'support_status_view',
+                        'support_user_name',
+                        'support_user_role',
+                    ]
+                ]
+            ]);
     }
 
 }

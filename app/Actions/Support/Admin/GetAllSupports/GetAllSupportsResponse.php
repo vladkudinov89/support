@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Actions\Support\GetAllSupports\Admin;
+namespace App\Actions\Support\Admin\GetAllSupports;
 
 
 use Illuminate\Database\Eloquent\Collection;
