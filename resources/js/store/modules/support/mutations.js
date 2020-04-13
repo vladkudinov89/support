@@ -1,7 +1,11 @@
 export default {
 
-    SET_SUPPORTS: (state, supports) => {
-        state.supports = supports;
+    SET_ADMIN_SUPPORTS: (state, supports) => {
+        state.supportsAdmin = supports;
+    },
+
+    SET_CLIENT_SUPPORTS: (state, supports) => {
+        state.supportsClient = supports;
     },
 
 }

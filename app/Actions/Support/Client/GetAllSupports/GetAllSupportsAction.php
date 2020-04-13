@@ -22,9 +22,9 @@ class GetAllSupportsAction
         $this->supportRepository = $supportRepository;
     }
 
-    public function execute(): GetAllSupportsResponse
+    public function execute(int $id): GetAllSupportsResponse
     {
-        $supports = $this->supportRepository->findAllCurrentUserSupports(Auth::id());
+        $supports = $this->supportRepository->findAllCurrentUserSupports($id);
 
         return new GetAllSupportsResponse($supports);
     }

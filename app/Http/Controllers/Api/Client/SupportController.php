@@ -22,8 +22,8 @@ class SupportController extends ApiController
         $this->getAllSupportsAction = $getAllSupportsAction;
     }
 
-    public function allSupports()
+    public function allSupports(int $id)
     {
-       return $this->successResponse($this->getAllSupportsAction->execute()->toArray());
+       return $this->successResponse($this->getAllSupportsAction->execute($id)->toArray());
     }
 }

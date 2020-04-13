@@ -1,3 +1,5 @@
 export default {
-    supports: []
+    supportsAdmin: [],
+    supportsClient: [],
+    isAdmin : 'false'
 }

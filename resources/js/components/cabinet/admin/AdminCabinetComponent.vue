@@ -25,7 +25,7 @@
         },
         computed: {
             ...mapState('support', {
-                supports: 'supports'
+                supports: 'supportsAdmin'
             }),
         },
         created() {

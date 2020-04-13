@@ -2,13 +2,13 @@
     <div>
         <div class="container">
             <div class="row">
-        <support-item
-          v-bind:supports="supports"
-          v-bind:columns="columns"
-        ></support-item>
+                <support-item
+                    v-bind:supports="supports"
+                    v-bind:columns="columns"
+                ></support-item>
 
-    </div>
-    </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -18,24 +18,26 @@
 
     export default {
         name: "ClientCabinetComponent",
-        components : {
+        components: {
             SupportItem
         },
-        data: function (){
+        data: function () {
             return {
-                columns:  ['title','message','status_activities', 'status_view'],
+                columns: ['title', 'message', 'status_activities', 'status_view'],
             }
         },
         computed: {
-           ...mapState('support', {
-            supports: 'supports'
-        }),
-       },
-       created() {
-        this.$store.dispatch('support/fetchClientSupport');
-    },
+            ...mapState('support', {
+                supports: 'supportsClient'
+            }),
+        },
+        created() {
+            const clientId = this.$route.params.id;
 
-}
+            this.$store.dispatch('support/fetchClientSupport' , clientId);
+        },
+
+    }
 </script>
 
 <style scoped>

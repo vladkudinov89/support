@@ -25,9 +25,9 @@ export default new Router({
             path: '/cabinet/admin',
             name: 'AdminCabinetPage',
             component: AdminCabinetPage
-        }, 
+        },
         {
-            path: '/cabinet/client',
+            path: '/cabinet/client/:id',
             name: 'ClientCabinetPage',
             component: ClientCabinetPage
         },

@@ -8,7 +8,7 @@ export default {
             httpService.get('/admin/supports')
                 .then((response) => {
                     let normalizerSupports = normalizerService.normalize(response.data);
-                    context.commit('SET_SUPPORTS', normalizerSupports);
+                    context.commit('SET_ADMIN_SUPPORTS', normalizerSupports);
                     resolve(normalizerSupports);
                 }).catch(function (err) {
                 reject(err);
@@ -16,12 +16,12 @@ export default {
         });
     },
 
-    fetchClientSupport: (context) => {
+    fetchClientSupport: (context , clientId) => {
         return new Promise((resolve, reject) => {
-            httpService.get('/client/supports')
+            httpService.get('/client/support/' + clientId)
                 .then((response) => {
                     let normalizerSupports = normalizerService.normalize(response.data);
-                    context.commit('SET_SUPPORTS', normalizerSupports);
+                    context.commit('SET_CLIENT_SUPPORTS', normalizerSupports);
                     resolve(normalizerSupports);
                 }).catch(function (err) {
                 reject(err);

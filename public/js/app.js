@@ -2067,7 +2067,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     };
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])('support', {
-    supports: 'supports'
+    supports: 'supportsAdmin'
   })),
   created: function created() {
     this.$store.dispatch('support/fetchSupport');
@@ -2120,10 +2120,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     };
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])('support', {
-    supports: 'supports'
+    supports: 'supportsClient'
   })),
   created: function created() {
-    this.$store.dispatch('support/fetchClientSupport');
+    var clientId = this.$route.params.id;
+    this.$store.dispatch('support/fetchClientSupport', clientId);
   }
 });
 
@@ -54866,7 +54867,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
     name: 'AdminCabinetPage',
     component: _pages_AdminCabinetPage__WEBPACK_IMPORTED_MODULE_4__["default"]
   }, {
-    path: '/cabinet/client',
+    path: '/cabinet/client/:id',
     name: 'ClientCabinetPage',
     component: _pages_ClientCabinetPage__WEBPACK_IMPORTED_MODULE_5__["default"]
   }]
@@ -55064,18 +55065,18 @@ __webpack_require__.r(__webpack_exports__);
     return new Promise(function (resolve, reject) {
       _services_common_httpService__WEBPACK_IMPORTED_MODULE_0__["default"].get('/admin/supports').then(function (response) {
         var normalizerSupports = _services_common_normalizerService__WEBPACK_IMPORTED_MODULE_1__["default"].normalize(response.data);
-        context.commit('SET_SUPPORTS', normalizerSupports);
+        context.commit('SET_ADMIN_SUPPORTS', normalizerSupports);
         resolve(normalizerSupports);
       })["catch"](function (err) {
         reject(err);
       });
     });
   },
-  fetchClientSupport: function fetchClientSupport(context) {
+  fetchClientSupport: function fetchClientSupport(context, clientId) {
     return new Promise(function (resolve, reject) {
-      _services_common_httpService__WEBPACK_IMPORTED_MODULE_0__["default"].get('/client/supports').then(function (response) {
+      _services_common_httpService__WEBPACK_IMPORTED_MODULE_0__["default"].get('/client/support/' + clientId).then(function (response) {
         var normalizerSupports = _services_common_normalizerService__WEBPACK_IMPORTED_MODULE_1__["default"].normalize(response.data);
-        context.commit('SET_SUPPORTS', normalizerSupports);
+        context.commit('SET_CLIENT_SUPPORTS', normalizerSupports);
         resolve(normalizerSupports);
       })["catch"](function (err) {
         reject(err);
@@ -55136,8 +55137,11 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  SET_SUPPORTS: function SET_SUPPORTS(state, supports) {
-    state.supports = supports;
+  SET_ADMIN_SUPPORTS: function SET_ADMIN_SUPPORTS(state, supports) {
+    state.supportsAdmin = supports;
+  },
+  SET_CLIENT_SUPPORTS: function SET_CLIENT_SUPPORTS(state, supports) {
+    state.supportsClient = supports;
   }
 });
 
@@ -55153,7 +55157,9 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  supports: []
+  supportsAdmin: [],
+  supportsClient: [],
+  isAdmin: 'false'
 });
 
 /***/ }),
