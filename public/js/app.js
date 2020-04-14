@@ -2009,10 +2009,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "SupportItem",
-  props: ['supports', 'columns'],
+  props: ['supports', 'columns', 'isAdmin'],
   data: function data() {
     return {
       sortKey: '',
@@ -2062,6 +2066,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2071,11 +2076,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   data: function data() {
     return {
-      columns: ['title', 'message', 'status_activities', 'status_view', 'user_name']
+      columns: ['title', 'message', 'status_active', 'status_view', 'user_name']
     };
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])('support', {
-    supports: 'supportsAdmin'
+    supports: 'supportsAdmin',
+    isAdmin: 'isAdmin'
   })),
   created: function created() {
     this.$store.dispatch('support/fetchSupport');
@@ -2179,6 +2185,13 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -2201,8 +2214,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "CabinetPage"
+  name: "CabinetPage",
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])('support', {
+    isAdmin: 'isAdmin'
+  })),
+  created: function created() {
+    this.$store.dispatch('support/fetchUserRole');
+  }
 });
 
 /***/ }),
@@ -37730,25 +37755,29 @@ var render = function() {
             _vm._v(" "),
             _c("td", [_vm._v(_vm._s(support.support_user_name))]),
             _vm._v(" "),
-            _c(
-              "td",
-              [
-                _c(
-                  "router-link",
-                  {
-                    staticClass: "btn btn-success",
-                    attrs: {
-                      to: {
-                        name: "ClientCabinetPage",
-                        params: { id: support.support_user_id }
-                      }
-                    }
-                  },
-                  [_vm._v("Detail\n            ")]
-                )
-              ],
-              1
-            )
+            _vm.isAdmin
+              ? _c("div", [
+                  _c(
+                    "td",
+                    [
+                      _c(
+                        "router-link",
+                        {
+                          staticClass: "btn btn-success",
+                          attrs: {
+                            to: {
+                              name: "ClientCabinetPage",
+                              params: { id: support.support_user_id }
+                            }
+                          }
+                        },
+                        [_vm._v("Detail\n                    ")]
+                      )
+                    ],
+                    1
+                  )
+                ])
+              : _vm._e()
           ])
         }),
         0
@@ -37782,7 +37811,11 @@ var render = function() {
     "div",
     [
       _c("support-item", {
-        attrs: { supports: _vm.supports, columns: _vm.columns }
+        attrs: {
+          supports: _vm.supports,
+          columns: _vm.columns,
+          isAdmin: _vm.isAdmin
+        }
       })
     ],
     1
@@ -37885,31 +37918,39 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("div", { staticClass: "container" }, [
-      _c(
-        "div",
-        { staticClass: "row" },
-        [
-          _vm._v("\n            Cabinet all\n\n            "),
-          _c(
-            "router-link",
-            {
-              staticClass: "btn btn-success",
-              attrs: { to: { name: "AdminCabinetPage" } }
-            },
-            [_vm._v("Admin Cabinet\n            ")]
-          ),
-          _vm._v(" "),
-          _c(
-            "router-link",
-            {
-              staticClass: "btn btn-success",
-              attrs: { to: { name: "ClientCabinetPage" } }
-            },
-            [_vm._v("Client Cabinet\n            ")]
-          )
-        ],
-        1
-      )
+      _c("div", { staticClass: "row" }, [
+        _c("h1", [_vm._v("Welcome to Cabinet")]),
+        _vm._v(" "),
+        _vm.isAdmin == true
+          ? _c(
+              "div",
+              [
+                _c(
+                  "router-link",
+                  {
+                    staticClass: "btn btn-success",
+                    attrs: { to: { name: "AdminCabinetPage" } }
+                  },
+                  [_vm._v("Admin Cabinet\n                ")]
+                )
+              ],
+              1
+            )
+          : _c(
+              "div",
+              [
+                _c(
+                  "router-link",
+                  {
+                    staticClass: "btn btn-success",
+                    attrs: { to: { name: "ClientCabinetPage" } }
+                  },
+                  [_vm._v("Client Cabinet\n                ")]
+                )
+              ],
+              1
+            )
+      ])
     ])
   ])
 }
@@ -55091,6 +55132,17 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  fetchUserRole: function fetchUserRole(context) {
+    return new Promise(function (resolve, reject) {
+      _services_common_httpService__WEBPACK_IMPORTED_MODULE_0__["default"].get('/role/user').then(function (response) {
+        var normalizerRole = Object.assign(response.data.data.is_admin, {});
+        context.commit('SET_ADMIN_ROLE', normalizerRole);
+        resolve(normalizerRole);
+      })["catch"](function (err) {
+        reject(err);
+      });
+    });
+  },
   fetchSupport: function fetchSupport(context) {
     return new Promise(function (resolve, reject) {
       _services_common_httpService__WEBPACK_IMPORTED_MODULE_0__["default"].get('/admin/supports').then(function (response) {
@@ -55167,6 +55219,9 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
+  SET_ADMIN_ROLE: function SET_ADMIN_ROLE(state, role) {
+    state.isAdmin = role;
+  },
   SET_ADMIN_SUPPORTS: function SET_ADMIN_SUPPORTS(state, supports) {
     state.supportsAdmin = supports;
   },
@@ -55189,7 +55244,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   supportsAdmin: [],
   supportsClient: [],
-  isAdmin: 'false'
+  isAdmin: false
 });
 
 /***/ }),

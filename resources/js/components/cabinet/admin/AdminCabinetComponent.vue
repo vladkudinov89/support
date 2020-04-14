@@ -4,6 +4,7 @@
         <support-item
             v-bind:supports="supports"
             v-bind:columns="columns"
+            v-bind:isAdmin="isAdmin"
         ></support-item>
 
     </div>
@@ -23,7 +24,7 @@
                 columns: [
                     'title',
                     'message',
-                    'status_activities',
+                    'status_active',
                     'status_view' ,
                     'user_name'
                 ],
@@ -31,7 +32,8 @@
         },
         computed: {
             ...mapState('support', {
-                supports: 'supportsAdmin'
+                supports: 'supportsAdmin',
+                isAdmin: 'isAdmin'
             }),
         },
         created() {

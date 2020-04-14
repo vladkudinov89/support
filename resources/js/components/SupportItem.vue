@@ -16,13 +16,17 @@
                 <td>{{support.support_status_active}}</td>
                 <td>{{support.support_status_view}}</td>
                 <td>{{support.support_user_name}}</td>
-                <td>
-                    <router-link
-                    class="btn btn-success"
-                    :to="{ name: 'ClientCabinetPage', params: { id: support.support_user_id }}"
-                >Detail
-                </router-link>
-                </td>
+
+                <div v-if="isAdmin">
+                    <td>
+                        <router-link
+                            class="btn btn-success"
+                            :to="{ name: 'ClientCabinetPage', params: { id: support.support_user_id }}"
+                        >Detail
+                        </router-link>
+                    </td>
+                </div>
+
             </tr>
             </tbody>
         </table>
@@ -35,7 +39,7 @@
 
     export default {
         name: "SupportItem",
-        props: ['supports' , 'columns'],
+        props: ['supports' , 'columns' , 'isAdmin'],
         data: function () {
             return {
                 sortKey: '',

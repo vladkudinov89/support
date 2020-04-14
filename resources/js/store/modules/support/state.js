@@ -1,5 +1,5 @@
 export default {
     supportsAdmin: [],
     supportsClient: [],
-    isAdmin : 'false'
+    isAdmin : false
 }

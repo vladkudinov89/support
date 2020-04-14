@@ -3,6 +3,20 @@ import normalizerService from "../../../services/common/normalizerService";
 
 export default {
 
+    fetchUserRole: (context) => {
+        return new Promise((resolve, reject) => {
+            httpService.get('/role/user')
+                .then((response) => {
+                    let normalizerRole = Object.assign(response.data.data.is_admin, {});
+                    context.commit('SET_ADMIN_ROLE', normalizerRole);
+                    resolve(normalizerRole);
+                })
+                .catch(function (err) {
+                    reject(err);
+                });
+        });
+    },
+
     fetchSupport: (context) => {
         return new Promise((resolve, reject) => {
             httpService.get('/admin/supports')
@@ -16,7 +30,7 @@ export default {
         });
     },
 
-    fetchClientSupport: (context , clientId) => {
+    fetchClientSupport: (context, clientId) => {
         return new Promise((resolve, reject) => {
             httpService.get('/client/support/' + clientId)
                 .then((response) => {
