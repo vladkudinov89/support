@@ -1,5 +1,9 @@
 export default {
 
+    SET_CURRENT_CLIENT: (state , user) => {
+      state.user = user;
+    },
+
     SET_ADMIN_ROLE: (state , role) => {
         state.isAdmin = role;
     },

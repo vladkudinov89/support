@@ -15,8 +15,9 @@
 
                 <div v-else>
                     <router-link
+                        v-if="user.id"
                         class="btn btn-success"
-                        :to="{ name: 'ClientCabinetPage'}"
+                        :to="{ name: 'ClientCabinetPage' , params: {id: user.id}}"
                     >Client Cabinet
                     </router-link>
                 </div>
@@ -33,11 +34,13 @@
         name: "CabinetPage",
         computed: {
             ...mapState('support', {
-                isAdmin: 'isAdmin'
+                isAdmin: 'isAdmin',
+                user: 'user'
             }),
         },
         created() {
             this.$store.dispatch('support/fetchUserRole');
+            this.$store.dispatch('support/fetchUser');
         },
     }
 </script>

@@ -23,7 +23,7 @@
         },
         data: function () {
             return {
-                columns: ['title', 'message', 'status_activities', 'status_view'],
+                columns: ['title', 'message', 'status_active', 'status_view'],
             }
         },
         computed: {

@@ -2130,7 +2130,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   data: function data() {
     return {
-      columns: ['title', 'message', 'status_activities', 'status_view']
+      columns: ['title', 'message', 'status_active', 'status_view']
     };
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])('support', {
@@ -2219,14 +2219,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "CabinetPage",
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])('support', {
-    isAdmin: 'isAdmin'
+    isAdmin: 'isAdmin',
+    user: 'user'
   })),
   created: function created() {
     this.$store.dispatch('support/fetchUserRole');
+    this.$store.dispatch('support/fetchUser');
   }
 });
 
@@ -37939,14 +37942,21 @@ var render = function() {
           : _c(
               "div",
               [
-                _c(
-                  "router-link",
-                  {
-                    staticClass: "btn btn-success",
-                    attrs: { to: { name: "ClientCabinetPage" } }
-                  },
-                  [_vm._v("Client Cabinet\n                ")]
-                )
+                _vm.user.id
+                  ? _c(
+                      "router-link",
+                      {
+                        staticClass: "btn btn-success",
+                        attrs: {
+                          to: {
+                            name: "ClientCabinetPage",
+                            params: { id: _vm.user.id }
+                          }
+                        }
+                      },
+                      [_vm._v("Client Cabinet\n                ")]
+                    )
+                  : _vm._e()
               ],
               1
             )
@@ -55132,6 +55142,18 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  fetchUser: function fetchUser(context) {
+    return new Promise(function (resolve, reject) {
+      _services_common_httpService__WEBPACK_IMPORTED_MODULE_0__["default"].get('/user/account').then(function (response) {
+        var normalizerUser = Object.assign(response.data.data, {}); // console.log(normalizerUser.id);
+
+        context.commit('SET_CURRENT_CLIENT', normalizerUser);
+        resolve(normalizerUser);
+      })["catch"](function (err) {
+        reject(err);
+      });
+    });
+  },
   fetchUserRole: function fetchUserRole(context) {
     return new Promise(function (resolve, reject) {
       _services_common_httpService__WEBPACK_IMPORTED_MODULE_0__["default"].get('/role/user').then(function (response) {
@@ -55219,6 +55241,9 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
+  SET_CURRENT_CLIENT: function SET_CURRENT_CLIENT(state, user) {
+    state.user = user;
+  },
   SET_ADMIN_ROLE: function SET_ADMIN_ROLE(state, role) {
     state.isAdmin = role;
   },
@@ -55244,7 +55269,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   supportsAdmin: [],
   supportsClient: [],
-  isAdmin: false
+  isAdmin: false,
+  user: {}
 });
 
 /***/ }),

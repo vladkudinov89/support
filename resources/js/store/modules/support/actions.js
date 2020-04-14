@@ -3,6 +3,21 @@ import normalizerService from "../../../services/common/normalizerService";
 
 export default {
 
+    fetchUser: (context) => {
+      return new Promise((resolve , reject ) => {
+         httpService.get('/user/account')
+             .then((response) => {
+                let normalizerUser = Object.assign(response.data.data, {});
+                 // console.log(normalizerUser.id);
+                 context.commit('SET_CURRENT_CLIENT' , normalizerUser);
+                 resolve(normalizerUser);
+             })
+             .catch(function (err) {
+                    reject(err);
+             });
+      });
+    },
+
     fetchUserRole: (context) => {
         return new Promise((resolve, reject) => {
             httpService.get('/role/user')
