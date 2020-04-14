@@ -51,6 +51,17 @@ Route::prefix('v1')->group(function () {
                 Route::get('/user', 'RoleController@get_role')->name('role');
             });
 
+        Route::group(
+            [
+                'prefix' => 'user',
+                'as' => 'user.',
+                'namespace' => 'Common',
+                'middleware' => ['auth:api'],
+            ],
+            function () {
+                Route::get('/account', 'AccountController@index')->name('account');
+            });
+
 
     });
 
