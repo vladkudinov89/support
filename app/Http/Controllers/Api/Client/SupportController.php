@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Client;
 
+use App\Actions\Support\Client\GetAllSupports\GetAllSupportsPresenter;
 use App\Actions\Support\GetAllSupports\Client\GetAllSupportsAction;
 use App\Http\Controllers\Api\ApiController;
 
@@ -24,6 +25,12 @@ class SupportController extends ApiController
 
     public function allSupports(int $id)
     {
-       return $this->successResponse($this->getAllSupportsAction->execute($id)->toArray());
+        $allSupports = [];
+
+        foreach ($this->getAllSupportsAction->execute($id)->getSupportCollection() as $support) {
+            $allSupports[] = GetAllSupportsPresenter::present($support);
+        }
+
+        return $this->successResponse($allSupports , 201);
     }
 }
