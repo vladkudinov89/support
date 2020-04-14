@@ -40,6 +40,17 @@ Route::prefix('v1')->group(function () {
                 Route::get('/support/{id}', 'SupportController@allSupports')->name('supports.client.all');
             });
 
+        Route::group(
+            [
+                'prefix' => 'role',
+                'as' => 'role.',
+                'namespace' => 'Common',
+                'middleware' => ['auth:api'],
+            ],
+            function () {
+                Route::get('/user', 'RoleController@get_role')->name('role');
+            });
+
 
     });
 

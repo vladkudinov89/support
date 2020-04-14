@@ -26,7 +26,6 @@ class SupportsTest extends TestCase
             ->assertHeader('Content-Type', 'application/json');
 
         $this->checkJsonStructure($response);
-        dd($response['data']);
 
         for ($i = 0; $i < count($supports); $i++) {
             $this->assertEquals($supports[$i]->id, $response['data'][$i]['id']);
