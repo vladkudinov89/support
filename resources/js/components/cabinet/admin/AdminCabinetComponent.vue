@@ -38,6 +38,7 @@
         },
         created() {
             this.$store.dispatch('support/fetchSupport');
+            this.$store.dispatch('support/fetchUserRole');
         },
 
     }
