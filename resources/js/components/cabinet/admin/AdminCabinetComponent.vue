@@ -1,23 +1,23 @@
 <template>
     <div>
 
-        <support-item
+        <supports-list
             v-bind:supports="supports"
             v-bind:columns="columns"
             v-bind:isAdmin="isAdmin"
-        ></support-item>
+        ></supports-list>
 
     </div>
 </template>
 
 <script>
     import {mapState, mapGetters, mapActions} from 'vuex';
-    import SupportItem from "../../../components/SupportItem";
+    import SupportsList from "../../common/SupportsList";
 
     export default {
         name: "AdminCabinetComponent",
         components: {
-            SupportItem
+            SupportsList
         },
         data: function () {
             return {

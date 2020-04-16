@@ -2,10 +2,11 @@
     <div>
         <div class="container">
             <div class="row">
-                <support-item
+
+                <supports-list
                     v-bind:supports="supports"
                     v-bind:columns="columns"
-                ></support-item>
+                ></supports-list>
 
             </div>
         </div>
@@ -14,12 +15,12 @@
 
 <script>
     import {mapState, mapGetters, mapActions} from 'vuex';
-    import SupportItem from "../../../components/SupportItem";
+    import SupportsList from "../../common/SupportsList";
 
     export default {
         name: "ClientCabinetComponent",
         components: {
-            SupportItem
+            SupportsList
         },
         data: function () {
             return {

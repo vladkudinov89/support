@@ -10,9 +10,9 @@
                     </button>
                 </div>
             </div>
-            
-            <support-item
-            ></support-item>
+
+<!--            <support-item-->
+<!--            ></support-item>-->
 
 
 
@@ -22,11 +22,11 @@
 
 <script>
     import {mapState, mapGetters, mapActions} from 'vuex';
-    import SupportItem from "./SupportItem";
+    // import SupportItem from "./common/SupportsList";
 
     export default {
         name: "IndexComponent",
-        components: {SupportItem},
+        // components: {SupportItem},
         data: function () {
             return {}
         },
