@@ -4,18 +4,18 @@ import normalizerService from "../../../services/common/normalizerService";
 export default {
 
     fetchUser: (context) => {
-      return new Promise((resolve , reject ) => {
-         httpService.get('/user/account')
-             .then((response) => {
-                let normalizerUser = Object.assign(response.data.data, {});
-                 // console.log(normalizerUser.id);
-                 context.commit('SET_CURRENT_CLIENT' , normalizerUser);
-                 resolve(normalizerUser);
-             })
-             .catch(function (err) {
+        return new Promise((resolve, reject) => {
+            httpService.get('/user/account')
+                .then((response) => {
+                    let normalizerUser = Object.assign(response.data.data, {});
+                    // console.log(normalizerUser.id);
+                    context.commit('SET_CURRENT_CLIENT', normalizerUser);
+                    resolve(normalizerUser);
+                })
+                .catch(function (err) {
                     reject(err);
-             });
-      });
+                });
+        });
     },
 
     fetchUserRole: (context) => {
@@ -55,6 +55,16 @@ export default {
                 }).catch(function (err) {
                 reject(err);
             });
+        });
+    },
+
+    updateSupportByAdmin: (context, data) => {
+        return new Promise((resolve , reject) => {
+           httpService.put(`admin/support/${data.id}` , data)
+               .then((response) => {
+                   context.commit('UPDATE_SUPPORT_BY_ADMIN' , response.data.data);
+                   resolve(response.data.data);
+               });
         });
     },
 }

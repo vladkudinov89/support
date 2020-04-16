@@ -46,12 +46,14 @@
             class="btn btn-warning" @click="editSupport()"
         >Edit
         </a>
-        <a class="btn btn-primary" v-if="isEditing"  @click="updateSupport(support.id)">Update</a>
+        <a class="btn btn-primary" v-if="isEditing"  @click="updateSupportByAdmin(support.id)">Update</a>
     </tr>
 
 </template>
 
 <script>
+    import {mapState, mapGetters, mapActions} from 'vuex';
+
     export default {
         name: "SupportItem",
         props: ['support', 'isAdmin'],
@@ -84,11 +86,27 @@
             }
         },
         methods: {
+            ...mapActions('support', {
+                updateSupport: 'updateSupportByAdmin'
+                }
+            ),
             editSupport(){
                 this.isEditing = true;
             },
-            updateSupport(id){
-                console.log(id);
+            updateSupportByAdmin(id){
+                this.updateSupport({
+                    id: id,
+                    name: this.currentSupport.title,
+                    message: this.currentSupport.message,
+                    status: this.currentSupport.status,
+                    viewed: this.currentSupport.viewed
+                })
+                .then((result) => {
+                    this.isEditing = false;
+                })
+                .catch(function (response) {
+                    alert("Could not update support!");
+                })
             }
         }
     }
