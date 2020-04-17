@@ -1,16 +1,22 @@
-function getSupportById(supports , supportId){
-    return supports.find( support => {
-        return support.id === parseInt(supportId);
+function getSupportById(supports, supportId) {
+    let result;
+
+    Object.keys(supports).forEach(function (key) {
+        if (supports[key]['id'] === parseInt(supportId)) {
+            result = supports[key];
+        }
     });
+
+    return result;
 }
 
 export default {
 
-    SET_CURRENT_CLIENT: (state , user) => {
-      state.user = user;
+    SET_CURRENT_CLIENT: (state, user) => {
+        state.user = user;
     },
 
-    SET_ADMIN_ROLE: (state , role) => {
+    SET_ADMIN_ROLE: (state, role) => {
         state.isAdmin = role;
     },
 
@@ -22,12 +28,12 @@ export default {
         state.supportsClient = supports;
     },
 
-    UPDATE_SUPPORT_BY_ADMIN: (state , data) => {
-        let support = getSupportById(state.supportsAdmin , data.id);
-        support.title = data.title;
-        support.message = data.message;
-        support.status = data.status;
-        support.viewed = data.viewed;
+    UPDATE_SUPPORT_BY_ADMIN: (state, data) => {
+        let support = getSupportById(state.supportsAdmin, data.id);
+        support.support_title = data.title;
+        support.support_message = data.message;
+        support.support_status_active = data.status_activities;
+        support.support_status_view = data.status_view;
     },
 
 }

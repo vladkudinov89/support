@@ -2178,10 +2178,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       this.updateSupport({
         id: id,
-        name: this.currentSupport.title,
+        title: this.currentSupport.title,
         message: this.currentSupport.message,
-        status: this.currentSupport.status,
-        viewed: this.currentSupport.viewed
+        status_activities: this.currentSupport.status,
+        status_view: this.currentSupport.viewed
       }).then(function (result) {
         _this.isEditing = false;
       })["catch"](function (response) {
@@ -55590,9 +55590,11 @@ __webpack_require__.r(__webpack_exports__);
   },
   updateSupportByAdmin: function updateSupportByAdmin(context, data) {
     return new Promise(function (resolve, reject) {
-      _services_common_httpService__WEBPACK_IMPORTED_MODULE_0__["default"].put("admin/support/".concat(data.id), data).then(function (response) {
+      _services_common_httpService__WEBPACK_IMPORTED_MODULE_0__["default"].put("/admin/supports/".concat(data.id), data).then(function (response) {
         context.commit('UPDATE_SUPPORT_BY_ADMIN', response.data.data);
         resolve(response.data.data);
+      })["catch"](function (err) {
+        reject(err);
       });
     });
   }
@@ -55650,9 +55652,13 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 function getSupportById(supports, supportId) {
-  return supports.find(function (support) {
-    return support.id === parseInt(supportId);
+  var result;
+  Object.keys(supports).forEach(function (key) {
+    if (supports[key]['id'] === parseInt(supportId)) {
+      result = supports[key];
+    }
   });
+  return result;
 }
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -55670,10 +55676,10 @@ function getSupportById(supports, supportId) {
   },
   UPDATE_SUPPORT_BY_ADMIN: function UPDATE_SUPPORT_BY_ADMIN(state, data) {
     var support = getSupportById(state.supportsAdmin, data.id);
-    support.title = data.title;
-    support.message = data.message;
-    support.status = data.status;
-    support.viewed = data.viewed;
+    support.support_title = data.title;
+    support.support_message = data.message;
+    support.support_status_active = data.status_activities;
+    support.support_status_view = data.status_view;
   }
 });
 

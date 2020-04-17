@@ -60,11 +60,13 @@ export default {
 
     updateSupportByAdmin: (context, data) => {
         return new Promise((resolve , reject) => {
-           httpService.put(`admin/support/${data.id}` , data)
+           httpService.put(`/admin/supports/${data.id}` , data)
                .then((response) => {
                    context.commit('UPDATE_SUPPORT_BY_ADMIN' , response.data.data);
                    resolve(response.data.data);
-               });
+               }).catch(function (err) {
+               reject(err);
+           });
         });
     },
 }

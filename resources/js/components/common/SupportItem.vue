@@ -96,10 +96,10 @@
             updateSupportByAdmin(id){
                 this.updateSupport({
                     id: id,
-                    name: this.currentSupport.title,
+                    title: this.currentSupport.title,
                     message: this.currentSupport.message,
-                    status: this.currentSupport.status,
-                    viewed: this.currentSupport.viewed
+                    status_activities: this.currentSupport.status,
+                    status_view: this.currentSupport.viewed
                 })
                 .then((result) => {
                     this.isEditing = false;
