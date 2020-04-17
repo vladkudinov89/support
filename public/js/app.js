@@ -2141,6 +2141,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "SupportItem",
@@ -2168,15 +2173,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     };
   },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])('support', {
-    updateSupport: 'updateSupportByAdmin'
+    updateSupport: 'updateSupportByAdmin',
+    updateSupportClient: 'updateSupportByClient'
   }), {
     editSupport: function editSupport() {
       this.isEditing = true;
     },
-    updateSupportByAdmin: function updateSupportByAdmin(id) {
+    update: function update(updateWay, id) {
       var _this = this;
 
-      this.updateSupport({
+      updateWay({
         id: id,
         title: this.currentSupport.title,
         message: this.currentSupport.message,
@@ -2187,6 +2193,24 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       })["catch"](function (response) {
         alert("Could not update support!");
       });
+    },
+    updateSupportByAdmin: function updateSupportByAdmin(id) {
+      var _this2 = this;
+
+      this.updateSupport({
+        id: id,
+        title: this.currentSupport.title,
+        message: this.currentSupport.message,
+        status_activities: this.currentSupport.status,
+        status_view: this.currentSupport.viewed
+      }).then(function (result) {
+        _this2.isEditing = false;
+      })["catch"](function (response) {
+        alert("Could not update support!");
+      });
+    },
+    updateSupportByClient: function updateSupportByClient(id) {
+      this.update(this.updateSupportClient, id);
     }
   })
 });
@@ -38115,6 +38139,25 @@ var render = function() {
         )
       : _vm._e(),
     _vm._v(" "),
+    _vm.isAdmin
+      ? _c("div", [
+          _vm.isEditing
+            ? _c(
+                "a",
+                {
+                  staticClass: "btn btn-primary",
+                  on: {
+                    click: function($event) {
+                      return _vm.updateSupportByAdmin(_vm.support.id)
+                    }
+                  }
+                },
+                [_vm._v("Update")]
+              )
+            : _vm._e()
+        ])
+      : _vm._e(),
+    _vm._v(" "),
     _vm.isEditing
       ? _c(
           "a",
@@ -38122,7 +38165,7 @@ var render = function() {
             staticClass: "btn btn-primary",
             on: {
               click: function($event) {
-                return _vm.updateSupportByAdmin(_vm.support.id)
+                return _vm.updateSupportByClient(_vm.support.id)
               }
             }
           },
@@ -55597,6 +55640,16 @@ __webpack_require__.r(__webpack_exports__);
         reject(err);
       });
     });
+  },
+  updateSupportByClient: function updateSupportByClient(context, data) {
+    return new Promise(function (resolve, reject) {
+      _services_common_httpService__WEBPACK_IMPORTED_MODULE_0__["default"].put("/client/supports/".concat(data.id), data).then(function (response) {
+        context.commit('UPDATE_SUPPORT_BY_CLIENT', response.data.data);
+        resolve(response.data.data);
+      })["catch"](function (err) {
+        reject(err);
+      });
+    });
   }
 });
 
@@ -55676,6 +55729,13 @@ function getSupportById(supports, supportId) {
   },
   UPDATE_SUPPORT_BY_ADMIN: function UPDATE_SUPPORT_BY_ADMIN(state, data) {
     var support = getSupportById(state.supportsAdmin, data.id);
+    support.support_title = data.title;
+    support.support_message = data.message;
+    support.support_status_active = data.status_activities;
+    support.support_status_view = data.status_view;
+  },
+  UPDATE_SUPPORT_BY_CLIENT: function UPDATE_SUPPORT_BY_CLIENT(state, data) {
+    var support = getSupportById(state.supportsClient, data.id);
     support.support_title = data.title;
     support.support_message = data.message;
     support.support_status_active = data.status_activities;
