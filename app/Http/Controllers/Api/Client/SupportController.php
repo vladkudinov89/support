@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Api\Client;
 
 use App\Actions\Support\Client\GetAllSupports\GetAllSupportsPresenter;
-use App\Actions\Support\Client\UpdateSupport\UpdateSupportAction;
-use App\Actions\Support\Client\UpdateSupport\UpdateSupportRequest;
+use App\Actions\Common\Support\UpdateSupport\UpdateSupportAction;
+use App\Actions\Common\Support\UpdateSupport\UpdateSupportRequest;
 use App\Actions\Support\GetAllSupports\Client\GetAllSupportsAction;
 use App\Entities\Support;
 use App\Http\Controllers\Api\ApiController;
-use App\Http\Requests\Support\Admin\ValidateUpdateSupportRequest;
+use App\Http\Requests\Support\Common\ValidateUpdateSupportRequest;
 
 class SupportController extends ApiController
 {

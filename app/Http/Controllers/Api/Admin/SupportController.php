@@ -4,11 +4,11 @@ namespace App\Http\Controllers\Api\Admin;
 
 use App\Actions\Support\Admin\GetAllSupports\GetAllSupportsAction;
 use App\Actions\Support\Admin\GetAllSupports\GetAllSupportsPresenter;
-use App\Actions\Support\Admin\UpdateSupport\UpdateSupportAction;
-use App\Actions\Support\Admin\UpdateSupport\UpdateSupportRequest;
+use App\Actions\Common\Support\UpdateSupport\UpdateSupportAction;
+use App\Actions\Common\Support\UpdateSupport\UpdateSupportRequest;
 use App\Entities\Support;
 use App\Http\Controllers\Api\ApiController;
-use App\Http\Requests\Support\Admin\ValidateUpdateSupportRequest;
+use App\Http\Requests\Support\Common\ValidateUpdateSupportRequest;
 
 class SupportController extends ApiController
 {
