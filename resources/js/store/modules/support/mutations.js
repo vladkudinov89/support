@@ -36,4 +36,12 @@ export default {
         support.support_status_view = data.status_view;
     },
 
+    UPDATE_SUPPORT_BY_CLIENT: (state, data) => {
+        let support = getSupportById(state.supportsClient, data.id);
+        support.support_title = data.title;
+        support.support_message = data.message;
+        support.support_status_active = data.status_activities;
+        support.support_status_view = data.status_view;
+    },
+
 }

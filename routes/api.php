@@ -39,6 +39,7 @@ Route::prefix('v1')->group(function () {
             ],
             function () {
                 Route::get('/support/{id}', 'SupportController@allSupports')->name('supports.client.all');
+                Route::put('/supports/{support}' , 'SupportController@updateSupport')->name('supports.update');
             });
 
         Route::group(

@@ -46,7 +46,12 @@
             class="btn btn-warning" @click="editSupport()"
         >Edit
         </a>
-        <a class="btn btn-primary" v-if="isEditing"  @click="updateSupportByAdmin(support.id)">Update</a>
+
+        <div v-if="isAdmin">
+            <a class="btn btn-primary" v-if="isEditing" @click="updateSupportByAdmin(support.id)">Update</a>
+        </div>
+
+        <a class="btn btn-primary" v-if="isEditing" @click="updateSupportByClient(support.id)">Update</a>
     </tr>
 
 </template>
@@ -87,13 +92,29 @@
         },
         methods: {
             ...mapActions('support', {
-                updateSupport: 'updateSupportByAdmin'
+                    updateSupport: 'updateSupportByAdmin',
+                    updateSupportClient: 'updateSupportByClient'
                 }
             ),
-            editSupport(){
+            editSupport() {
                 this.isEditing = true;
             },
-            updateSupportByAdmin(id){
+            update(updateWay , id){
+                updateWay({
+                    id: id,
+                    title: this.currentSupport.title,
+                    message: this.currentSupport.message,
+                    status_activities: this.currentSupport.status,
+                    status_view: this.currentSupport.viewed
+                })
+                    .then((result) => {
+                        this.isEditing = false;
+                    })
+                    .catch(function (response) {
+                        alert("Could not update support!");
+                    });
+            },
+            updateSupportByAdmin(id) {
                 this.updateSupport({
                     id: id,
                     title: this.currentSupport.title,
@@ -101,12 +122,15 @@
                     status_activities: this.currentSupport.status,
                     status_view: this.currentSupport.viewed
                 })
-                .then((result) => {
-                    this.isEditing = false;
-                })
-                .catch(function (response) {
-                    alert("Could not update support!");
-                })
+                    .then((result) => {
+                        this.isEditing = false;
+                    })
+                    .catch(function (response) {
+                        alert("Could not update support!");
+                    })
+            },
+            updateSupportByClient(id){
+               this.update(this.updateSupportClient , id);
             }
         }
     }

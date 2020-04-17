@@ -69,4 +69,16 @@ export default {
            });
         });
     },
+
+    updateSupportByClient: (context, data) => {
+    return new Promise((resolve , reject) => {
+        httpService.put(`/client/supports/${data.id}` , data)
+            .then((response) => {
+                context.commit('UPDATE_SUPPORT_BY_CLIENT' , response.data.data);
+                resolve(response.data.data);
+            }).catch(function (err) {
+            reject(err);
+        });
+    });
+},
 }
