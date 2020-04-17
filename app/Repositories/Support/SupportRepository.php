@@ -19,5 +19,15 @@ class SupportRepository implements SupportRepositoryInterface
        return Support::where('user_id' , $id)->get();
     }
 
+    public function getSupportById(int $id): ?Support
+    {
+        return Support::find($id);
+    }
 
+    public function save(Support $support): Support
+    {
+        $support->save();
+
+        return $support;
+    }
 }

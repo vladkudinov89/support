@@ -35,6 +35,29 @@ class SupportsTest extends TestCase
         }
     }
 
+    /** @test */
+    public function update_support_by_admin()
+    {
+        $user = factory(User::class)->create(['role' => 'admin']);
+
+        $supports = factory(Support::class, 3)->create();
+
+        $data = [
+            'title' => 'test title',
+            'message' => 'test message',
+            'status_activities' => 'closed',
+            'status_view' => 'viewed'
+        ];
+
+        $response = $this
+            ->actingAs($user, 'api')
+            ->put('api/v1/admin/supports/' . $supports[0]->id, $data)
+            ->assertStatus(201);
+
+        $this->assertDatabaseHas('supports', $data);
+    }
+
+
     public function checkJsonStructure($response)
     {
         $response->assertJsonStructure(

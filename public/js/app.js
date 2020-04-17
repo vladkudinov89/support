@@ -2081,6 +2081,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -2134,6 +2141,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "SupportItem",
   props: ['support', 'isAdmin'],
@@ -2159,14 +2167,28 @@ __webpack_require__.r(__webpack_exports__);
       }
     };
   },
-  methods: {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])('support', {
+    updateSupport: 'updateSupportByAdmin'
+  }), {
     editSupport: function editSupport() {
       this.isEditing = true;
     },
-    updateSupport: function updateSupport(id) {
-      console.log(id);
+    updateSupportByAdmin: function updateSupportByAdmin(id) {
+      var _this = this;
+
+      this.updateSupport({
+        id: id,
+        name: this.currentSupport.title,
+        message: this.currentSupport.message,
+        status: this.currentSupport.status,
+        viewed: this.currentSupport.viewed
+      }).then(function (result) {
+        _this.isEditing = false;
+      })["catch"](function (response) {
+        alert("Could not update support!");
+      });
     }
-  }
+  })
 });
 
 /***/ }),
@@ -38100,7 +38122,7 @@ var render = function() {
             staticClass: "btn btn-primary",
             on: {
               click: function($event) {
-                return _vm.updateSupport(_vm.support.id)
+                return _vm.updateSupportByAdmin(_vm.support.id)
               }
             }
           },
@@ -55565,6 +55587,14 @@ __webpack_require__.r(__webpack_exports__);
         reject(err);
       });
     });
+  },
+  updateSupportByAdmin: function updateSupportByAdmin(context, data) {
+    return new Promise(function (resolve, reject) {
+      _services_common_httpService__WEBPACK_IMPORTED_MODULE_0__["default"].put("admin/support/".concat(data.id), data).then(function (response) {
+        context.commit('UPDATE_SUPPORT_BY_ADMIN', response.data.data);
+        resolve(response.data.data);
+      });
+    });
   }
 });
 
@@ -55619,6 +55649,12 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+function getSupportById(supports, supportId) {
+  return supports.find(function (support) {
+    return support.id === parseInt(supportId);
+  });
+}
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   SET_CURRENT_CLIENT: function SET_CURRENT_CLIENT(state, user) {
     state.user = user;
@@ -55631,6 +55667,13 @@ __webpack_require__.r(__webpack_exports__);
   },
   SET_CLIENT_SUPPORTS: function SET_CLIENT_SUPPORTS(state, supports) {
     state.supportsClient = supports;
+  },
+  UPDATE_SUPPORT_BY_ADMIN: function UPDATE_SUPPORT_BY_ADMIN(state, data) {
+    var support = getSupportById(state.supportsAdmin, data.id);
+    support.title = data.title;
+    support.message = data.message;
+    support.status = data.status;
+    support.viewed = data.viewed;
   }
 });
 

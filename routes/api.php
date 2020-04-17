@@ -27,6 +27,7 @@ Route::prefix('v1')->group(function () {
             ],
             function () {
                 Route::get('/supports', 'SupportController@allSupports')->name('supports.all');
+                Route::put('/supports/{support}' , 'SupportController@updateSupport')->name('supports.update');
             });
 
         Route::group(
