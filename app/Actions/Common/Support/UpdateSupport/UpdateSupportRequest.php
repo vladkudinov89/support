@@ -1,10 +1,7 @@
 <?php
 
 
-namespace App\Actions\Support\Admin\UpdateSupport;
-
-
-use App\Entities\Support;
+namespace App\Actions\Common\Support\UpdateSupport;
 
 class UpdateSupportRequest
 {

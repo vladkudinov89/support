@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Actions\Support\Admin\UpdateSupport;
+namespace App\Actions\Common\Support\UpdateSupport;
 
 
 use App\Repositories\Support\SupportRepositoryInterface;

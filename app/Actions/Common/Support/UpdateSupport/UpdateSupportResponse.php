@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Actions\Support\Client\UpdateSupport;
+namespace App\Actions\Common\Support\UpdateSupport;
 
 
 use App\Entities\Support;
