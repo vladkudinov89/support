@@ -52,7 +52,8 @@ export default {
                     let normalizerSupports = normalizerService.normalize(response.data);
                     context.commit('SET_CLIENT_SUPPORTS', normalizerSupports);
                     resolve(normalizerSupports);
-                }).catch(function (err) {
+                }).catch((err) => {
+                   alert('It is not your cabinet.');
                 reject(err);
             });
         });
