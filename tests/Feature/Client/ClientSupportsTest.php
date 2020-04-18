@@ -5,6 +5,7 @@ namespace Tests\Feature\Client;
 
 use App\Entities\Support;
 use App\Entities\User;
+use App\Policies\SupportPolicy;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -13,7 +14,7 @@ class ClientSupportsTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function get_all_user_supports()
+    public function get_all_client_supports()
     {
         $user = factory(User::class)->create();
 
@@ -24,7 +25,7 @@ class ClientSupportsTest extends TestCase
         $response = $this
             ->actingAs($user, 'api')
             ->get('api/v1/client/support/' . $user->id)
-            ->assertSuccessful()
+            ->assertStatus(201)
             ->getOriginalContent();
 
         $this->assertEquals(5, count($response['data']));
@@ -39,7 +40,7 @@ class ClientSupportsTest extends TestCase
     /** @test */
     public function client_can_update_own_support()
     {
-        $user = factory(User::class)->create(['role' => 'client']);
+        $user = factory(User::class)->create(['role' => 'user']);
 
         $supports = factory(Support::class, 3)->create(['user_id' => $user->id]);
 

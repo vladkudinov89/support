@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Entities\Support;
+use App\Policies\SupportPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Gate;
+use Illuminate\Auth\Access\Response;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -13,7 +15,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        // 'App\Model' => 'App\Policies\ModelPolicy',
+        Support::class=> SupportPolicy::class,
     ];
 
     /**
@@ -25,6 +27,10 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        \Gate::define('viewById', function ($user  ,$id) {
+            return $user->id === $id
+                ? Response::allow()
+                : Response::deny('It is not your cabinet.');
+        });
     }
 }
