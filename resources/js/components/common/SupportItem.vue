@@ -35,7 +35,7 @@
             <td>
                 <router-link
                     class="btn btn-success"
-                    :to="{ name: 'ClientCabinetPage', params: { id: support.support_user_id }}"
+                    :to="{ name: 'ClientCabinetPage', params: { userId: support.support_user_id }}"
                 >Detail
                 </router-link>
             </td>

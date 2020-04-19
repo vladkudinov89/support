@@ -21,7 +21,7 @@ class SupportPolicy
      */
     public function update(User $user, Support $support)
     {
-        return  $user->id === (int)$support->user_id
+        return  $user->id === (int)$support->user_id || $user->role === User::ROLE_ADMIN
             ? Response::allow()
             : Response::deny('You do not own this support.');
     }
