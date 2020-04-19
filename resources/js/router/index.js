@@ -4,6 +4,7 @@ import IndexComponent from "../components/IndexComponent";
 import CabinetPage from "../pages/CabinetPage";
 import AdminCabinetPage from "../pages/AdminCabinetPage";
 import ClientCabinetPage from "../pages/ClientCabinetPage";
+import ClientCabinetSingleSupportPage from "../pages/ClientCabinetSingleSupportPage";
 
 Vue.use(Router);
 
@@ -27,9 +28,14 @@ export default new Router({
             component: AdminCabinetPage
         },
         {
-            path: '/cabinet/client/:id',
+            path: '/cabinet/client/:userId',
             name: 'ClientCabinetPage',
             component: ClientCabinetPage
+        },
+        {
+            path: '/cabinet/client/:userId/:supportId',
+            name: 'ClientCabinetSingleSupportPage',
+            component: ClientCabinetSingleSupportPage
         },
     ]
 });

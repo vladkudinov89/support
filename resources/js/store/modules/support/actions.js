@@ -59,6 +59,21 @@ export default {
         });
     },
 
+    fetchClientSingleSupport: (context, support) => {
+        return new Promise((resolve, reject) => {
+            httpService.get('/client/support/' + support.clientId + '/' + support.supportId)
+                .then((response) => {
+                    let normalizerSupport = normalizerService.normalizeSingleArray(response.data.data);
+                    context.commit('SET_CLIENT_SINGLE_SUPPORT', normalizerSupport);
+                    resolve(normalizerSupport);
+                }).catch((err) => {
+                reject(err);
+            });
+        });
+    },
+
+
+
     updateSupportByAdmin: (context, data) => {
         return new Promise((resolve , reject) => {
            httpService.put(`/admin/supports/${data.id}` , data)

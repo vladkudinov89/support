@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Api\Client;
 
+use App\Actions\Common\Support\GetSingleSupport\GetSingleSupportAction;
+use App\Actions\Common\Support\GetSingleSupport\GetSingleSupportPresenter;
+use App\Actions\Common\Support\GetSingleSupport\GetSingleSupportRequest;
 use App\Actions\Support\Client\GetAllSupports\GetAllSupportsPresenter;
 use App\Actions\Common\Support\UpdateSupport\UpdateSupportAction;
 use App\Actions\Common\Support\UpdateSupport\UpdateSupportRequest;
@@ -22,17 +25,23 @@ class SupportController extends ApiController
      * @var UpdateSupportAction
      */
     private $updateSupportAction;
+    /**
+     * @var GetSingleSupportAction
+     */
+    private $getSingleSupportAction;
 
     /**
      * SupportController constructor.
      */
     public function __construct(
         GetAllSupportsAction $getAllSupportsAction,
+        GetSingleSupportAction $getSingleSupportAction,
         UpdateSupportAction $updateSupportAction
     )
     {
         $this->getAllSupportsAction = $getAllSupportsAction;
         $this->updateSupportAction = $updateSupportAction;
+        $this->getSingleSupportAction = $getSingleSupportAction;
     }
 
     public function allSupports(int $id , Support $support)
@@ -46,6 +55,13 @@ class SupportController extends ApiController
         }
 
         return $this->successResponse($allSupports, 201);
+    }
+
+    public function getSingleSupport(int $user_id , int $support_id)
+    {
+        $support = $this->getSingleSupportAction->execute(new GetSingleSupportRequest($support_id));
+
+        return $this->successResponse(GetSingleSupportPresenter::present($support->toArray()) , 201);
     }
 
     public function updateSupport(ValidateUpdateSupportRequest $supportRequest, Support $support)

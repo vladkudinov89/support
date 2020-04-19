@@ -38,6 +38,25 @@ class ClientSupportsTest extends TestCase
     }
 
     /** @test */
+    public function client_can_get_own_single_support()
+    {
+        $user = factory(User::class)->create(['role' => 'user']);
+
+        $supports_user = factory(Support::class, 3)->create(['user_id' => $user->id]);
+
+        $this->withoutExceptionHandling();
+
+        $response = $this
+            ->actingAs($user, 'api')
+            ->get('api/v1/client/support/' . $user->id . '/' . $supports_user[0]->id)
+            ->assertStatus(201)
+            ->getOriginalContent();
+
+        $this->assertEquals($supports_user[0]->id, $response['data']['id']);
+    }
+
+
+    /** @test */
     public function client_can_update_own_support()
     {
         $user = factory(User::class)->create(['role' => 'user']);

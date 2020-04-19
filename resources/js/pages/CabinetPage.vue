@@ -17,7 +17,7 @@
                     <router-link
                         v-if="user.id"
                         class="btn btn-success"
-                        :to="{ name: 'ClientCabinetPage' , params: {id: user.id}}"
+                        :to="{ name: 'ClientCabinetPage' , params: {userId: user.id}}"
                     >Client Cabinet
                     </router-link>
                 </div>

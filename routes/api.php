@@ -38,7 +38,8 @@ Route::prefix('v1')->group(function () {
                 'middleware' => ['auth:api'],
             ],
             function () {
-                Route::get('/support/{id}', 'SupportController@allSupports')->name('supports.client.all');
+                Route::get('/support/{id}', 'SupportController@allSupports')->name('supports.all');
+                Route::get('/support/{user_id}/{support_id}', 'SupportController@getSingleSupport')->name('support');
                 Route::put('/supports/{support}' , 'SupportController@updateSupport')->name('supports.update');
             });
 

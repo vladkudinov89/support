@@ -41,6 +41,16 @@
             </td>
         </div>
 
+        <div v-if="!isAdmin">
+            <td>
+                <router-link
+                    class="btn btn-success"
+                    :to="{ name: 'ClientCabinetSingleSupportPage', params: { id: support.support_user_id , supportId: support.id }}"
+                >Detail
+                </router-link>
+            </td>
+        </div>
+
         <a
             v-if="!isEditing"
             class="btn btn-warning" @click="editSupport()"
@@ -51,7 +61,9 @@
             <a class="btn btn-primary" v-if="isEditing" @click="updateSupportByAdmin(support.id)">Update</a>
         </div>
 
+        <div v-if="!isAdmin">
         <a class="btn btn-primary" v-if="isEditing" @click="updateSupportByClient(support.id)">Update</a>
+        </div>
     </tr>
 
 </template>

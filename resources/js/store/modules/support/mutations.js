@@ -28,6 +28,10 @@ export default {
         state.supportsClient = supports;
     },
 
+    SET_CLIENT_SINGLE_SUPPORT: (state, support) => {
+        state.supportClient = support;
+    },
+
     UPDATE_SUPPORT_BY_ADMIN: (state, data) => {
         let support = getSupportById(state.supportsAdmin, data.id);
         support.support_title = data.title;
@@ -42,6 +46,8 @@ export default {
         support.support_message = data.message;
         support.support_status_active = data.status_activities;
         support.support_status_view = data.status_view;
+
+        state.supportClient = support;
     },
 
 }

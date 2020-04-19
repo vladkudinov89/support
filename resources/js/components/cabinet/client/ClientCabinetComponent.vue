@@ -33,7 +33,7 @@
             }),
         },
         created() {
-            const clientId = this.$route.params.id;
+            const clientId = this.$route.params.userId;
 
             this.$store.dispatch('support/fetchClientSupport' , clientId);
         },

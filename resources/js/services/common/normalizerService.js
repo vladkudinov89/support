@@ -12,18 +12,22 @@ export const normalizerService = {
         return result;
     },
 
-    normalizeArray(data, shape){
+    normalizeSingleArray(data, shape) {
+        return Object.assign({}, shape, data);
+    },
+
+    normalizeArray(data, shape) {
         return data.reduce((normalizedObject, item) => {
-            return Object.assign(normalizedObject, this.normalizeObject(item,shape));
+            return Object.assign(normalizedObject, this.normalizeObject(item, shape));
         }, {});
     },
 
-    normalizeObject(data, shape){
-        if('id' in data){
+    normalizeObject(data, shape) {
+        if ('id' in data) {
             return {
                 [data.id]: Object.assign({}, shape, data)
             };
-        } else{
+        } else {
             return {};
         }
     },
