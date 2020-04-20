@@ -38582,7 +38582,7 @@ var render = function() {
                   attrs: {
                     to: {
                       name: "ClientCabinetPage",
-                      params: { id: _vm.support.support_user_id }
+                      params: { userId: _vm.support.support_user_id }
                     }
                   }
                 },

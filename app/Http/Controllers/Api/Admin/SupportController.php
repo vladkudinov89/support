@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Api\Admin;
 
+use App\Actions\Common\Support\DeleteSupport\DeleteSupportAction;
+use App\Actions\Common\Support\DeleteSupport\DeleteSupportRequest;
 use App\Actions\Support\Admin\GetAllSupports\GetAllSupportsAction;
 use App\Actions\Support\Admin\GetAllSupports\GetAllSupportsPresenter;
 use App\Actions\Common\Support\UpdateSupport\UpdateSupportAction;
@@ -21,17 +23,23 @@ class SupportController extends ApiController
      * @var UpdateSupportAction
      */
     private $updateSupportAction;
+    /**
+     * @var DeleteSupportAction
+     */
+    private $deleteSupportAction;
 
     /**
      * SupportController constructor.
      */
     public function __construct(
         GetAllSupportsAction $getAllSupportsAction,
-        UpdateSupportAction $updateSupportAction
+        UpdateSupportAction $updateSupportAction,
+        DeleteSupportAction $deleteSupportAction
     )
     {
         $this->getAllSupportsAction = $getAllSupportsAction;
         $this->updateSupportAction = $updateSupportAction;
+        $this->deleteSupportAction = $deleteSupportAction;
     }
 
     public function allSupports()
@@ -42,10 +50,10 @@ class SupportController extends ApiController
             $allSupports[] = GetAllSupportsPresenter::present($support);
         }
 
-        return $this->successResponse($allSupports , 201);
+        return $this->successResponse($allSupports, 201);
     }
 
-    public function updateSupport(ValidateUpdateSupportRequest $supportRequest , Support $support)
+    public function updateSupport(ValidateUpdateSupportRequest $supportRequest, Support $support)
     {
         $updateResponse = $this->updateSupportAction->execute(
             new UpdateSupportRequest(
@@ -57,6 +65,13 @@ class SupportController extends ApiController
             )
         );
 
-        return $this->successResponse($updateResponse->toArray() , 201);
+        return $this->successResponse($updateResponse->toArray(), 201);
+    }
+
+    public function destroySupport(int $id)
+    {
+        $this->deleteSupportAction->execute(new DeleteSupportRequest($id));
+
+        return $this->successResponse([], 201);
     }
 }

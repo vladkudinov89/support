@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Api\Client;
 
+use App\Actions\Common\Support\DeleteSupport\DeleteSupportAction;
+use App\Actions\Common\Support\DeleteSupport\DeleteSupportRequest;
 use App\Actions\Common\Support\GetSingleSupport\GetSingleSupportAction;
 use App\Actions\Common\Support\GetSingleSupport\GetSingleSupportPresenter;
 use App\Actions\Common\Support\GetSingleSupport\GetSingleSupportRequest;
@@ -29,6 +31,10 @@ class SupportController extends ApiController
      * @var GetSingleSupportAction
      */
     private $getSingleSupportAction;
+    /**
+     * @var DeleteSupportAction
+     */
+    private $deleteSupportAction;
 
     /**
      * SupportController constructor.
@@ -36,15 +42,17 @@ class SupportController extends ApiController
     public function __construct(
         GetAllSupportsAction $getAllSupportsAction,
         GetSingleSupportAction $getSingleSupportAction,
-        UpdateSupportAction $updateSupportAction
+        UpdateSupportAction $updateSupportAction,
+        DeleteSupportAction $deleteSupportAction
     )
     {
         $this->getAllSupportsAction = $getAllSupportsAction;
         $this->updateSupportAction = $updateSupportAction;
         $this->getSingleSupportAction = $getSingleSupportAction;
+        $this->deleteSupportAction = $deleteSupportAction;
     }
 
-    public function allSupports(int $id , Support $support)
+    public function allSupports(int $id, Support $support)
     {
         $this->authorize('viewById', $id);
 
@@ -57,11 +65,11 @@ class SupportController extends ApiController
         return $this->successResponse($allSupports, 201);
     }
 
-    public function getSingleSupport(int $user_id , int $support_id)
+    public function getSingleSupport(int $user_id, int $support_id)
     {
         $support = $this->getSingleSupportAction->execute(new GetSingleSupportRequest($support_id));
 
-        return $this->successResponse(GetSingleSupportPresenter::present($support->toArray()) , 201);
+        return $this->successResponse(GetSingleSupportPresenter::present($support->toArray()), 201);
     }
 
     public function updateSupport(ValidateUpdateSupportRequest $supportRequest, Support $support)
@@ -78,5 +86,12 @@ class SupportController extends ApiController
             )
         );
         return $this->successResponse($updateResponse->toArray(), 201);
+    }
+
+    public function destroySupport(int $id)
+    {
+        $this->deleteSupportAction->execute(new DeleteSupportRequest($id));
+
+        return $this->successResponse([], 201);
     }
 }

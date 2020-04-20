@@ -78,5 +78,20 @@ class ClientSupportsTest extends TestCase
         $this->assertDatabaseHas('supports', $data);
     }
 
+    /** @test */
+    public function success_delete_support_by_client()
+    {
+        $user = factory(User::class)->create();
+
+        $supports = factory(Support::class, 3)->create();
+
+        $response = $this
+            ->actingAs($user , 'api')
+            ->delete('api/v1/admin/supports/' . $supports[0]->id)
+            ->assertStatus(201);
+
+        $this->assertDatabaseMissing('supports' ,$supports[0]->toArray() );
+    }
+
 
 }

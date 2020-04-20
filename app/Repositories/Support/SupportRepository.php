@@ -30,4 +30,9 @@ class SupportRepository implements SupportRepositoryInterface
 
         return $support;
     }
+
+    public function deleteById(int $id): void
+    {
+       Support::destroy($id);
+    }
 }
