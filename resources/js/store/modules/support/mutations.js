@@ -10,6 +10,18 @@ function getSupportById(supports, supportId) {
     return result;
 }
 
+function convertToArray(supports) {
+    let result = [];
+
+    Object.keys(supports).forEach(function (key) {
+
+            result.push(supports[key]);
+
+    });
+
+    return result;
+}
+
 export default {
 
     SET_CURRENT_CLIENT: (state, user) => {
@@ -48,6 +60,16 @@ export default {
         support.support_status_view = data.status_view;
 
         state.supportClient = support;
+    },
+
+    DELETE_SUPPORT_BY_ADMIN: (state , id)  => {
+        const index = state.supportsAdmin.findIndex(support => support.id === id);
+        state.supportsAdmin.splice(index , 1);
+    },
+
+    DELETE_SUPPORT_BY_CLIENT: (state , id)  => {
+        const index = state.supportsClient.findIndex(support => support.id === id);
+        state.supportsClient.splice(index , 1);
     },
 
 }

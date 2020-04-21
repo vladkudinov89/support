@@ -81,13 +81,13 @@ class ClientSupportsTest extends TestCase
     /** @test */
     public function success_delete_support_by_client()
     {
-        $user = factory(User::class)->create();
+        $user = factory(User::class)->create(['role' => 'user']);
 
         $supports = factory(Support::class, 3)->create();
 
         $response = $this
             ->actingAs($user , 'api')
-            ->delete('api/v1/admin/supports/' . $supports[0]->id)
+            ->delete('api/v1/client/supports/' . $supports[0]->id)
             ->assertStatus(201);
 
         $this->assertDatabaseMissing('supports' ,$supports[0]->toArray() );

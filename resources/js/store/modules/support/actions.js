@@ -37,8 +37,9 @@ export default {
             httpService.get('/admin/supports')
                 .then((response) => {
                     let normalizerSupports = normalizerService.normalize(response.data);
-                    context.commit('SET_ADMIN_SUPPORTS', normalizerSupports);
-                    resolve(normalizerSupports);
+                    // console.log(response.data.data);
+                    context.commit('SET_ADMIN_SUPPORTS', response.data.data);
+                    resolve(response.data.data);
                 }).catch(function (err) {
                 reject(err);
             });
@@ -50,8 +51,9 @@ export default {
             httpService.get('/client/support/' + clientId)
                 .then((response) => {
                     let normalizerSupports = normalizerService.normalize(response.data);
-                    context.commit('SET_CLIENT_SUPPORTS', normalizerSupports);
-                    resolve(normalizerSupports);
+                    // context.commit('SET_CLIENT_SUPPORTS', normalizerSupports);
+                    context.commit('SET_CLIENT_SUPPORTS', response.data.data);
+                    resolve(response.data.data);
                 }).catch((err) => {
                    alert('It is not your cabinet.');
                 reject(err);
@@ -97,4 +99,28 @@ export default {
         });
     });
 },
+
+    deleteSupportByAdmin: (context, id) => {
+        return new Promise((resolve, reject) => {
+            httpService.delete('/admin/supports/' + id)
+                .then((response) => {
+                    context.commit('DELETE_SUPPORT_BY_ADMIN', id);
+                        resolve(response.data.data);
+                }).catch((error) => {
+                reject(error);
+            });
+        });
+    },
+
+    deleteSupportByClient: (context, id) => {
+        return new Promise((resolve, reject) => {
+            httpService.delete('/client/supports/' + id)
+                .then((response) => {
+                    context.commit('DELETE_SUPPORT_BY_CLIENT', id);
+                    return response.data.data;
+                }).catch((error) => {
+                reject(error);
+            });
+        });
+    },
 }

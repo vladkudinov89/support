@@ -16,6 +16,8 @@
                     v-bind:isAdmin="isAdmin"
                     :key="support.id"
                     :support.sync="support"
+                    v-on:delete-support-client="deleteSupportByClient"
+                    v-on:delete-support-admin="deleteSupportByAdmin"
                 ></support-item>
 
             </tbody>
@@ -46,6 +48,17 @@
             },
         },
         methods: {
+            ...mapActions('support', {
+                    deleteSupportByClient: 'deleteSupportByClient',
+                    deleteSupportByAdmin: 'deleteSupportByAdmin',
+                }
+            ),
+            deleteSupportByClient(id){
+                this.$store.dispatch('support/deleteSupportByClient' , id);
+            },
+            deleteSupportByAdmin(id){
+                this.$store.dispatch('support/deleteSupportByAdmin' , id);
+            },
             sortBy: function (sortKey) {
                 this.currentSortDir = this.currentSortDir === 'asc' ? 'desc' : 'asc';
                 this.sortKey = sortKey;

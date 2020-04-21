@@ -3,6 +3,8 @@
 
         <h1>View "{{ support.support_title }}"</h1>
 
+        <a class="btn btn-danger" @click="deleteSupportByClient(support.id)">Delete</a>
+
 
         <div class="form-group">
             <label>Title</label>
@@ -122,6 +124,10 @@
                     .catch(function (response) {
                         alert("Could not update support!");
                     })
+            },
+            deleteSupportByClient(id){
+                this.$store.dispatch('support/deleteSupportByClient' , id);
+                this.$router.go(-1);
             },
         }
     }

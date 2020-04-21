@@ -2154,6 +2154,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "SingleSupportItem",
@@ -2203,6 +2205,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       })["catch"](function (response) {
         alert("Could not update support!");
       });
+    },
+    deleteSupportByClient: function deleteSupportByClient(id) {
+      this.$store.dispatch('support/deleteSupportByClient', id);
+      this.$router.go(-1);
     }
   })
 });
@@ -2225,6 +2231,9 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
 //
 //
 //
@@ -2360,6 +2369,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     updateSupportByClient: function updateSupportByClient(id) {
       this.update(this.updateSupportClient, id);
+    },
+    deleteSupportByClient: function deleteSupportByClient(id) {
+      this.$emit('delete-support-client', id);
+    },
+    deleteSupportByAdmin: function deleteSupportByAdmin(id) {
+      this.$emit('delete-support-admin', id);
     }
   })
 });
@@ -2377,6 +2392,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_common_SupportItem__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../components/common/SupportItem */ "./resources/js/components/common/SupportItem.vue");
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
 //
 //
 //
@@ -2422,12 +2445,21 @@ __webpack_require__.r(__webpack_exports__);
       return _.orderBy(this.supports, 'support_' + this.sortKey, this.currentSortDir);
     }
   },
-  methods: {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])('support', {
+    deleteSupportByClient: 'deleteSupportByClient',
+    deleteSupportByAdmin: 'deleteSupportByAdmin'
+  }), {
+    deleteSupportByClient: function deleteSupportByClient(id) {
+      this.$store.dispatch('support/deleteSupportByClient', id);
+    },
+    deleteSupportByAdmin: function deleteSupportByAdmin(id) {
+      this.$store.dispatch('support/deleteSupportByAdmin', id);
+    },
     sortBy: function sortBy(sortKey) {
       this.currentSortDir = this.currentSortDir === 'asc' ? 'desc' : 'asc';
       this.sortKey = sortKey;
     }
-  }
+  })
 });
 
 /***/ }),
@@ -38137,6 +38169,19 @@ var render = function() {
   return _c("div", { staticClass: "col-md-6" }, [
     _c("h1", [_vm._v('View "' + _vm._s(_vm.support.support_title) + '"')]),
     _vm._v(" "),
+    _c(
+      "a",
+      {
+        staticClass: "btn btn-danger",
+        on: {
+          click: function($event) {
+            return _vm.deleteSupportByClient(_vm.support.id)
+          }
+        }
+      },
+      [_vm._v("Delete")]
+    ),
+    _vm._v(" "),
     _c("div", { staticClass: "form-group" }, [
       _c("label", [_vm._v("Title")]),
       _vm._v(" "),
@@ -38651,7 +38696,20 @@ var render = function() {
                 },
                 [_vm._v("Update")]
               )
-            : _vm._e()
+            : _vm._e(),
+          _vm._v(" "),
+          _c(
+            "a",
+            {
+              staticClass: "btn btn-danger",
+              on: {
+                click: function($event) {
+                  return _vm.deleteSupportByAdmin(_vm.support.id)
+                }
+              }
+            },
+            [_vm._v("Delete")]
+          )
         ])
       : _vm._e(),
     _vm._v(" "),
@@ -38670,7 +38728,20 @@ var render = function() {
                 },
                 [_vm._v("Update")]
               )
-            : _vm._e()
+            : _vm._e(),
+          _vm._v(" "),
+          _c(
+            "a",
+            {
+              staticClass: "btn btn-danger",
+              on: {
+                click: function($event) {
+                  return _vm.deleteSupportByClient(_vm.support.id)
+                }
+              }
+            },
+            [_vm._v("Delete")]
+          )
         ])
       : _vm._e()
   ])
@@ -38728,7 +38799,9 @@ var render = function() {
             on: {
               "update:support": function($event) {
                 support = $event
-              }
+              },
+              "delete-support-client": _vm.deleteSupportByClient,
+              "delete-support-admin": _vm.deleteSupportByAdmin
             }
           })
         }),
@@ -56294,9 +56367,10 @@ __webpack_require__.r(__webpack_exports__);
   fetchSupport: function fetchSupport(context) {
     return new Promise(function (resolve, reject) {
       _services_common_httpService__WEBPACK_IMPORTED_MODULE_0__["default"].get('/admin/supports').then(function (response) {
-        var normalizerSupports = _services_common_normalizerService__WEBPACK_IMPORTED_MODULE_1__["default"].normalize(response.data);
-        context.commit('SET_ADMIN_SUPPORTS', normalizerSupports);
-        resolve(normalizerSupports);
+        var normalizerSupports = _services_common_normalizerService__WEBPACK_IMPORTED_MODULE_1__["default"].normalize(response.data); // console.log(response.data.data);
+
+        context.commit('SET_ADMIN_SUPPORTS', response.data.data);
+        resolve(response.data.data);
       })["catch"](function (err) {
         reject(err);
       });
@@ -56305,9 +56379,10 @@ __webpack_require__.r(__webpack_exports__);
   fetchClientSupport: function fetchClientSupport(context, clientId) {
     return new Promise(function (resolve, reject) {
       _services_common_httpService__WEBPACK_IMPORTED_MODULE_0__["default"].get('/client/support/' + clientId).then(function (response) {
-        var normalizerSupports = _services_common_normalizerService__WEBPACK_IMPORTED_MODULE_1__["default"].normalize(response.data);
-        context.commit('SET_CLIENT_SUPPORTS', normalizerSupports);
-        resolve(normalizerSupports);
+        var normalizerSupports = _services_common_normalizerService__WEBPACK_IMPORTED_MODULE_1__["default"].normalize(response.data); // context.commit('SET_CLIENT_SUPPORTS', normalizerSupports);
+
+        context.commit('SET_CLIENT_SUPPORTS', response.data.data);
+        resolve(response.data.data);
       })["catch"](function (err) {
         alert('It is not your cabinet.');
         reject(err);
@@ -56342,6 +56417,26 @@ __webpack_require__.r(__webpack_exports__);
         resolve(response.data.data);
       })["catch"](function (err) {
         reject(err);
+      });
+    });
+  },
+  deleteSupportByAdmin: function deleteSupportByAdmin(context, id) {
+    return new Promise(function (resolve, reject) {
+      _services_common_httpService__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"]('/admin/supports/' + id).then(function (response) {
+        context.commit('DELETE_SUPPORT_BY_ADMIN', id);
+        resolve(response.data.data);
+      })["catch"](function (error) {
+        reject(error);
+      });
+    });
+  },
+  deleteSupportByClient: function deleteSupportByClient(context, id) {
+    return new Promise(function (resolve, reject) {
+      _services_common_httpService__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"]('/client/supports/' + id).then(function (response) {
+        context.commit('DELETE_SUPPORT_BY_CLIENT', id);
+        return response.data.data;
+      })["catch"](function (error) {
+        reject(error);
       });
     });
   }
@@ -56408,6 +56503,14 @@ function getSupportById(supports, supportId) {
   return result;
 }
 
+function convertToArray(supports) {
+  var result = [];
+  Object.keys(supports).forEach(function (key) {
+    result.push(supports[key]);
+  });
+  return result;
+}
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   SET_CURRENT_CLIENT: function SET_CURRENT_CLIENT(state, user) {
     state.user = user;
@@ -56438,6 +56541,18 @@ function getSupportById(supports, supportId) {
     support.support_status_active = data.status_activities;
     support.support_status_view = data.status_view;
     state.supportClient = support;
+  },
+  DELETE_SUPPORT_BY_ADMIN: function DELETE_SUPPORT_BY_ADMIN(state, id) {
+    var index = state.supportsAdmin.findIndex(function (support) {
+      return support.id === id;
+    });
+    state.supportsAdmin.splice(index, 1);
+  },
+  DELETE_SUPPORT_BY_CLIENT: function DELETE_SUPPORT_BY_CLIENT(state, id) {
+    var index = state.supportsClient.findIndex(function (support) {
+      return support.id === id;
+    });
+    state.supportsClient.splice(index, 1);
   }
 });
 
