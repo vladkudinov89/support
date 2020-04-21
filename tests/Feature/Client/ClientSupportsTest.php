@@ -55,6 +55,25 @@ class ClientSupportsTest extends TestCase
         $this->assertEquals($supports_user[0]->id, $response['data']['id']);
     }
 
+    /** @test */
+    public function client_can_add_support()
+    {
+        $user = factory(User::class)->create(['role' => 'user']);
+
+        $data = [
+            'title' => 'test title',
+            'message' => 'test message',
+            'user_id' => $user->id
+        ];
+
+        $response = $this
+            ->actingAs($user , 'api')
+            ->post('api/v1/client/support' , $data)
+            ->assertStatus(201);
+
+        $this->assertDatabaseHas('supports' , $data);
+    }
+
 
     /** @test */
     public function client_can_update_own_support()

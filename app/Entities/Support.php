@@ -8,7 +8,7 @@ class Support extends Model
 {
     protected $table = 'supports';
 
-    protected $fillable = ['title', 'message', 'status_activities','status_view',];
+    protected $fillable = ['title', 'message', 'status_activities','status_view', 'user_id'];
 
     public const STATUS_VIEWED = 'viewed';
     public const STATUS_UNVIEWED = 'unviewed';

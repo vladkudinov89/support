@@ -10,7 +10,7 @@ use App\Actions\Common\Support\UpdateSupport\UpdateSupportAction;
 use App\Actions\Common\Support\UpdateSupport\UpdateSupportRequest;
 use App\Entities\Support;
 use App\Http\Controllers\Api\ApiController;
-use App\Http\Requests\Support\Common\ValidateUpdateSupportRequest;
+use App\Http\Requests\Support\Common\ValidateSupportRequest;
 
 class SupportController extends ApiController
 {
@@ -53,7 +53,7 @@ class SupportController extends ApiController
         return $this->successResponse($allSupports, 201);
     }
 
-    public function updateSupport(ValidateUpdateSupportRequest $supportRequest, Support $support)
+    public function updateSupport(ValidateSupportRequest $supportRequest, Support $support)
     {
         $updateResponse = $this->updateSupportAction->execute(
             new UpdateSupportRequest(
