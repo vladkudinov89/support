@@ -3,24 +3,32 @@
         <div class="container">
             <div class="row">
 
-                <h1>Welcome to Cabinet</h1>
+                <div class="jumbotron">
+                    <h1 class="display-4">Welcome to Cabinet</h1>
+                    <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+                    <hr class="my-4">
+                    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
 
-                <div v-if="isAdmin == true">
-                    <router-link
-                        class="btn btn-success"
-                        :to="{ name: 'AdminCabinetPage'}"
-                    >Admin Cabinet
-                    </router-link>
+                    <div v-if="isAdmin == true">
+                        <router-link
+                            class="btn btn-primary btn-lg"
+                            :to="{ name: 'AdminCabinetPage'}"
+                        >Admin Cabinet
+                        </router-link>
+                    </div>
+
+                    <div v-else>
+                        <router-link
+                            v-if="user.id"
+                            class="btn btn-primary btn-lg"
+                            :to="{ name: 'ClientCabinetPage' , params: {userId: user.id}}"
+                        >Client Cabinet
+                        </router-link>
+                    </div>
                 </div>
 
-                <div v-else>
-                    <router-link
-                        v-if="user.id"
-                        class="btn btn-success"
-                        :to="{ name: 'ClientCabinetPage' , params: {userId: user.id}}"
-                    >Client Cabinet
-                    </router-link>
-                </div>
+
+
             </div>
         </div>
     </div>

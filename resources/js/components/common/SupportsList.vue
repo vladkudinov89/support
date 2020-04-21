@@ -1,6 +1,6 @@
 <template>
     <div>
-
+        <back></back>
         <table class="table">
             <thead>
             <tr>
@@ -16,8 +16,6 @@
                     v-bind:isAdmin="isAdmin"
                     :key="support.id"
                     :support.sync="support"
-                    v-on:delete-support-client="deleteSupportByClient"
-                    v-on:delete-support-admin="deleteSupportByAdmin"
                 ></support-item>
 
             </tbody>
@@ -27,14 +25,18 @@
 </template>
 
 <script>
+
     import SupportItem from '../../components/common/SupportItem';
-    import {mapState, mapGetters, mapActions} from 'vuex';
+    import Back from '../common/Back';
+    import { mapActions} from 'vuex';
 
     export default {
         name: "SupportsList",
         components: {
-            SupportItem
+            SupportItem,
+            Back
         },
+
         props: ['supports', 'columns', 'isAdmin'],
         data: function () {
             return {
@@ -48,17 +50,6 @@
             },
         },
         methods: {
-            ...mapActions('support', {
-                    deleteSupportByClient: 'deleteSupportByClient',
-                    deleteSupportByAdmin: 'deleteSupportByAdmin',
-                }
-            ),
-            deleteSupportByClient(id){
-                this.$store.dispatch('support/deleteSupportByClient' , id);
-            },
-            deleteSupportByAdmin(id){
-                this.$store.dispatch('support/deleteSupportByAdmin' , id);
-            },
             sortBy: function (sortKey) {
                 this.currentSortDir = this.currentSortDir === 'asc' ? 'desc' : 'asc';
                 this.sortKey = sortKey;

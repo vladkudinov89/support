@@ -1,6 +1,7 @@
 <template>
-    <div class="col-md-6">
 
+    <div class="col-md-6">
+        <back></back>
         <h1>View "{{ support.support_title }}"</h1>
 
         <a class="btn btn-danger" @click="deleteSupportByClient(support.id)">Delete</a>
@@ -67,10 +68,12 @@
 </template>
 
 <script>
+    import Back from "./Back";
     import {mapActions} from "vuex";
 
     export default {
         name: "SingleSupportItem",
+        components: {Back},
         props: ['support'],
         data: function () {
             return {

@@ -28,6 +28,11 @@ export default new Router({
             component: AdminCabinetPage
         },
         {
+            path: '/cabinet/admin/support/:userId/:supportId',
+            name: 'AdminCabinetViewSingleSupportPage',
+            component: ClientCabinetSingleSupportPage
+        },
+        {
             path: '/cabinet/client/:userId',
             name: 'ClientCabinetPage',
             component: ClientCabinetPage
