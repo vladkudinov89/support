@@ -2072,6 +2072,37 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/common/Back.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/common/Back.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "Back",
+  data: function data() {
+    return {
+      text: 'Back'
+    };
+  },
+  methods: {
+    back: function back() {
+      this.$router.go(-1);
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/common/SingleSupportItem.vue?vue&type=script&lang=js&":
 /*!***********************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/common/SingleSupportItem.vue?vue&type=script&lang=js& ***!
@@ -2081,7 +2112,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _Back__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Back */ "./resources/js/components/common/Back.vue");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -2156,9 +2188,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "SingleSupportItem",
+  components: {
+    Back: _Back__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
   props: ['support'],
   data: function data() {
     return {
@@ -2182,7 +2219,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     };
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])('support', {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])('support', {
     updateSupportClient: 'updateSupportByClient'
   }), {
     editSupport: function editSupport() {
@@ -2224,13 +2261,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 //
 //
 //
@@ -2268,115 +2298,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "SupportItem",
-  props: ['support', 'isAdmin'],
-  data: function data() {
-    return {
-      isEditing: false,
-      selectStatus: [{
-        nameParam: 'active'
-      }, {
-        nameParam: 'closed'
-      }],
-      selectView: [{
-        nameParam: 'viewed'
-      }, {
-        nameParam: 'unviewed'
-      }],
-      currentSupport: {
-        id: this.support.id,
-        title: this.support.support_title,
-        message: this.support.support_message,
-        status: this.support.support_status_active,
-        viewed: this.support.support_status_view
-      }
-    };
-  },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])('support', {
-    updateSupport: 'updateSupportByAdmin',
-    updateSupportClient: 'updateSupportByClient'
-  }), {
-    editSupport: function editSupport() {
-      this.isEditing = true;
-    },
-    update: function update(updateWay, id) {
-      var _this = this;
-
-      updateWay({
-        id: id,
-        title: this.currentSupport.title,
-        message: this.currentSupport.message,
-        status_activities: this.currentSupport.status,
-        status_view: this.currentSupport.viewed
-      }).then(function (result) {
-        _this.isEditing = false;
-      })["catch"](function (response) {
-        alert("Could not update support!");
-      });
-    },
-    updateSupportByAdmin: function updateSupportByAdmin(id) {
-      var _this2 = this;
-
-      this.updateSupport({
-        id: id,
-        title: this.currentSupport.title,
-        message: this.currentSupport.message,
-        status_activities: this.currentSupport.status,
-        status_view: this.currentSupport.viewed
-      }).then(function (result) {
-        _this2.isEditing = false;
-      })["catch"](function (response) {
-        alert("Could not update support!");
-      });
-    },
-    updateSupportByClient: function updateSupportByClient(id) {
-      this.update(this.updateSupportClient, id);
-    },
-    deleteSupportByClient: function deleteSupportByClient(id) {
-      this.$emit('delete-support-client', id);
-    },
-    deleteSupportByAdmin: function deleteSupportByAdmin(id) {
-      this.$emit('delete-support-admin', id);
-    }
-  })
+  props: ['support', 'isAdmin']
 });
 
 /***/ }),
@@ -2391,47 +2315,42 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_common_SupportItem__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../components/common/SupportItem */ "./resources/js/components/common/SupportItem.vue");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+/* harmony import */ var _common_Back__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../common/Back */ "./resources/js/components/common/Back.vue");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "SupportsList",
   components: {
-    SupportItem: _components_common_SupportItem__WEBPACK_IMPORTED_MODULE_0__["default"]
+    SupportItem: _components_common_SupportItem__WEBPACK_IMPORTED_MODULE_0__["default"],
+    Back: _common_Back__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   props: ['supports', 'columns', 'isAdmin'],
   data: function data() {
@@ -2445,21 +2364,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return _.orderBy(this.supports, 'support_' + this.sortKey, this.currentSortDir);
     }
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])('support', {
-    deleteSupportByClient: 'deleteSupportByClient',
-    deleteSupportByAdmin: 'deleteSupportByAdmin'
-  }), {
-    deleteSupportByClient: function deleteSupportByClient(id) {
-      this.$store.dispatch('support/deleteSupportByClient', id);
-    },
-    deleteSupportByAdmin: function deleteSupportByAdmin(id) {
-      this.$store.dispatch('support/deleteSupportByAdmin', id);
-    },
+  methods: {
     sortBy: function sortBy(sortKey) {
       this.currentSortDir = this.currentSortDir === 'asc' ? 'desc' : 'asc';
       this.sortKey = sortKey;
     }
-  })
+  }
 });
 
 /***/ }),
@@ -2540,6 +2450,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "CabinetPage",
@@ -2565,6 +2483,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_cabinet_client_ClientCabinetComponent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/cabinet/client/ClientCabinetComponent */ "./resources/js/components/cabinet/client/ClientCabinetComponent.vue");
+//
 //
 //
 //
@@ -38151,6 +38070,43 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/common/Back.vue?vue&type=template&id=29efdfa0&scoped=true&":
+/*!**************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/common/Back.vue?vue&type=template&id=29efdfa0&scoped=true& ***!
+  \**************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c(
+      "a",
+      {
+        staticClass: "btn btn-info",
+        on: {
+          click: function($event) {
+            return _vm.back()
+          }
+        }
+      },
+      [_vm._v(_vm._s(this.text))]
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/common/SingleSupportItem.vue?vue&type=template&id=d70bc1be&scoped=true&":
 /*!***************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/common/SingleSupportItem.vue?vue&type=template&id=d70bc1be&scoped=true& ***!
@@ -38166,263 +38122,274 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "col-md-6" }, [
-    _c("h1", [_vm._v('View "' + _vm._s(_vm.support.support_title) + '"')]),
-    _vm._v(" "),
-    _c(
-      "a",
-      {
-        staticClass: "btn btn-danger",
-        on: {
-          click: function($event) {
-            return _vm.deleteSupportByClient(_vm.support.id)
+  return _c(
+    "div",
+    { staticClass: "col-md-6" },
+    [
+      _c("back"),
+      _vm._v(" "),
+      _c("h1", [_vm._v('View "' + _vm._s(_vm.support.support_title) + '"')]),
+      _vm._v(" "),
+      _c(
+        "a",
+        {
+          staticClass: "btn btn-danger",
+          on: {
+            click: function($event) {
+              return _vm.deleteSupportByClient(_vm.support.id)
+            }
           }
-        }
-      },
-      [_vm._v("Delete")]
-    ),
-    _vm._v(" "),
-    _c("div", { staticClass: "form-group" }, [
-      _c("label", [_vm._v("Title")]),
+        },
+        [_vm._v("Delete")]
+      ),
       _vm._v(" "),
-      !_vm.isEditing
-        ? _c("input", {
-            staticClass: "form-control",
-            attrs: { type: "text", placeholder: "Title", readonly: "" },
-            domProps: { value: _vm.support.support_title }
-          })
-        : _vm._e(),
-      _vm._v(" "),
-      _vm.isEditing
-        ? _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.currentSingleSupport.title,
-                expression: "currentSingleSupport.title"
-              }
-            ],
-            staticClass: "form-control",
-            attrs: { type: "text", placeholder: "Title" },
-            domProps: { value: _vm.currentSingleSupport.title },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
+      _c("div", { staticClass: "form-group" }, [
+        _c("label", [_vm._v("Title")]),
+        _vm._v(" "),
+        !_vm.isEditing
+          ? _c("input", {
+              staticClass: "form-control",
+              attrs: { type: "text", placeholder: "Title", readonly: "" },
+              domProps: { value: _vm.support.support_title }
+            })
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.isEditing
+          ? _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.currentSingleSupport.title,
+                  expression: "currentSingleSupport.title"
                 }
-                _vm.$set(_vm.currentSingleSupport, "title", $event.target.value)
-              }
-            }
-          })
-        : _vm._e()
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "form-group" }, [
-      _c("label", [_vm._v("Message")]),
-      _vm._v(" "),
-      !_vm.isEditing
-        ? _c("textarea", {
-            staticClass: "form-control",
-            attrs: { rows: "3", readonly: "" },
-            domProps: { value: _vm.support.support_message }
-          })
-        : _vm._e(),
-      _vm._v(" "),
-      _vm.isEditing
-        ? _c("textarea", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.currentSingleSupport.message,
-                expression: "currentSingleSupport.message"
-              }
-            ],
-            staticClass: "form-control",
-            attrs: { rows: "3" },
-            domProps: { value: _vm.currentSingleSupport.message },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
+              ],
+              staticClass: "form-control",
+              attrs: { type: "text", placeholder: "Title" },
+              domProps: { value: _vm.currentSingleSupport.title },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(
+                    _vm.currentSingleSupport,
+                    "title",
+                    $event.target.value
+                  )
                 }
-                _vm.$set(
-                  _vm.currentSingleSupport,
-                  "message",
-                  $event.target.value
+              }
+            })
+          : _vm._e()
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group" }, [
+        _c("label", [_vm._v("Message")]),
+        _vm._v(" "),
+        !_vm.isEditing
+          ? _c("textarea", {
+              staticClass: "form-control",
+              attrs: { rows: "3", readonly: "" },
+              domProps: { value: _vm.support.support_message }
+            })
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.isEditing
+          ? _c("textarea", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.currentSingleSupport.message,
+                  expression: "currentSingleSupport.message"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { rows: "3" },
+              domProps: { value: _vm.currentSingleSupport.message },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(
+                    _vm.currentSingleSupport,
+                    "message",
+                    $event.target.value
+                  )
+                }
+              }
+            })
+          : _vm._e()
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group" }, [
+        _c("label", [_vm._v("Status Active")]),
+        _vm._v(" "),
+        !_vm.isEditing
+          ? _c("input", {
+              staticClass: "form-control",
+              attrs: { readonly: "" },
+              domProps: { value: _vm.support.support_status_active }
+            })
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.isEditing
+          ? _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.currentSingleSupport.status,
+                    expression: "currentSingleSupport.status"
+                  }
+                ],
+                staticClass: "custom-select",
+                on: {
+                  change: function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.$set(
+                      _vm.currentSingleSupport,
+                      "status",
+                      $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                    )
+                  }
+                }
+              },
+              _vm._l(_vm.selectStatus, function(selStatus, index) {
+                return _c(
+                  "option",
+                  { key: index, domProps: { value: selStatus.nameParam } },
+                  [
+                    _vm._v(
+                      "\n                " +
+                        _vm._s(selStatus.nameParam) +
+                        "\n            "
+                    )
+                  ]
                 )
-              }
-            }
-          })
-        : _vm._e()
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "form-group" }, [
-      _c("label", [_vm._v("Status Active")]),
+              }),
+              0
+            )
+          : _vm._e()
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group" }, [
+        _c("label", [_vm._v("Status Viewed")]),
+        _vm._v(" "),
+        !_vm.isEditing
+          ? _c("input", {
+              staticClass: "form-control",
+              attrs: { readonly: "" },
+              domProps: { value: _vm.support.support_status_view }
+            })
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.isEditing
+          ? _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.currentSingleSupport.viewed,
+                    expression: "currentSingleSupport.viewed"
+                  }
+                ],
+                staticClass: "custom-select",
+                on: {
+                  change: function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.$set(
+                      _vm.currentSingleSupport,
+                      "viewed",
+                      $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                    )
+                  }
+                }
+              },
+              _vm._l(_vm.selectView, function(selView, index) {
+                return _c(
+                  "option",
+                  { key: index, domProps: { value: selView.nameParam } },
+                  [
+                    _vm._v(
+                      "\n                " +
+                        _vm._s(selView.nameParam) +
+                        "\n            "
+                    )
+                  ]
+                )
+              }),
+              0
+            )
+          : _vm._e()
+      ]),
       _vm._v(" "),
       !_vm.isEditing
-        ? _c("input", {
-            staticClass: "form-control",
-            attrs: { readonly: "" },
-            domProps: { value: _vm.support.support_status_active }
-          })
+        ? _c(
+            "a",
+            {
+              staticClass: "btn btn-warning",
+              on: {
+                click: function($event) {
+                  return _vm.editSupport()
+                }
+              }
+            },
+            [_vm._v("Edit\n    ")]
+          )
         : _vm._e(),
       _vm._v(" "),
       _vm.isEditing
         ? _c(
-            "select",
+            "a",
             {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.currentSingleSupport.status,
-                  expression: "currentSingleSupport.status"
-                }
-              ],
-              staticClass: "custom-select",
+              staticClass: "btn btn-success",
               on: {
-                change: function($event) {
-                  var $$selectedVal = Array.prototype.filter
-                    .call($event.target.options, function(o) {
-                      return o.selected
-                    })
-                    .map(function(o) {
-                      var val = "_value" in o ? o._value : o.value
-                      return val
-                    })
-                  _vm.$set(
-                    _vm.currentSingleSupport,
-                    "status",
-                    $event.target.multiple ? $$selectedVal : $$selectedVal[0]
-                  )
+                click: function($event) {
+                  return _vm.update(_vm.support.id)
                 }
               }
             },
-            _vm._l(_vm.selectStatus, function(selStatus, index) {
-              return _c(
-                "option",
-                { key: index, domProps: { value: selStatus.nameParam } },
-                [
-                  _vm._v(
-                    "\n                " +
-                      _vm._s(selStatus.nameParam) +
-                      "\n            "
-                  )
-                ]
-              )
-            }),
-            0
+            [_vm._v("Update\n    ")]
           )
-        : _vm._e()
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "form-group" }, [
-      _c("label", [_vm._v("Status Viewed")]),
-      _vm._v(" "),
-      !_vm.isEditing
-        ? _c("input", {
-            staticClass: "form-control",
-            attrs: { readonly: "" },
-            domProps: { value: _vm.support.support_status_view }
-          })
         : _vm._e(),
       _vm._v(" "),
       _vm.isEditing
         ? _c(
-            "select",
+            "a",
             {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.currentSingleSupport.viewed,
-                  expression: "currentSingleSupport.viewed"
-                }
-              ],
-              staticClass: "custom-select",
+              staticClass: "btn btn-danger",
               on: {
-                change: function($event) {
-                  var $$selectedVal = Array.prototype.filter
-                    .call($event.target.options, function(o) {
-                      return o.selected
-                    })
-                    .map(function(o) {
-                      var val = "_value" in o ? o._value : o.value
-                      return val
-                    })
-                  _vm.$set(
-                    _vm.currentSingleSupport,
-                    "viewed",
-                    $event.target.multiple ? $$selectedVal : $$selectedVal[0]
-                  )
+                click: function($event) {
+                  return _vm.cancelEditSupport()
                 }
               }
             },
-            _vm._l(_vm.selectView, function(selView, index) {
-              return _c(
-                "option",
-                { key: index, domProps: { value: selView.nameParam } },
-                [
-                  _vm._v(
-                    "\n                " +
-                      _vm._s(selView.nameParam) +
-                      "\n            "
-                  )
-                ]
-              )
-            }),
-            0
+            [_vm._v("Cancel\n    ")]
           )
         : _vm._e()
-    ]),
-    _vm._v(" "),
-    !_vm.isEditing
-      ? _c(
-          "a",
-          {
-            staticClass: "btn btn-warning",
-            on: {
-              click: function($event) {
-                return _vm.editSupport()
-              }
-            }
-          },
-          [_vm._v("Edit\n    ")]
-        )
-      : _vm._e(),
-    _vm._v(" "),
-    _vm.isEditing
-      ? _c(
-          "a",
-          {
-            staticClass: "btn btn-success",
-            on: {
-              click: function($event) {
-                return _vm.update(_vm.support.id)
-              }
-            }
-          },
-          [_vm._v("Update\n    ")]
-        )
-      : _vm._e(),
-    _vm._v(" "),
-    _vm.isEditing
-      ? _c(
-          "a",
-          {
-            staticClass: "btn btn-danger",
-            on: {
-              click: function($event) {
-                return _vm.cancelEditSupport()
-              }
-            }
-          },
-          [_vm._v("Cancel\n    ")]
-        )
-      : _vm._e()
-  ])
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -38447,171 +38414,13 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("tr", [
-    !_vm.isEditing
-      ? _c("td", [_vm._v(_vm._s(_vm.support.support_title))])
-      : _vm._e(),
+    _c("td", [_vm._v(_vm._s(_vm.support.support_title))]),
     _vm._v(" "),
-    _vm.isEditing
-      ? _c("td", [
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.currentSupport.title,
-                expression: "currentSupport.title"
-              }
-            ],
-            attrs: { type: "text" },
-            domProps: { value: _vm.currentSupport.title },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.currentSupport, "title", $event.target.value)
-              }
-            }
-          })
-        ])
-      : _vm._e(),
+    _c("td", [_vm._v(_vm._s(_vm.support.support_message))]),
     _vm._v(" "),
-    !_vm.isEditing
-      ? _c("td", [_vm._v(_vm._s(_vm.support.support_message))])
-      : _vm._e(),
+    _c("td", [_vm._v(_vm._s(_vm.support.support_status_active))]),
     _vm._v(" "),
-    _vm.isEditing
-      ? _c("td", [
-          _c("textarea", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.currentSupport.message,
-                expression: "currentSupport.message"
-              }
-            ],
-            staticClass: "form-control",
-            domProps: { value: _vm.currentSupport.message },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.currentSupport, "message", $event.target.value)
-              }
-            }
-          })
-        ])
-      : _vm._e(),
-    _vm._v(" "),
-    !_vm.isEditing
-      ? _c("td", [_vm._v(_vm._s(_vm.support.support_status_active))])
-      : _vm._e(),
-    _vm._v(" "),
-    _vm.isEditing
-      ? _c("td", [
-          _c(
-            "select",
-            {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.currentSupport.status,
-                  expression: "currentSupport.status"
-                }
-              ],
-              staticClass: "custom-select",
-              on: {
-                change: function($event) {
-                  var $$selectedVal = Array.prototype.filter
-                    .call($event.target.options, function(o) {
-                      return o.selected
-                    })
-                    .map(function(o) {
-                      var val = "_value" in o ? o._value : o.value
-                      return val
-                    })
-                  _vm.$set(
-                    _vm.currentSupport,
-                    "status",
-                    $event.target.multiple ? $$selectedVal : $$selectedVal[0]
-                  )
-                }
-              }
-            },
-            _vm._l(_vm.selectStatus, function(selStatus, index) {
-              return _c(
-                "option",
-                { key: index, domProps: { value: selStatus.nameParam } },
-                [
-                  _vm._v(
-                    "\n                " +
-                      _vm._s(selStatus.nameParam) +
-                      "\n            "
-                  )
-                ]
-              )
-            }),
-            0
-          )
-        ])
-      : _vm._e(),
-    _vm._v(" "),
-    !_vm.isEditing
-      ? _c("td", [_vm._v(_vm._s(_vm.support.support_status_view))])
-      : _vm._e(),
-    _vm._v(" "),
-    _vm.isEditing
-      ? _c("td", [
-          _c(
-            "select",
-            {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.currentSupport.viewed,
-                  expression: "currentSupport.viewed"
-                }
-              ],
-              staticClass: "custom-select",
-              on: {
-                change: function($event) {
-                  var $$selectedVal = Array.prototype.filter
-                    .call($event.target.options, function(o) {
-                      return o.selected
-                    })
-                    .map(function(o) {
-                      var val = "_value" in o ? o._value : o.value
-                      return val
-                    })
-                  _vm.$set(
-                    _vm.currentSupport,
-                    "viewed",
-                    $event.target.multiple ? $$selectedVal : $$selectedVal[0]
-                  )
-                }
-              }
-            },
-            _vm._l(_vm.selectView, function(selView, index) {
-              return _c(
-                "option",
-                { key: index, domProps: { value: selView.nameParam } },
-                [
-                  _vm._v(
-                    "\n                " +
-                      _vm._s(selView.nameParam) +
-                      "\n            "
-                  )
-                ]
-              )
-            }),
-            0
-          )
-        ])
-      : _vm._e(),
+    _c("td", [_vm._v(_vm._s(_vm.support.support_status_view))]),
     _vm._v(" "),
     _c("td", [_vm._v(_vm._s(_vm.support.support_user_name))]),
     _vm._v(" "),
@@ -38626,8 +38435,11 @@ var render = function() {
                   staticClass: "btn btn-success",
                   attrs: {
                     to: {
-                      name: "ClientCabinetPage",
-                      params: { userId: _vm.support.support_user_id }
+                      name: "AdminCabinetViewSingleSupportPage",
+                      params: {
+                        userId: _vm.support.support_user_id,
+                        supportId: _vm.support.id
+                      }
                     }
                   }
                 },
@@ -38664,85 +38476,6 @@ var render = function() {
             1
           )
         ])
-      : _vm._e(),
-    _vm._v(" "),
-    !_vm.isEditing
-      ? _c(
-          "a",
-          {
-            staticClass: "btn btn-warning",
-            on: {
-              click: function($event) {
-                return _vm.editSupport()
-              }
-            }
-          },
-          [_vm._v("Edit\n    ")]
-        )
-      : _vm._e(),
-    _vm._v(" "),
-    _vm.isAdmin
-      ? _c("div", [
-          _vm.isEditing
-            ? _c(
-                "a",
-                {
-                  staticClass: "btn btn-primary",
-                  on: {
-                    click: function($event) {
-                      return _vm.updateSupportByAdmin(_vm.support.id)
-                    }
-                  }
-                },
-                [_vm._v("Update")]
-              )
-            : _vm._e(),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass: "btn btn-danger",
-              on: {
-                click: function($event) {
-                  return _vm.deleteSupportByAdmin(_vm.support.id)
-                }
-              }
-            },
-            [_vm._v("Delete")]
-          )
-        ])
-      : _vm._e(),
-    _vm._v(" "),
-    !_vm.isAdmin
-      ? _c("div", [
-          _vm.isEditing
-            ? _c(
-                "a",
-                {
-                  staticClass: "btn btn-primary",
-                  on: {
-                    click: function($event) {
-                      return _vm.updateSupportByClient(_vm.support.id)
-                    }
-                  }
-                },
-                [_vm._v("Update")]
-              )
-            : _vm._e(),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass: "btn btn-danger",
-              on: {
-                click: function($event) {
-                  return _vm.deleteSupportByClient(_vm.support.id)
-                }
-              }
-            },
-            [_vm._v("Delete")]
-          )
-        ])
       : _vm._e()
   ])
 }
@@ -38768,47 +38501,55 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("table", { staticClass: "table" }, [
-      _c("thead", [
-        _c(
-          "tr",
-          _vm._l(_vm.columns, function(column) {
-            return _c(
-              "th",
-              {
-                on: {
-                  click: function($event) {
-                    return _vm.sortBy(column)
-                  }
-                }
-              },
-              [_vm._v("\n                " + _vm._s(column) + "\n            ")]
-            )
-          }),
-          0
-        )
-      ]),
+  return _c(
+    "div",
+    [
+      _c("back"),
       _vm._v(" "),
-      _c(
-        "tbody",
-        _vm._l(_vm.supportItems, function(support, index) {
-          return _c("support-item", {
-            key: support.id,
-            attrs: { isAdmin: _vm.isAdmin, support: support },
-            on: {
-              "update:support": function($event) {
-                support = $event
-              },
-              "delete-support-client": _vm.deleteSupportByClient,
-              "delete-support-admin": _vm.deleteSupportByAdmin
-            }
-          })
-        }),
-        1
-      )
-    ])
-  ])
+      _c("table", { staticClass: "table" }, [
+        _c("thead", [
+          _c(
+            "tr",
+            _vm._l(_vm.columns, function(column) {
+              return _c(
+                "th",
+                {
+                  on: {
+                    click: function($event) {
+                      return _vm.sortBy(column)
+                    }
+                  }
+                },
+                [
+                  _vm._v(
+                    "\n                " + _vm._s(column) + "\n            "
+                  )
+                ]
+              )
+            }),
+            0
+          )
+        ]),
+        _vm._v(" "),
+        _c(
+          "tbody",
+          _vm._l(_vm.supportItems, function(support, index) {
+            return _c("support-item", {
+              key: support.id,
+              attrs: { isAdmin: _vm.isAdmin, support: support },
+              on: {
+                "update:support": function($event) {
+                  support = $event
+                }
+              }
+            })
+          }),
+          1
+        )
+      ])
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -38871,44 +38612,62 @@ var render = function() {
   return _c("div", [
     _c("div", { staticClass: "container" }, [
       _c("div", { staticClass: "row" }, [
-        _c("h1", [_vm._v("Welcome to Cabinet")]),
-        _vm._v(" "),
-        _vm.isAdmin == true
-          ? _c(
-              "div",
-              [
-                _c(
-                  "router-link",
-                  {
-                    staticClass: "btn btn-success",
-                    attrs: { to: { name: "AdminCabinetPage" } }
-                  },
-                  [_vm._v("Admin Cabinet\n                ")]
-                )
-              ],
-              1
+        _c("div", { staticClass: "jumbotron" }, [
+          _c("h1", { staticClass: "display-4" }, [
+            _vm._v("Welcome to Cabinet")
+          ]),
+          _vm._v(" "),
+          _c("p", { staticClass: "lead" }, [
+            _vm._v(
+              "This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information."
             )
-          : _c(
-              "div",
-              [
-                _vm.user.id
-                  ? _c(
-                      "router-link",
-                      {
-                        staticClass: "btn btn-success",
-                        attrs: {
-                          to: {
-                            name: "ClientCabinetPage",
-                            params: { userId: _vm.user.id }
+          ]),
+          _vm._v(" "),
+          _c("hr", { staticClass: "my-4" }),
+          _vm._v(" "),
+          _c("p", [
+            _vm._v(
+              "It uses utility classes for typography and spacing to space content out within the larger container."
+            )
+          ]),
+          _vm._v(" "),
+          _vm.isAdmin == true
+            ? _c(
+                "div",
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "btn btn-primary btn-lg",
+                      attrs: { to: { name: "AdminCabinetPage" } }
+                    },
+                    [_vm._v("Admin Cabinet\n                    ")]
+                  )
+                ],
+                1
+              )
+            : _c(
+                "div",
+                [
+                  _vm.user.id
+                    ? _c(
+                        "router-link",
+                        {
+                          staticClass: "btn btn-primary btn-lg",
+                          attrs: {
+                            to: {
+                              name: "ClientCabinetPage",
+                              params: { userId: _vm.user.id }
+                            }
                           }
-                        }
-                      },
-                      [_vm._v("Client Cabinet\n                ")]
-                    )
-                  : _vm._e()
-              ],
-              1
-            )
+                        },
+                        [_vm._v("Client Cabinet\n                    ")]
+                      )
+                    : _vm._e()
+                ],
+                1
+              )
+        ])
       ])
     ])
   ])
@@ -55612,6 +55371,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/common/Back.vue":
+/*!*************************************************!*\
+  !*** ./resources/js/components/common/Back.vue ***!
+  \*************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Back_vue_vue_type_template_id_29efdfa0_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Back.vue?vue&type=template&id=29efdfa0&scoped=true& */ "./resources/js/components/common/Back.vue?vue&type=template&id=29efdfa0&scoped=true&");
+/* harmony import */ var _Back_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Back.vue?vue&type=script&lang=js& */ "./resources/js/components/common/Back.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Back_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Back_vue_vue_type_template_id_29efdfa0_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Back_vue_vue_type_template_id_29efdfa0_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "29efdfa0",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/common/Back.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/common/Back.vue?vue&type=script&lang=js&":
+/*!**************************************************************************!*\
+  !*** ./resources/js/components/common/Back.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Back_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Back.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/common/Back.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Back_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/common/Back.vue?vue&type=template&id=29efdfa0&scoped=true&":
+/*!********************************************************************************************!*\
+  !*** ./resources/js/components/common/Back.vue?vue&type=template&id=29efdfa0&scoped=true& ***!
+  \********************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Back_vue_vue_type_template_id_29efdfa0_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Back.vue?vue&type=template&id=29efdfa0&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/common/Back.vue?vue&type=template&id=29efdfa0&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Back_vue_vue_type_template_id_29efdfa0_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Back_vue_vue_type_template_id_29efdfa0_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/common/SingleSupportItem.vue":
 /*!**************************************************************!*\
   !*** ./resources/js/components/common/SingleSupportItem.vue ***!
@@ -56139,6 +55967,10 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
     path: '/cabinet/admin',
     name: 'AdminCabinetPage',
     component: _pages_AdminCabinetPage__WEBPACK_IMPORTED_MODULE_4__["default"]
+  }, {
+    path: '/cabinet/admin/support/:userId/:supportId',
+    name: 'AdminCabinetViewSingleSupportPage',
+    component: _pages_ClientCabinetSingleSupportPage__WEBPACK_IMPORTED_MODULE_6__["default"]
   }, {
     path: '/cabinet/client/:userId',
     name: 'ClientCabinetPage',
