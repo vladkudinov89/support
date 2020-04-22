@@ -3,6 +3,10 @@
         <div class="container">
             <div class="row">
 
+                <add-support-by-client
+                    v-bind:user="user"
+                ></add-support-by-client>
+
                 <supports-list
                     v-bind:supports="supports"
                     v-bind:columns="columns"
@@ -14,13 +18,15 @@
 </template>
 
 <script>
-    import {mapState, mapGetters, mapActions} from 'vuex';
+    import {mapState} from 'vuex';
     import SupportsList from "../../common/SupportsList";
+    import AddSupportByClient from  "../client/AddSupportByClient";
 
     export default {
         name: "ClientCabinetComponent",
         components: {
-            SupportsList
+            SupportsList,
+            AddSupportByClient
         },
         data: function () {
             return {
@@ -29,13 +35,15 @@
         },
         computed: {
             ...mapState('support', {
-                supports: 'supportsClient'
+                supports: 'supportsClient',
+                user: 'user'
             }),
         },
         created() {
             const clientId = this.$route.params.userId;
 
             this.$store.dispatch('support/fetchClientSupport' , clientId);
+            this.$store.dispatch('support/fetchUser');
         },
 
     }

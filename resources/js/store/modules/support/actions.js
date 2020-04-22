@@ -8,7 +8,6 @@ export default {
             httpService.get('/user/account')
                 .then((response) => {
                     let normalizerUser = Object.assign(response.data.data, {});
-                    // console.log(normalizerUser.id);
                     context.commit('SET_CURRENT_CLIENT', normalizerUser);
                     resolve(normalizerUser);
                 })
@@ -37,7 +36,6 @@ export default {
             httpService.get('/admin/supports')
                 .then((response) => {
                     let normalizerSupports = normalizerService.normalize(response.data);
-                    // console.log(response.data.data);
                     context.commit('SET_ADMIN_SUPPORTS', response.data.data);
                     resolve(response.data.data);
                 }).catch(function (err) {
@@ -74,7 +72,17 @@ export default {
         });
     },
 
-
+    AddClientSupport: (context , data) => {
+        return new Promise((resolve , reject) => {
+            httpService.post(`/client/support` , data)
+                .then((response) => {
+                    context.commit('ADD_SUPPORT_BY_CLIENT' , response.data.data);
+                    resolve(response.data.data);
+                }).catch(function (err) {
+                reject(err);
+            });
+        });
+    },
 
     updateSupportByAdmin: (context, data) => {
         return new Promise((resolve , reject) => {

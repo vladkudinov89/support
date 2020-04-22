@@ -44,6 +44,10 @@ export default {
         state.supportClient = support;
     },
 
+    ADD_SUPPORT_BY_CLIENT: (state , support) => {
+        state.supportsClient.push(support);
+    },
+
     UPDATE_SUPPORT_BY_ADMIN: (state, data) => {
         let support = getSupportById(state.supportsAdmin, data.id);
         support.support_title = data.title;

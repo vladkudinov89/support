@@ -14,10 +14,9 @@ use App\Actions\Common\Support\UpdateSupport\UpdateSupportAction;
 use App\Actions\Common\Support\UpdateSupport\UpdateSupportRequest;
 use App\Actions\Support\GetAllSupports\Client\GetAllSupportsAction;
 use App\Entities\Support;
-use App\Entities\User;
 use App\Http\Controllers\Api\ApiController;
+use App\Http\Requests\Support\Common\ValidateAddSupportRequest;
 use App\Http\Requests\Support\Common\ValidateSupportRequest;
-use Illuminate\Support\Facades\Auth;
 
 class SupportController extends ApiController
 {
@@ -80,7 +79,7 @@ class SupportController extends ApiController
         return $this->successResponse(GetSingleSupportPresenter::present($support->toArray()), 201);
     }
 
-    public function addSupport(ValidateSupportRequest $supportRequest)
+    public function addSupport(ValidateAddSupportRequest $supportRequest)
     {
        $addSupport = $this->addSupportAction->excecute(new AddSupportRequest(
            $supportRequest->title,
