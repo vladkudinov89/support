@@ -68,6 +68,17 @@ Route::prefix('v1')->group(function () {
                 Route::get('/account', 'AccountController@index')->name('account');
             });
 
+        Route::group(
+            [
+                'prefix' => 'review',
+                'as' => 'review.',
+                'namespace' => 'Review',
+                'middleware' => ['auth:api'],
+            ],
+            function () {
+                Route::get('{user_id}/{support_id}', 'ReviewController@getCurrentReviewBySupport');
+            });
+
 
     });
 
