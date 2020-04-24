@@ -16,4 +16,11 @@ class ReviewRepository implements ReviewRepositoryInterface
             ->get();
     }
 
+    public function save(Review $review): Review
+    {
+        $review->save();
+
+        return $review;
+    }
+
 }

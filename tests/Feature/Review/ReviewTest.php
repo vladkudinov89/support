@@ -33,7 +33,7 @@ class ReviewTest extends TestCase
 
         $response = $this
             ->actingAs($user, 'api')
-            ->get('api/v1/review/'. $support->id)
+            ->get('api/v1/review/' . $support->id)
             ->assertStatus(201);
 
         $this->checkJsonStructure($response);
@@ -50,6 +50,28 @@ class ReviewTest extends TestCase
             $this->assertEquals($reviewsAdmin[$i]->user->role, $response['data'][$i]['user_role']);
         }
     }
+
+    /** @test */
+    public function client_can_add_review_to_support()
+    {
+        $user = factory(User::class)->create(['role' => 'user']);
+
+        $support = factory(Support::class)->create(['user_id' => $user->id]);
+
+        $data = [
+            'user_id' => $user->id,
+            'support_id' => $support->id,
+            'description' => 'test description'
+        ];
+
+        $response = $this
+            ->actingAs($user, 'api')
+            ->post('api/v1/review/' . $user->id . '/' . $support->id, $data)
+            ->assertStatus(201);
+
+        $this->assertDatabaseHas('reviews' , $data);
+    }
+
 
     public function checkJsonStructure($response)
     {
