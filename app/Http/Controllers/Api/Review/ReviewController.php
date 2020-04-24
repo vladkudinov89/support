@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Review;
 
 
 use App\Actions\Review\AddReviewToCurrentSupport\AddReviewToCurrentSupportAction;
+use App\Actions\Review\AddReviewToCurrentSupport\AddReviewToCurrentSupportPresenter;
 use App\Actions\Review\AddReviewToCurrentSupport\AddReviewToCurrentSupportRequest;
 use App\Actions\Review\GetReviewByCurrentSupport\GetReviewByCurrentSupportAction;
 use App\Actions\Review\GetReviewByCurrentSupport\GetReviewByCurrentSupportPresenter;
@@ -59,6 +60,8 @@ class ReviewController extends ApiController
             )
         );
 
-        return $this->successResponse($newReview->toArray(), 201);
+        return $this->successResponse(
+            AddReviewToCurrentSupportPresenter::presenter($newReview->getReview()),
+           201);
     }
 }

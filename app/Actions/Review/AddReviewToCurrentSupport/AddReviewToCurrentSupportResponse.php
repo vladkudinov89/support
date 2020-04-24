@@ -21,6 +21,14 @@ class AddReviewToCurrentSupportResponse
         $this->review = $review;
     }
 
+    /**
+     * @return Review
+     */
+    public function getReview(): Review
+    {
+        return $this->review;
+    }
+
     public function toArray(): array
     {
         return $this->review->toArray();
