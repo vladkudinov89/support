@@ -2511,11 +2511,32 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "AddReview",
+  data: function data() {
+    return {
+      newReview: {
+        description: '',
+        user_id: '',
+        support_id: ''
+      }
+    };
+  },
   methods: {
     openReviewForm: function openReviewForm() {},
-    closeAddReview: function closeAddReview() {}
+    clearReview: function clearReview() {
+      this.newReview.description = '';
+    },
+    addReview: function addReview() {
+      var _this = this;
+
+      this.newReview.user_id = parseInt(this.$route.params.userId);
+      this.newReview.support_id = parseInt(this.$route.params.supportId);
+      this.$store.dispatch('support/addReviewToSupport', this.newReview).then(function (response) {
+        _this.clearReview();
+      });
+    }
   }
 });
 
@@ -2532,7 +2553,6 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
-//
 //
 //
 //
@@ -56966,18 +56986,35 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("div", { staticClass: "col-md-6" }, [
+    _c("div", { staticClass: "col-md-6 mb-3" }, [
       _c("div", { staticClass: "well well-sm" }, [
         _c("div", { staticClass: "row", attrs: { id: "post-review-box" } }, [
           _c("div", { staticClass: "col-md-12" }, [
             _c("textarea", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.newReview.description,
+                  expression: "newReview.description"
+                }
+              ],
               staticClass: "form-control animated",
               attrs: {
                 cols: "50",
                 id: "new-review",
                 name: "comment",
                 placeholder: "Enter your review here...",
-                rows: "5"
+                rows: "3"
+              },
+              domProps: { value: _vm.newReview.description },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.newReview, "description", $event.target.value)
+                }
               }
             }),
             _vm._v(" "),
@@ -56988,7 +57025,7 @@ var render = function() {
                   staticClass: "btn btn-danger",
                   staticStyle: { "margin-right": "10px" },
                   attrs: { id: "close-review-box" },
-                  on: { click: _vm.closeAddReview }
+                  on: { click: _vm.clearReview }
                 },
                 [
                   _vm._v(
@@ -56997,9 +57034,14 @@ var render = function() {
                 ]
               ),
               _vm._v(" "),
-              _c("a", { staticClass: "btn btn-success" }, [
-                _vm._v("Add Review")
-              ])
+              _c(
+                "a",
+                {
+                  staticClass: "btn btn-success",
+                  on: { click: _vm.addReview }
+                },
+                [_vm._v("Add Review")]
+              )
             ])
           ])
         ])
@@ -57174,7 +57216,6 @@ var render = function() {
   return _c(
     "div",
     [
-      _vm._v("\n" + _vm._s(_vm.reviewsCurrentSupport) + "\n    "),
       _c("h2", { staticClass: "text-center" }, [_vm._v("Reviews")]),
       _vm._v(" "),
       _c("add-review"),
@@ -75229,6 +75270,16 @@ __webpack_require__.r(__webpack_exports__);
       });
     });
   },
+  addReviewToSupport: function addReviewToSupport(context, data) {
+    return new Promise(function (resolve, reject) {
+      _services_common_httpService__WEBPACK_IMPORTED_MODULE_0__["default"].post("/review/".concat(data.user_id, "/").concat(data.support_id), data).then(function (response) {
+        context.commit('ADD_REVIEW_TO_CURRENT_SUPPORT', response.data.data);
+        resolve(response.data.data);
+      })["catch"](function (err) {
+        reject(err);
+      });
+    });
+  },
   fetchSupportReviews: function fetchSupportReviews(context, data) {
     return new Promise(function (resolve, reject) {
       _services_common_httpService__WEBPACK_IMPORTED_MODULE_0__["default"].get("/review/".concat(data.supportId)).then(function (response) {
@@ -75331,6 +75382,9 @@ function convertToArray(supports) {
   },
   ADD_SUPPORT_BY_CLIENT: function ADD_SUPPORT_BY_CLIENT(state, support) {
     state.supportsClient.push(support);
+  },
+  ADD_REVIEW_TO_CURRENT_SUPPORT: function ADD_REVIEW_TO_CURRENT_SUPPORT(state, review) {
+    state.reviewsCurrentSupport.push(review);
   },
   UPDATE_SUPPORT_BY_ADMIN: function UPDATE_SUPPORT_BY_ADMIN(state, data) {
     var support = getSupportById(state.supportsAdmin, data.id);

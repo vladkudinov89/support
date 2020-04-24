@@ -1,22 +1,22 @@
 <template>
-<div>
-{{ reviewsCurrentSupport }}
-    <h2 class="text-center">Reviews</h2>
+    <div>
 
-    <add-review></add-review>
-    <div class="card">
-        <div class="card-body">
+        <h2 class="text-center">Reviews</h2>
 
-    <review-item
-    v-for="(review , index) in reviewsCurrentSupport"
-    :key="review.id"
-    :review.sync="review"
-    ></review-item>
+        <add-review></add-review>
+        <div class="card">
+            <div class="card-body">
 
+                <review-item
+                    v-for="(review , index) in reviewsCurrentSupport"
+                    :key="review.id"
+                    :review.sync="review"
+                ></review-item>
+
+            </div>
         </div>
-        </div>
 
-</div>
+    </div>
 </template>
 
 <script>

@@ -1,7 +1,6 @@
 <template>
     <div>
 
-
         <div v-show="isAdmin" class="card card-inner">
             <div class="card-body">
                 <div class="row">
@@ -45,7 +44,7 @@
 </template>
 
 <script>
-import moment from "moment";
+    import moment from "moment";
 
     export default {
         name: "ReviewItem",
@@ -55,8 +54,7 @@ import moment from "moment";
                 user_role: this.review.user_role
             }
         },
-        methods: {
-        },
+        methods: {},
         computed: {
             isAdmin() {
                 if (this.user_role === 'admin') {
@@ -65,7 +63,7 @@ import moment from "moment";
                     return false;
                 }
             },
-            date(){
+            date() {
                 return moment(String(this.review.created_at)).fromNow();
             }
 

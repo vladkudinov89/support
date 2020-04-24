@@ -52,6 +52,10 @@ export default {
         state.supportsClient.push(support);
     },
 
+    ADD_REVIEW_TO_CURRENT_SUPPORT: (state , review) => {
+      state.reviewsCurrentSupport.push(review);
+    },
+
     UPDATE_SUPPORT_BY_ADMIN: (state, data) => {
         let support = getSupportById(state.supportsAdmin, data.id);
         support.support_title = data.title;

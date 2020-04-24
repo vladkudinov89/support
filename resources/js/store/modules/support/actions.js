@@ -132,6 +132,18 @@ export default {
         });
     },
 
+    addReviewToSupport: (context , data) => {
+        return new Promise((resolve , reject) => {
+            httpService.post(`/review/${data.user_id}/${data.support_id}` , data)
+                .then((response) => {
+                    context.commit('ADD_REVIEW_TO_CURRENT_SUPPORT' , response.data.data);
+                    resolve(response.data.data);
+                }).catch(function (err) {
+                reject(err);
+            });
+        });
+    },
+
     fetchSupportReviews : (context , data) => {
         return new Promise((resolve, reject) => {
             httpService.get(`/review/${data.supportId}`)
