@@ -2,7 +2,8 @@
     <div class="container">
         <single-support-item
             :key="support.id"
-            v-bind:support="support">
+            v-bind:support="support"
+        >
 
         </single-support-item>
 
@@ -30,7 +31,8 @@
         },
         computed: {
             ...mapState('support', {
-                support: 'supportClient'
+                support: 'supportClient',
+                user: 'user'
             }),
         },
         created() {
@@ -44,6 +46,8 @@
 
             this.$store.dispatch('support/fetchClientSupport' , supportParam.clientId);
             this.$store.dispatch('support/fetchClientSingleSupport' , supportParam);
+
+            this.$store.dispatch('support/fetchUser');
 
         },
     }

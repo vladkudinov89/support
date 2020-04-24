@@ -2484,6 +2484,13 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -2512,6 +2519,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "AddReview",
   data: function data() {
@@ -2523,6 +2531,7 @@ __webpack_require__.r(__webpack_exports__);
       }
     };
   },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])('support', ['getAuthenticatedUser'])),
   methods: {
     openReviewForm: function openReviewForm() {},
     clearReview: function clearReview() {
@@ -2531,7 +2540,7 @@ __webpack_require__.r(__webpack_exports__);
     addReview: function addReview() {
       var _this = this;
 
-      this.newReview.user_id = parseInt(this.$route.params.userId);
+      this.newReview.user_id = parseInt(this.getAuthenticatedUser.id);
       this.newReview.support_id = parseInt(this.$route.params.supportId);
       this.$store.dispatch('support/addReviewToSupport', this.newReview).then(function (response) {
         _this.clearReview();
@@ -2855,6 +2864,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 
@@ -2868,7 +2878,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return {};
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])('support', {
-    support: 'supportClient'
+    support: 'supportClient',
+    user: 'user'
   })),
   created: function created() {
     var supportParam = {
@@ -2879,6 +2890,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     supportParam.supportId = parseInt(this.$route.params.supportId);
     this.$store.dispatch('support/fetchClientSupport', supportParam.clientId);
     this.$store.dispatch('support/fetchClientSingleSupport', supportParam);
+    this.$store.dispatch('support/fetchUser');
   }
 });
 
@@ -75303,7 +75315,11 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ({});
+/* harmony default export */ __webpack_exports__["default"] = ({
+  getAuthenticatedUser: function getAuthenticatedUser(state) {
+    return state.user;
+  }
+});
 
 /***/ }),
 

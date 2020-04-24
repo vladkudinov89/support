@@ -27,6 +27,7 @@
 </template>
 
 <script>
+    import {  mapGetters } from 'vuex';
     export default {
         name: "AddReview",
         data: function (){
@@ -38,6 +39,9 @@
                 }
             }
         },
+        computed: {
+            ...mapGetters('support',['getAuthenticatedUser']),
+        },
         methods: {
             openReviewForm() {
 
@@ -46,7 +50,7 @@
                 this.newReview.description = '';
             },
             addReview(){
-                this.newReview.user_id = parseInt(this.$route.params.userId);
+                this.newReview.user_id = parseInt(this.getAuthenticatedUser.id);
                 this.newReview.support_id = parseInt(this.$route.params.supportId);
 
                 this.$store.dispatch('support/addReviewToSupport' , this.newReview)
