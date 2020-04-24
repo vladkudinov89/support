@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Review;
 
 
 use App\Actions\Review\GetReviewByCurrentSupport\GetReviewByCurrentSupportAction;
+use App\Actions\Review\GetReviewByCurrentSupport\GetReviewByCurrentSupportPresenter;
 use App\Actions\Review\GetReviewByCurrentSupport\GetReviewByCurrentSupportRequest;
 use App\Http\Controllers\Api\ApiController;
 
@@ -25,15 +26,17 @@ class ReviewController  extends ApiController
         $this->reviewByCurrentSupportAction = $reviewByCurrentSupportAction;
     }
 
-    public function getCurrentReviewBySupport(int $user_id , int $support_id)
+    public function getCurrentReviewBySupport(int $support_id)
     {
         $reviews = $this->reviewByCurrentSupportAction->execute(
             new GetReviewByCurrentSupportRequest(
-                $user_id,
                 $support_id
             )
-        )->toArray();
+        );
 
-        return $this->successResponse($reviews , 201);
+        return $this->successResponse(
+            GetReviewByCurrentSupportPresenter::present($reviews->getCollection()) ,
+            201
+        );
     }
 }

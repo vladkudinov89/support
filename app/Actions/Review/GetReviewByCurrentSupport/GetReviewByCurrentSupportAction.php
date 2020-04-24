@@ -24,7 +24,6 @@ class GetReviewByCurrentSupportAction
     public function execute(GetReviewByCurrentSupportRequest $supportRequest): GetReviewByCurrentSupportResponse
     {
         $review = $this->reviewRepository->getAllReviewsToCurrentSupport(
-            $supportRequest->getUserId(),
             $supportRequest->getSupportId()
         );
 

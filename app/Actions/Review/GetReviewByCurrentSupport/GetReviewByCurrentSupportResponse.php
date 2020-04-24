@@ -21,6 +21,14 @@ class GetReviewByCurrentSupportResponse
         $this->collection = $collection;
     }
 
+    /**
+     * @return Collection
+     */
+    public function getCollection(): Collection
+    {
+        return $this->collection;
+    }
+
     public function toArray(): array
     {
         return $this->collection->toArray();

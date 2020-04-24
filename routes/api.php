@@ -76,7 +76,7 @@ Route::prefix('v1')->group(function () {
                 'middleware' => ['auth:api'],
             ],
             function () {
-                Route::get('{user_id}/{support_id}', 'ReviewController@getCurrentReviewBySupport');
+                Route::get('/{support_id}', 'ReviewController@getCurrentReviewBySupport');
             });
 
 
