@@ -14,7 +14,8 @@ class AddReviewToCurrentSupportPresenter
             'id' => $review->id,
             'description' => $review->description,
             'created_at' => $review->created_at,
-            'user_role' => $review->user->role
+            'user_role' => $review->user->role,
+            'user_name' => $review->user->name
         ];
     }
 }

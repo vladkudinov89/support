@@ -17,7 +17,8 @@ class GetReviewByCurrentSupportPresenter
                 'id' => $item->id,
                 'description' => $item->description,
                 'created_at' => $item->created_at,
-                'user_role' => $item->user->role
+                'user_role' => $item->user->role,
+                'user_name' => $item->user->name
             ];
         }
 

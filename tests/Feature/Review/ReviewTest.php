@@ -82,7 +82,8 @@ class ReviewTest extends TestCase
                         'id',
                         'description',
                         'created_at',
-                        'user_role'
+                        'user_role',
+                        'user_name'
                     ]
                 ]
             ]);

@@ -9,8 +9,8 @@
                         <p class="text-secondary text-center">{{ date }}</p>
                     </div>
                     <div class="col-md-10 order-md-2">
-                        <p><a href="https://maniruzzaman-akash.blogspot.com/p/contact.html"><strong>Maniruzzaman
-                            Akash</strong></a></p>
+                        <p><a href="https://maniruzzaman-akash.blogspot.com/p/contact.html">
+                            <strong>{{review.user_name}}</strong></a></p>
                         <p>
                             ADMIN. {{ review.description}}
                         </p>
@@ -27,7 +27,7 @@
             <div class="col-md-10">
                 <p>
                     <a class="float-left" href="https://maniruzzaman-akash.blogspot.com/p/contact.html">
-                        <strong>Maniruzzaman Akash</strong>
+                        <strong>{{review.user_name}}</strong>
                     </a>
 
                 </p>
