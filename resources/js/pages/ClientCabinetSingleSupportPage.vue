@@ -5,16 +5,22 @@
             v-bind:support="support">
 
         </single-support-item>
+
+       <review-list></review-list>
+
+
     </div>
 </template>
 
 <script>
     import SingleSupportItem from '../components/common/SingleSupportItem';
     import {mapState} from "vuex";
+    import ReviewList from "../components/review/ReviewList";
 
     export default {
         name: "ClientCabinetSingleSupportPage",
         components: {
+            ReviewList,
             SingleSupportItem
         },
         data: function () {

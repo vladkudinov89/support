@@ -44,6 +44,10 @@ export default {
         state.supportClient = support;
     },
 
+    SET_REVIEW_BY_CURRENT_SUPPORT: (state , data) => {
+      state.reviewsCurrentSupport = data;
+    },
+
     ADD_SUPPORT_BY_CLIENT: (state , support) => {
         state.supportsClient.push(support);
     },

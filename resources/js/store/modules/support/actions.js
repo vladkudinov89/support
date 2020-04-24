@@ -131,4 +131,16 @@ export default {
             });
         });
     },
+
+    fetchSupportReviews : (context , data) => {
+        return new Promise((resolve, reject) => {
+            httpService.get(`/review/${data.supportId}`)
+                .then((response) => {
+                    context.commit('SET_REVIEW_BY_CURRENT_SUPPORT', response.data.data);
+                    return response.data.data;
+                }).catch((error) => {
+                reject(error);
+            });
+        });
+    },
 }

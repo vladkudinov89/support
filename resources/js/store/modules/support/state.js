@@ -3,5 +3,6 @@ export default {
     supportsClient: [],
     supportClient: [],
     isAdmin : false,
-    user: {}
+    user: {},
+    reviewsCurrentSupport: []
 }
