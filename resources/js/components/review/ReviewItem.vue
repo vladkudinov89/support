@@ -16,7 +16,11 @@
                         </p>
                         <textarea v-if="isEditing" v-model="currentReview.description" class="form-control" rows="3"></textarea>
                         <div class="d-flex justify-content-start">
-                            <a v-show="isAdmin" v-if="!isEditing" @click="editReview" class="btn btn-info">Edit</a>
+                            <div v-show="isAdmin" v-if="!isEditing">
+                                <a  @click="editReview" class="btn btn-info">Edit</a>
+                                <a class="btn btn-danger" @click="deleteReview(review.id)">Delete</a>
+                            </div>
+
                             <a
                                 v-if="isEditing"
                                 class="btn btn-success" @click="updateReview(review.id)"
@@ -53,7 +57,10 @@
                     .</p>
                 <textarea v-if="isEditing" v-model="currentReview.description" class="form-control" rows="3"></textarea>
                 <div class="d-flex justify-content-end">
-                    <a v-if="!isEditing" @click="editReview" class="btn btn-info">Edit</a>
+                   <div v-if="!isEditing">
+                       <a  @click="editReview" class="btn btn-info">Edit</a>
+                       <a class="btn btn-danger" @click="deleteReview(review.id)">Delete</a>
+                   </div>
                     <a
                         v-if="isEditing"
                         class="btn btn-success" @click="updateReview(review.id)"
@@ -93,7 +100,8 @@
         },
         methods: {
             ...mapActions('support', {
-                updateReviewSupport: 'updateReviewSupport'
+                updateReviewSupport: 'updateReviewSupport',
+                deleteReviewSupport: 'deleteReviewSupport'
             }),
             updateReview(){
                 this.updateReviewSupport({
@@ -107,6 +115,9 @@
                         console.log(response);
                         alert("Could not update review!");
                     });
+            },
+            deleteReview(id){
+                this.$store.dispatch('support/deleteReviewSupport' , id);
             },
             editReview(){
                 this.isEditing = true;

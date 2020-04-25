@@ -95,4 +95,9 @@ export default {
         state.supportsClient.splice(index, 1);
     },
 
+    DELETE_REVIEW: (state, id) => {
+        const index = state.reviewsCurrentSupport.findIndex(review => review.id === id);
+        state.reviewsCurrentSupport.splice(index, 1);
+    },
+
 }

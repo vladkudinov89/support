@@ -156,6 +156,18 @@ export default {
     });
 },
 
+    deleteReviewSupport: (context, id) => {
+        return new Promise((resolve, reject) => {
+            httpService.delete('/review/' + id)
+                .then((response) => {
+                    context.commit('DELETE_REVIEW', id);
+                    return response.data.data;
+                }).catch((error) => {
+                reject(error);
+            });
+        });
+    },
+
     fetchSupportReviews : (context , data) => {
         return new Promise((resolve, reject) => {
             httpService.get(`/review/${data.supportId}`)
