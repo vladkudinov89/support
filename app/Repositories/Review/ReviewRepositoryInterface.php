@@ -12,4 +12,6 @@ interface ReviewRepositoryInterface
     public function getAllReviewsToCurrentSupport(int $support_id): Collection;
 
     public function save(Review $review): Review;
+
+    public function getReviewById(int $id): ?Review;
 }

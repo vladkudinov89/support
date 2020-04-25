@@ -72,6 +72,34 @@ class ReviewTest extends TestCase
         $this->assertDatabaseHas('reviews' , $data);
     }
 
+    /** @test */
+    public function client_can_update_own_review()
+    {
+        $user = factory(User::class)->create(['role' => 'user']);
+
+        $support = factory(Support::class)->create(['user_id' => $user->id]);
+
+
+        $reviewsUser = factory(Review::class, 2)->create([
+            'user_id' => $user->id,
+            'support_id' => $support->id
+        ]);
+
+        $data = [
+            'user_id' => $user->id,
+            'support_id' => $support->id,
+            'description' => 'new test description'
+        ];
+
+        $response = $this
+            ->actingAs($user, 'api')
+            ->put('api/v1/review/'  . $reviewsUser[0]->id,
+                $data)
+            ->assertStatus(201);
+
+        $this->assertDatabaseHas('reviews' , $data);
+    }
+
 
     public function checkJsonStructure($response)
     {

@@ -23,4 +23,10 @@ class ReviewRepository implements ReviewRepositoryInterface
         return $review;
     }
 
+    public function getReviewById(int $id): ?Review
+    {
+        return Review::find($id);
+    }
+
+
 }

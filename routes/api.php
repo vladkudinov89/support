@@ -78,6 +78,7 @@ Route::prefix('v1')->group(function () {
             function () {
                 Route::get('/{support_id}', 'ReviewController@getCurrentReviewBySupport');
                 Route::post('/{user_id}/{support_id}', 'ReviewController@addReviewToCurrentSupport');
+                Route::put('/{review}' , 'ReviewController@updateReview');
             });
 
 
