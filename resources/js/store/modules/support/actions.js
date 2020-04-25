@@ -144,6 +144,18 @@ export default {
         });
     },
 
+    updateReviewSupport:  (context , data) => {
+    return new Promise((resolve, reject) => {
+        httpService.put(`/review/${data.id}` , data)
+            .then((response) => {
+                context.commit('UPDATE_REVIEW_SUPPORT', response.data.data);
+                resolve(response.data.data);
+            }).catch((error) => {
+            reject(error);
+        });
+    });
+},
+
     fetchSupportReviews : (context , data) => {
         return new Promise((resolve, reject) => {
             httpService.get(`/review/${data.supportId}`)

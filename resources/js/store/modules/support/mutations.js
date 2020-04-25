@@ -10,12 +10,18 @@ function getSupportById(supports, supportId) {
     return result;
 }
 
+function getReviewById(reviews, reviewId) {
+    return reviews.find(review => {
+        return review.id === parseInt(reviewId);
+    });
+}
+
 function convertToArray(supports) {
     let result = [];
 
     Object.keys(supports).forEach(function (key) {
 
-            result.push(supports[key]);
+        result.push(supports[key]);
 
     });
 
@@ -44,16 +50,21 @@ export default {
         state.supportClient = support;
     },
 
-    SET_REVIEW_BY_CURRENT_SUPPORT: (state , data) => {
-      state.reviewsCurrentSupport = data;
+    SET_REVIEW_BY_CURRENT_SUPPORT: (state, data) => {
+        state.reviewsCurrentSupport = data;
     },
 
-    ADD_SUPPORT_BY_CLIENT: (state , support) => {
+    ADD_SUPPORT_BY_CLIENT: (state, support) => {
         state.supportsClient.push(support);
     },
 
-    ADD_REVIEW_TO_CURRENT_SUPPORT: (state , review) => {
-      state.reviewsCurrentSupport.push(review);
+    ADD_REVIEW_TO_CURRENT_SUPPORT: (state, review) => {
+        state.reviewsCurrentSupport.push(review);
+    },
+
+    UPDATE_REVIEW_SUPPORT: (state, data) => {
+        let review = getReviewById(state.reviewsCurrentSupport, data.id);
+        review.description = data.description;
     },
 
     UPDATE_SUPPORT_BY_ADMIN: (state, data) => {
@@ -74,14 +85,14 @@ export default {
         state.supportClient = support;
     },
 
-    DELETE_SUPPORT_BY_ADMIN: (state , id)  => {
+    DELETE_SUPPORT_BY_ADMIN: (state, id) => {
         const index = state.supportsAdmin.findIndex(support => support.id === id);
-        state.supportsAdmin.splice(index , 1);
+        state.supportsAdmin.splice(index, 1);
     },
 
-    DELETE_SUPPORT_BY_CLIENT: (state , id)  => {
+    DELETE_SUPPORT_BY_CLIENT: (state, id) => {
         const index = state.supportsClient.findIndex(support => support.id === id);
-        state.supportsClient.splice(index , 1);
+        state.supportsClient.splice(index, 1);
     },
 
 }
