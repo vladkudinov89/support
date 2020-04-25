@@ -14,4 +14,6 @@ interface ReviewRepositoryInterface
     public function save(Review $review): Review;
 
     public function getReviewById(int $id): ?Review;
+
+    public function delete(int $id): void;
 }

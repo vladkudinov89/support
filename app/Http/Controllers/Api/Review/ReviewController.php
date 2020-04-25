@@ -7,6 +7,8 @@ namespace App\Http\Controllers\Api\Review;
 use App\Actions\Review\AddReviewToCurrentSupport\AddReviewToCurrentSupportAction;
 use App\Actions\Review\AddReviewToCurrentSupport\AddReviewToCurrentSupportPresenter;
 use App\Actions\Review\AddReviewToCurrentSupport\AddReviewToCurrentSupportRequest;
+use App\Actions\Review\DeleteReview\DeleteReviewAction;
+use App\Actions\Review\DeleteReview\DeleteReviewRequest;
 use App\Actions\Review\GetReviewByCurrentSupport\GetReviewByCurrentSupportAction;
 use App\Actions\Review\GetReviewByCurrentSupport\GetReviewByCurrentSupportPresenter;
 use App\Actions\Review\GetReviewByCurrentSupport\GetReviewByCurrentSupportRequest;
@@ -31,6 +33,10 @@ class ReviewController extends ApiController
      * @var UpdateReviewAction
      */
     private $updateReviewAction;
+    /**
+     * @var DeleteReviewAction
+     */
+    private $deleteReviewAction;
 
     /**
      * ReviewController constructor.
@@ -38,12 +44,14 @@ class ReviewController extends ApiController
     public function __construct(
         GetReviewByCurrentSupportAction $reviewByCurrentSupportAction,
         AddReviewToCurrentSupportAction $addReviewToCurrentSupportAction,
-        UpdateReviewAction $updateReviewAction
+        UpdateReviewAction $updateReviewAction,
+        DeleteReviewAction $deleteReviewAction
     )
     {
         $this->reviewByCurrentSupportAction = $reviewByCurrentSupportAction;
         $this->addReviewToCurrentSupportAction = $addReviewToCurrentSupportAction;
         $this->updateReviewAction = $updateReviewAction;
+        $this->deleteReviewAction = $deleteReviewAction;
     }
 
     public function getCurrentReviewBySupport(int $support_id)
@@ -75,7 +83,7 @@ class ReviewController extends ApiController
             201);
     }
 
-    public function updateReview(ValidateAddReviewToSupportRequest $request , Review $review)
+    public function updateReview(ValidateAddReviewToSupportRequest $request, Review $review)
     {
         $updateReview = $this->updateReviewAction->execute(new UpdateReviewRequest(
             $review->id,
@@ -85,5 +93,12 @@ class ReviewController extends ApiController
         return $this->successResponse(
             UpdateReviewPresenter::presenter($updateReview->getReview()),
             201);
+    }
+
+    public function deleteReview(int $id)
+    {
+        $this->deleteReviewAction->execute(new DeleteReviewRequest($id));
+
+        return $this->successResponse([], 201);
     }
 }

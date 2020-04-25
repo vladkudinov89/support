@@ -100,6 +100,27 @@ class ReviewTest extends TestCase
         $this->assertDatabaseHas('reviews' , $data);
     }
 
+    /** @test */
+    public function user_can_delete_review()
+    {
+        $user = factory(User::class)->create(['role' => 'user']);
+
+        $support = factory(Support::class)->create(['user_id' => $user->id]);
+
+
+        $reviewsUser = factory(Review::class, 2)->create([
+            'user_id' => $user->id,
+            'support_id' => $support->id
+        ]);
+
+        $response = $this
+            ->actingAs($user, 'api')
+            ->delete('api/v1/review/'  . $reviewsUser[0]->id)
+            ->assertStatus(201);
+
+        $this->assertDatabaseMissing('reviews' ,$reviewsUser[0]->toArray() );
+    }
+
 
     public function checkJsonStructure($response)
     {

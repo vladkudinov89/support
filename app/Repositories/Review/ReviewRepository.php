@@ -28,5 +28,10 @@ class ReviewRepository implements ReviewRepositoryInterface
         return Review::find($id);
     }
 
+    public function delete(int $id): void
+    {
+        Review::destroy($id);
+    }
+
 
 }
