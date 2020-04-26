@@ -65,11 +65,27 @@ class SupportsTest extends TestCase
         $supports = factory(Support::class, 3)->create();
 
         $response = $this
-            ->actingAs($user , 'api')
+            ->actingAs($user, 'api')
             ->delete('api/v1/admin/supports/' . $supports[0]->id)
             ->assertStatus(201);
 
-        $this->assertDatabaseMissing('supports' ,$supports[0]->toArray() );
+        $this->assertDatabaseMissing('supports', $supports[0]->toArray());
+    }
+
+    /** @test */
+    public function admin_change_status_support_to_view()
+    {
+        $user = factory(User::class)->create(['role' => 'admin']);
+
+        $supports = factory(Support::class)->create(['status_view' => 'unviewed']);
+
+        $response = $this
+            ->actingAs($user, 'api')
+            ->put('api/v1/admin/supports/viewed/' . $supports->id)
+            ->assertStatus(201)
+            ->getOriginalContent();
+
+        $this->assertEquals(Support::STATUS_VIEWED, $response['data']['status_view']);
     }
 
 

@@ -28,6 +28,7 @@ Route::prefix('v1')->group(function () {
             function () {
                 Route::get('/supports', 'SupportController@allSupports')->name('supports.all');
                 Route::put('/supports/{support}' , 'SupportController@updateSupport')->name('supports.update');
+                Route::put('/supports/viewed/{support}' , 'SupportController@viewSupport');
                 Route::delete('/supports/{id}' , 'SupportController@destroySupport')->name('supports.destroy');
             });
 

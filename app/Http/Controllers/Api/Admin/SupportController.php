@@ -8,6 +8,8 @@ use App\Actions\Support\Admin\GetAllSupports\GetAllSupportsAction;
 use App\Actions\Support\Admin\GetAllSupports\GetAllSupportsPresenter;
 use App\Actions\Common\Support\UpdateSupport\UpdateSupportAction;
 use App\Actions\Common\Support\UpdateSupport\UpdateSupportRequest;
+use App\Actions\Support\Admin\ViewSupport\ViewSupportAction;
+use App\Actions\Support\Admin\ViewSupport\ViewSupportRequest;
 use App\Entities\Support;
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Requests\Support\Common\ValidateSupportRequest;
@@ -27,6 +29,10 @@ class SupportController extends ApiController
      * @var DeleteSupportAction
      */
     private $deleteSupportAction;
+    /**
+     * @var ViewSupportAction
+     */
+    private $viewSupportAction;
 
     /**
      * SupportController constructor.
@@ -34,12 +40,14 @@ class SupportController extends ApiController
     public function __construct(
         GetAllSupportsAction $getAllSupportsAction,
         UpdateSupportAction $updateSupportAction,
-        DeleteSupportAction $deleteSupportAction
+        DeleteSupportAction $deleteSupportAction,
+        ViewSupportAction $viewSupportAction
     )
     {
         $this->getAllSupportsAction = $getAllSupportsAction;
         $this->updateSupportAction = $updateSupportAction;
         $this->deleteSupportAction = $deleteSupportAction;
+        $this->viewSupportAction = $viewSupportAction;
     }
 
     public function allSupports()
@@ -73,5 +81,12 @@ class SupportController extends ApiController
         $this->deleteSupportAction->execute(new DeleteSupportRequest($id));
 
         return $this->successResponse([], 201);
+    }
+
+    public function viewSupport(Support $support)
+    {
+        return $this->successResponse( $this->viewSupportAction->execute(
+            new ViewSupportRequest($support->id))->toArray()
+        , 201);
     }
 }
