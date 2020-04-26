@@ -32,7 +32,7 @@
             </select>
         </div>
 
-        <div class="form-group">
+        <div v-show="isAdmin" class="form-group">
             <label>Status Viewed</label>
             <input v-if="!isEditing" :value="support.support_status_view" class="form-control" readonly>
 
@@ -69,7 +69,7 @@
 
 <script>
     import Back from "./Back";
-    import {mapActions} from "vuex";
+    import {mapActions , mapGetters} from "vuex";
 
     export default {
         name: "SingleSupportItem",
@@ -103,10 +103,19 @@
                 }
             }
         },
+        computed: {
+            ...mapGetters('support' , {
+                getAuthenticatedUser : 'getAuthenticatedUser'
+            }),
+            isAdmin(){
+                return this.getAuthenticatedUser.role === 'admin';
+            },
+        },
         methods: {
             ...mapActions('support', {
                 updateSupportClient: 'updateSupportByClient'
             }),
+
             editSupport() {
                 this.isEditing = true;
             },
