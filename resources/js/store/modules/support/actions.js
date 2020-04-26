@@ -179,4 +179,16 @@ export default {
             });
         });
     },
+
+    changeStatusViewSupport: (context , id) => {
+        return new Promise((resolve, reject) => {
+            httpService.put(`/admin/supports/viewed/${id}`)
+                .then((response) => {
+                    context.commit('UPDATE_VIEW_STATUS_SUPPORT', response.data.data);
+                    resolve(response.data.data);
+                }).catch((error) => {
+                reject(error);
+            });
+        });
+    },
 }

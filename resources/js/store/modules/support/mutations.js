@@ -85,6 +85,12 @@ export default {
         state.supportClient = support;
     },
 
+    UPDATE_VIEW_STATUS_SUPPORT: (state, data) => {
+        let support = getSupportById(state.supportsClient, data.id);
+        support.support_status_view = 'viewed';
+        state.supportClient = support;
+    },
+
     DELETE_SUPPORT_BY_ADMIN: (state, id) => {
         const index = state.supportsAdmin.findIndex(support => support.id === id);
         state.supportsAdmin.splice(index, 1);

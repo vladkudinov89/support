@@ -36,7 +36,6 @@
             SupportItem,
             Back
         },
-
         props: ['supports', 'columns', 'isAdmin'],
         data: function () {
             return {

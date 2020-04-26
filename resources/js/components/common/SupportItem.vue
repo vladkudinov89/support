@@ -14,6 +14,7 @@
             <div v-if="isAdmin">
                 <td>
                     <router-link
+                        @click.native="changeStatusViewSupport(support.id)"
                         class="btn btn-success"
                         :to="{ name: 'AdminCabinetViewSingleSupportPage', params: {userId: support.support_user_id , supportId: support.id   }}"
                     >Detail
@@ -39,6 +40,11 @@
         export default {
             name: "SupportItem",
             props: ['support', 'isAdmin'],
+            methods: {
+                changeStatusViewSupport(id){
+                    this.$store.dispatch('support/changeStatusViewSupport' , id);
+                }
+            }
         }
     </script>
 
