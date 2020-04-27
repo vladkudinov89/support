@@ -191,4 +191,15 @@ export default {
             });
         });
     },
+    closeSupportByClient: (context , id) => {
+        return new Promise((resolve, reject) => {
+            httpService.put(`/client/supports/close/${id}`)
+                .then((response) => {
+                    context.commit('UPDATE_ACTIVE_STATUS_SUPPORT_BY_CLIENT', response.data.data);
+                    resolve(response.data.data);
+                }).catch((error) => {
+                reject(error);
+            });
+        });
+    },
 }

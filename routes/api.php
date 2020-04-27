@@ -43,6 +43,7 @@ Route::prefix('v1')->group(function () {
                 Route::get('/support/{id}', 'SupportController@allSupports')->name('supports.all');
                 Route::get('/support/{user_id}/{support_id}', 'SupportController@getSingleSupport')->name('support');
                 Route::post('/support', 'SupportController@addSupport');
+                Route::put('/supports/close/{support}' , 'SupportController@closeSupport');
                 Route::put('/supports/{support}' , 'SupportController@updateSupport')->name('supports.update');
                 Route::delete('/supports/{id}' , 'SupportController@destroySupport')->name('supports.destroy');
             });

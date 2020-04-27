@@ -67,11 +67,11 @@ class ClientSupportsTest extends TestCase
         ];
 
         $response = $this
-            ->actingAs($user , 'api')
-            ->post('api/v1/client/support' , $data)
+            ->actingAs($user, 'api')
+            ->post('api/v1/client/support', $data)
             ->assertStatus(201);
 
-        $this->assertDatabaseHas('supports' , $data);
+        $this->assertDatabaseHas('supports', $data);
     }
 
 
@@ -105,11 +105,29 @@ class ClientSupportsTest extends TestCase
         $supports = factory(Support::class, 3)->create();
 
         $response = $this
-            ->actingAs($user , 'api')
+            ->actingAs($user, 'api')
             ->delete('api/v1/client/supports/' . $supports[0]->id)
             ->assertStatus(201);
 
-        $this->assertDatabaseMissing('supports' ,$supports[0]->toArray() );
+        $this->assertDatabaseMissing('supports', $supports[0]->toArray());
+    }
+
+    /** @test */
+    public function client_can_close_support()
+    {
+        $user = factory(User::class)->create(['role' => 'user']);
+
+        $support = factory(Support::class)->create([
+            'status_activities' => 'active'
+        ]);
+
+        $response = $this
+            ->actingAs($user, 'api')
+            ->put('api/v1/client/supports/close/' . $support->id)
+            ->assertStatus(201)
+            ->getOriginalContent();
+
+        $this->assertEquals(Support::STATUS_CLOSED, $response['data']['status_activities']);
     }
 
 

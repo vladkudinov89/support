@@ -1,11 +1,8 @@
 <template>
-
-    <div class="col-md-6">
+<div class="d-flex">
+    <div class="col-6">
         <back></back>
         <h1>View "{{ support.support_title }}"</h1>
-
-        <a class="btn btn-danger" @click="deleteSupportByClient(support.id)">Delete</a>
-
 
         <div class="form-group">
             <label>Title</label>
@@ -20,7 +17,7 @@
             <textarea v-if="!isEditing" :value="support.support_message" class="form-control" rows="3" readonly></textarea>
             <textarea v-if="isEditing" v-model="currentSingleSupport.message" class="form-control" rows="3"></textarea>
         </div>
-        <div class="form-group">
+        <div v-show="isAdmin" class="form-group">
             <label>Status Active</label>
             <input v-if="!isEditing" :value="support.support_status_active" class="form-control" readonly>
 
@@ -47,24 +44,31 @@
         <a
             v-if="!isEditing"
             class="btn btn-warning" @click="editSupport()"
-        >Edit
+        >Edit Support
         </a>
 
 
         <a
             v-if="isEditing"
             class="btn btn-success" @click="update(support.id)"
-        >Update
+        >Update Support
         </a>
         <a
             v-if="isEditing"
             class="btn btn-danger" @click="cancelEditSupport()"
-        >Cancel
+        >Cancel Edit Support
         </a>
 
 
     </div>
-
+    <div class="col-6">
+        <div class="">
+            <h2>Support Actions</h2>
+            <a v-show="isStatusActive" class="btn btn-primary" @click="closeSupport(support.id)">Close Support</a>
+            <a class="btn btn-danger" @click="deleteSupportByClient(support.id)">Delete Support</a>
+        </div>
+    </div>
+</div>
 </template>
 
 <script>
@@ -110,6 +114,9 @@
             isAdmin(){
                 return this.getAuthenticatedUser.role === 'admin';
             },
+            isStatusActive(){
+                return this.support.support_status_active === 'active';
+            },
         },
         methods: {
             ...mapActions('support', {
@@ -136,6 +143,9 @@
                     .catch(function (response) {
                         alert("Could not update support!");
                     })
+            },
+            closeSupport(id){
+                this.$store.dispatch('support/closeSupportByClient' , id);
             },
             deleteSupportByClient(id){
                 this.$store.dispatch('support/deleteSupportByClient' , id);
