@@ -5,8 +5,10 @@ namespace Tests\Feature\Client;
 
 use App\Entities\Support;
 use App\Entities\User;
+use App\Mail\Support\Client\AddSupportMail;
 use App\Policies\SupportPolicy;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
 
 class ClientSupportsTest extends TestCase
@@ -58,6 +60,10 @@ class ClientSupportsTest extends TestCase
     /** @test */
     public function client_can_add_support()
     {
+        Mail::fake();
+
+        $admin = factory(User::class)->create(['role' => 'admin']);
+
         $user = factory(User::class)->create(['role' => 'user']);
 
         $data = [
@@ -70,6 +76,8 @@ class ClientSupportsTest extends TestCase
             ->actingAs($user, 'api')
             ->post('api/v1/client/support', $data)
             ->assertStatus(201);
+
+        Mail::assertSent(AddSupportMail::class);
 
         $this->assertDatabaseHas('supports', $data);
     }

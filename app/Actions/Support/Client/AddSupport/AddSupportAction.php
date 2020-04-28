@@ -5,7 +5,10 @@ namespace App\Actions\Support\Client\AddSupport;
 
 
 use App\Entities\Support;
+use App\Entities\User;
+use App\Mail\Support\Client\AddSupportMail;
 use App\Repositories\Support\SupportRepositoryInterface;
+use Illuminate\Support\Facades\Mail;
 
 class AddSupportAction
 {
@@ -33,6 +36,11 @@ class AddSupportAction
         ]);
 
         $support = $this->supportRepository->save($addSupport);
+
+        Mail::to(User::getAdmin()->email)
+            ->send(new AddSupportMail(
+                $support
+            ));
 
         return new AddSupportResponse($support);
     }
