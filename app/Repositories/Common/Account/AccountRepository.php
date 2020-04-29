@@ -14,4 +14,16 @@ class AccountRepository implements AccountRepositoryInterface
        return User::find(Auth::id());
     }
 
+    public function getAdmin(): ?User
+    {
+        return User::where('role', User::ROLE_ADMIN)->first();
+    }
+
+    public function getActiveAdmin(int $id): ?User
+    {
+        return User::where('role', User::ROLE_ADMIN)
+            ->where('id' , $id)
+            ->first();
+    }
+
 }
