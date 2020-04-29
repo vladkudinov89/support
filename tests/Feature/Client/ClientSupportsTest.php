@@ -6,6 +6,7 @@ namespace Tests\Feature\Client;
 use App\Entities\Support;
 use App\Entities\User;
 use App\Mail\Support\Client\AddSupportMail;
+use App\Mail\Support\Client\CloseSupportMail;
 use App\Policies\SupportPolicy;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Mail;
@@ -123,6 +124,8 @@ class ClientSupportsTest extends TestCase
     /** @test */
     public function client_can_close_support()
     {
+        Mail::fake();
+
         $admin = factory(User::class)->create(['role' => 'admin']);
         $user = factory(User::class)->create(['role' => 'user']);
 
@@ -136,6 +139,8 @@ class ClientSupportsTest extends TestCase
             ->put('api/v1/client/supports/close/' . $support->id)
             ->assertStatus(201)
             ->getOriginalContent();
+
+        Mail::assertSent(CloseSupportMail::class);
 
         $this->assertEquals(Support::STATUS_CLOSED, $response['data']['status_activities']);
     }
