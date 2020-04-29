@@ -5,8 +5,10 @@ namespace Tests\Feature\Review;
 use App\Entities\Review;
 use App\Entities\Support;
 use App\Entities\User;
+use App\Mail\Review\Common\AddReviewMail;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
 
 class ReviewTest extends TestCase
@@ -52,16 +54,22 @@ class ReviewTest extends TestCase
     }
 
     /** @test */
-    public function client_can_add_review_to_support()
+    public function user_send_mail_when_add_support()
     {
+        Mail::fake();
+
+        $admin = factory(User::class)->create(['role' => 'admin']);
         $user = factory(User::class)->create(['role' => 'user']);
 
-        $support = factory(Support::class)->create(['user_id' => $user->id]);
+        $support = factory(Support::class)->create([
+            'user_id' => $user->id,
+            'admin_id_accept_exec' => $admin->id
+        ]);
 
         $data = [
             'user_id' => $user->id,
             'support_id' => $support->id,
-            'description' => 'test description'
+            'description' => 'description by client'
         ];
 
         $response = $this
@@ -69,8 +77,11 @@ class ReviewTest extends TestCase
             ->post('api/v1/review/' . $user->id . '/' . $support->id, $data)
             ->assertStatus(201);
 
+        Mail::assertSent(AddReviewMail::class);
+
         $this->assertDatabaseHas('reviews' , $data);
     }
+
 
     /** @test */
     public function client_can_update_own_review()

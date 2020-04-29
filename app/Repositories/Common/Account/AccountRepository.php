@@ -11,8 +11,14 @@ class AccountRepository implements AccountRepositoryInterface
 {
     public function account(): ?User
     {
-       return User::find(Auth::id());
+        return User::find(Auth::id());
     }
+
+    public function getUserById(int $id): ?User
+    {
+        return User::find($id)->first();
+    }
+
 
     public function getAdmin(): ?User
     {
@@ -22,7 +28,7 @@ class AccountRepository implements AccountRepositoryInterface
     public function getActiveAdmin(int $id): ?User
     {
         return User::where('role', User::ROLE_ADMIN)
-            ->where('id' , $id)
+            ->where('id', $id)
             ->first();
     }
 
