@@ -9,6 +9,8 @@
 
             <td >{{support.support_status_view}}</td>
 
+            <td>{{support.support_status_review}}</td>
+
             <td>{{support.support_user_name}}</td>
 
             <div v-if="isAdmin">

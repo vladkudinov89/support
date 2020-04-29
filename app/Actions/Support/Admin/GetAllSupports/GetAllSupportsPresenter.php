@@ -17,6 +17,7 @@ class GetAllSupportsPresenter
             'support_user_id' => $support->user->id,
             'support_user_name' => $support->user->name,
             'support_user_role' => $support->user->role,
+            'support_status_review' => $support->hasReviewToSupport()
         ];
     }
 }

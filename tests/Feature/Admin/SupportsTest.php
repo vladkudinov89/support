@@ -3,6 +3,7 @@
 namespace Tests\Feature\Admin;
 
 
+use App\Entities\Review;
 use App\Entities\Support;
 use App\Entities\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -15,9 +16,14 @@ class SupportsTest extends TestCase
     /** @test */
     public function get_all_supports_by_admin()
     {
-        $user = factory(User::class)->create();
+        $user = factory(User::class)->create(['role' => 'admin']);
 
-        $supports = factory(Support::class, 10)->create();
+        $supports = factory(Support::class, 2)->create(['user_id' => $user->id]);
+
+        $reviews = factory(Review::class , 3)->create([
+            'user_id' => $user,
+            'support_id' => $supports[0]->id
+            ]);
 
         $response = $this
             ->actingAs($user, 'api')
@@ -86,6 +92,7 @@ class SupportsTest extends TestCase
             ->getOriginalContent();
 
         $this->assertEquals(Support::STATUS_VIEWED, $response['data']['status_view']);
+        $this->assertEquals($user->id, $response['data']['admin_id_accept_exec']);
     }
 
 

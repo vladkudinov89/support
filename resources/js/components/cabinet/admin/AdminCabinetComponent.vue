@@ -26,6 +26,7 @@
                     'message',
                     'status_active',
                     'status_view' ,
+                    'status_review',
                     'user_name'
                 ],
             }
