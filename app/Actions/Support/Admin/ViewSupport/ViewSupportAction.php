@@ -5,6 +5,7 @@ namespace App\Actions\Support\Admin\ViewSupport;
 
 
 use App\Entities\Support;
+use App\Entities\User;
 use App\Repositories\Support\SupportRepositoryInterface;
 
 class ViewSupportAction
@@ -27,6 +28,8 @@ class ViewSupportAction
         $updateSupport = $this->supportRepository->getSupportById($supportRequest->getId());
 
         $updateSupport->status_view = Support::STATUS_VIEWED;
+
+        $updateSupport->admin_id_accept_exec = User::getAdmin()->id;
 
         $support = $this->supportRepository->save($updateSupport);
 
