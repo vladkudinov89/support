@@ -123,10 +123,12 @@ class ClientSupportsTest extends TestCase
     /** @test */
     public function client_can_close_support()
     {
+        $admin = factory(User::class)->create(['role' => 'admin']);
         $user = factory(User::class)->create(['role' => 'user']);
 
         $support = factory(Support::class)->create([
-            'status_activities' => 'active'
+            'status_activities' => 'active',
+            'admin_id_accept_exec' => $admin->id
         ]);
 
         $response = $this
