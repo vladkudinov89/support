@@ -81,18 +81,18 @@ class SupportsTest extends TestCase
     /** @test */
     public function admin_change_status_support_to_view()
     {
-        $user = factory(User::class)->create(['role' => 'admin']);
+        $admin = factory(User::class)->create(['role' => 'admin']);
 
         $supports = factory(Support::class)->create(['status_view' => 'unviewed']);
 
         $response = $this
-            ->actingAs($user, 'api')
+            ->actingAs($admin, 'api')
             ->put('api/v1/admin/supports/viewed/' . $supports->id)
             ->assertStatus(201)
             ->getOriginalContent();
 
         $this->assertEquals(Support::STATUS_VIEWED, $response['data']['status_view']);
-        $this->assertEquals($user->id, $response['data']['admin_id_accept_exec']);
+        $this->assertEquals($admin->id, $response['data']['admin_id_accept_exec']);
     }
 
 
