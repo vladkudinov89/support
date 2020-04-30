@@ -2,7 +2,6 @@
 
 use App\Entities\Review;
 use App\Entities\Support;
-use App\Entities\User;
 use Illuminate\Database\Seeder;
 
 class ReviewSeeder extends Seeder
@@ -18,7 +17,7 @@ class ReviewSeeder extends Seeder
 
         $supports->map(function ($support) {
            factory(Review::class)->create([
-              'user_id' => User::all()->random()->id,
+              'user_id' => $support->user_id,
               'support_id' => $support->id
            ]);
         });
