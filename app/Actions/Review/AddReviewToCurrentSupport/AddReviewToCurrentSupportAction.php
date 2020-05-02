@@ -8,6 +8,7 @@ use App\Entities\Review;
 use App\Mail\Review\Common\AddReviewMail;
 use App\Repositories\Common\Account\AccountRepositoryInterface;
 use App\Repositories\Review\ReviewRepositoryInterface;
+use App\Repositories\Support\SupportRepositoryInterface;
 use Illuminate\Support\Facades\Mail;
 
 class AddReviewToCurrentSupportAction
@@ -20,17 +21,23 @@ class AddReviewToCurrentSupportAction
      * @var AccountRepositoryInterface
      */
     private $accountRepository;
+    /**
+     * @var SupportRepositoryInterface
+     */
+    private $supportRepository;
 
     /**
      * AddReviewToCurrentSupportAction constructor.
      */
     public function __construct(
         ReviewRepositoryInterface $reviewRepository,
-        AccountRepositoryInterface $accountRepository
+        AccountRepositoryInterface $accountRepository,
+        SupportRepositoryInterface $supportRepository
     )
     {
         $this->reviewRepository = $reviewRepository;
         $this->accountRepository = $accountRepository;
+        $this->supportRepository = $supportRepository;
     }
 
     public function execute(AddReviewToCurrentSupportRequest $request): AddReviewToCurrentSupportResponse
@@ -51,17 +58,16 @@ class AddReviewToCurrentSupportAction
 
     private function sendToUser(Review $review): string
     {
-        $client = $this->accountRepository->getUserById($review->user_id);
+        $client = $this->supportRepository->getSupportById($review->support_id);
         $admin = $this->accountRepository->getActiveAdmin($review->support->admin_id_accept_exec);
 
-        if ((int)$review->user_id === $client->id) {
-            return $client->email;
+        if ((int)$review->user_id === $client->user->id) {
+            return  $admin->email;
         }
 
-        if ($admin) {
-            return $admin->email;
-        } else {
-            return $this->accountRepository->getAdmin()->email;
+        if ($admin->id === (int)$review->user_id) {
+            return  $client->user->email;
         }
+
     }
 }

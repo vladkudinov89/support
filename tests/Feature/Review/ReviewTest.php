@@ -57,6 +57,7 @@ class ReviewTest extends TestCase
     public function user_send_mail_when_add_support()
     {
         Mail::fake();
+        $this->withoutExceptionHandling();
 
         $admin = factory(User::class)->create(['role' => 'admin']);
         $user = factory(User::class)->create(['role' => 'user']);
@@ -64,6 +65,16 @@ class ReviewTest extends TestCase
         $support = factory(Support::class)->create([
             'user_id' => $user->id,
             'admin_id_accept_exec' => $admin->id
+        ]);
+
+        $reviewByAdmin = factory(Review::class)->create([
+            'support_id' => $support->id,
+            'user_id' => $admin->id
+        ]);
+
+        $reviewByUser= factory(Review::class)->create([
+            'support_id' => $support->id,
+            'user_id' => $user->id
         ]);
 
         $data = [

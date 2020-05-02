@@ -37,11 +37,10 @@ class AddReviewMail extends Mailable
         return $this
             ->markdown('email.review.common.addReview')
             ->with([
-                'user_name' => $this->review->user->name,
-                'user_id' => $this->review->user_id,
+                'user_id' => $this->review->support->user_id,
                 'support_id' => $this->review->support->id,
                 'support_title' => $this->review->support->title,
-                'is_admin' => $this->review->user->isAdmin()
+                'is_admin' => (bool)$this->review->user->isAdmin()
             ]);
     }
 }
