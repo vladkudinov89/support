@@ -88,6 +88,7 @@ export default {
     UPDATE_VIEW_STATUS_SUPPORT: (state, data) => {
         let support = getSupportById(state.supportsClient, data.id);
         support.support_status_view = 'viewed';
+        support.is_admin_viewed_support = 1;
         state.supportClient = support;
     },
 

@@ -7,7 +7,12 @@
 
         </single-support-item>
 
-       <review-list></review-list>
+        <div v-if="isAdminViewSupport()">
+            <review-list></review-list>
+        </div>
+        <div v-else>
+            <p class="bg-info m-3">You can add review to your support after visited admin.</p>
+        </div>
 
 
     </div>
@@ -25,9 +30,7 @@
             SingleSupportItem
         },
         data: function () {
-            return {
-
-            }
+            return {}
         },
         computed: {
             ...mapState('support', {
@@ -44,12 +47,17 @@
             supportParam.clientId = parseInt(this.$route.params.userId);
             supportParam.supportId = parseInt(this.$route.params.supportId);
 
-            this.$store.dispatch('support/fetchClientSupport' , supportParam.clientId);
-            this.$store.dispatch('support/fetchClientSingleSupport' , supportParam);
+            this.$store.dispatch('support/fetchClientSupport', supportParam.clientId);
+            this.$store.dispatch('support/fetchClientSingleSupport', supportParam);
 
             this.$store.dispatch('support/fetchUser');
 
         },
+        methods: {
+            isAdminViewSupport() {
+                return this.support.is_admin_viewed_support === 1;
+            }
+        }
     }
 </script>
 

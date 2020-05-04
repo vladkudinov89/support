@@ -32,7 +32,8 @@ class AddSupportAction
             'message' => $supportRequest->getMessage(),
             'status_activities' => 'active',
             'status_view' => 'unviewed',
-            'user_id' => $supportRequest->getUserId()
+            'user_id' => $supportRequest->getUserId(),
+            'admin_id_accept_exec' => 0
         ]);
 
         $support = $this->supportRepository->save($addSupport);
