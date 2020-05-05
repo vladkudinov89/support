@@ -1,5 +1,5 @@
 export const storageService = {
-    keyName: 'laravel_token',
+    keyName: 'accessToken',
     get(key) {
         return localStorage.getItem(key);
     },

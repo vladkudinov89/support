@@ -7,11 +7,19 @@ export class HttpService {
             baseURL: '/api/v1/'
         });
 
+        this.axios.get('role/token')
+            .then((response) => {
+                storageService.setToken(response.data.data.token);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+
         this.axios.interceptors.request.use(
             config => {
                 if (storageService.hasToken()) {
-                    config.headers['Authorization'] =  'Bearer '+ storageService.getToken();
                     config.headers['Accept'] = 'application/json';
+                    config.headers['Authorization'] =  'Bearer '+ storageService.getToken();
                 }
 
                 return Promise.resolve(config);

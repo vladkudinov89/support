@@ -57,6 +57,7 @@ Route::prefix('v1')->group(function () {
             ],
             function () {
                 Route::get('/user', 'RoleController@get_role')->name('role');
+                Route::get('/token', 'RoleController@get_token')->name('token');
             });
 
         Route::group(

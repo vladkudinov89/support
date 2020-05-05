@@ -13,7 +13,7 @@
     Check your support,please.
 
     @if($is_admin)
-        @component('mail::button', ['url' => config('app.url') . '/cabinet/client/support/' . $user_id . '/' . $support_id]
+        @component('mail::button', ['url' => config('app.url') . '/cabinet/client/' . $user_id . '/' . $support_id]
           )
             View New Review
         @endcomponent
