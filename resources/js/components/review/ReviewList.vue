@@ -23,6 +23,7 @@
     import {mapState} from "vuex";
     import AddReview from "./AddReview";
     import ReviewItem from "./ReviewItem";
+    import webSocketService from "../../services/common/webSocketService";
 
     export default {
         name: "ReviewList",
@@ -32,19 +33,31 @@
         },
         computed: {
             ...mapState('support', {
-                reviewsCurrentSupport: 'reviewsCurrentSupport'
+                reviewsCurrentSupport: 'reviewsCurrentSupport',
+                user: 'user'
             }),
         },
         created() {
-            const rev = {
-                clientId: '',
-                supportId: ''
-            };
+            this.initialLoad();
 
-            rev.clientId = this.$route.params.userId;
-            rev.supportId = this.$route.params.supportId;
+            const Echo = webSocketService.initLaravelEcho();
 
-            this.$store.dispatch('support/fetchSupportReviews', rev);
+              Echo.private('reviews').listen('.review.added', (payload) => {
+                this.$store.commit('support/ADD_REVIEW_TO_CURRENT_SUPPORT', payload);
+            });             
+        },
+        methods: {
+            initialLoad() {
+                const rev = {
+                    clientId: '',
+                    supportId: ''
+                };
+
+                rev.clientId = this.$route.params.userId;
+                rev.supportId = this.$route.params.supportId;
+
+                this.$store.dispatch('support/fetchSupportReviews', rev);
+            },
         }
     }
 </script>

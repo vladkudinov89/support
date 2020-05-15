@@ -59,7 +59,10 @@ export default {
     },
 
     ADD_REVIEW_TO_CURRENT_SUPPORT: (state, review) => {
-        state.reviewsCurrentSupport.push(review);
+         let addReview = getReviewById(state.reviewsCurrentSupport, review.id);
+         if(state.reviewsCurrentSupport.includes(addReview) !== true){
+                 state.reviewsCurrentSupport.push(review);
+         }
     },
 
     UPDATE_REVIEW_SUPPORT: (state, data) => {
