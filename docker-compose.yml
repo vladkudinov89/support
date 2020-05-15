@@ -19,6 +19,8 @@ services:
       - ./docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini
     networks:
       - app-network
+      - queue
+      - broadcasting
 
   #Nginx Service
   webserver:
@@ -32,8 +34,12 @@ services:
     volumes:
       - ./:/var/www
       - ./docker/nginx/conf.d/:/etc/nginx/conf.d/
+    depends_on:
+      - websocket
+      - app
     networks:
       - app-network
+      - broadcasting
 
   #MySQL Service
   db:
@@ -53,6 +59,7 @@ services:
       - ./docker/mysql/my.cnf:/etc/mysql/my.cnf
     networks:
       - app-network
+      - queue
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
@@ -80,8 +87,32 @@ services:
     working_dir: /var/www
     tty: true
 
+  beanstalk:
+    image: schickling/beanstalkd:latest
+    networks:
+      - queue
+
+  redis:
+    image: redis:5
+    networks:
+      - broadcasting
+
+  websocket:
+    build:
+      dockerfile: ./docker/websocket/Dockerfile
+      context: .
+    working_dir: /myapp
+    depends_on:
+      - redis
+    networks:
+      - broadcasting
+    volumes:
+      - ./:/myapp
+
 #Docker Networks
 networks:
+  queue:
+  broadcasting:
   app-network:
     driver: bridge
 
