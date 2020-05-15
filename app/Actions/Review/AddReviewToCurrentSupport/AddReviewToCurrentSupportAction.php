@@ -5,10 +5,13 @@ namespace App\Actions\Review\AddReviewToCurrentSupport;
 
 
 use App\Entities\Review;
+use App\Events\Review\ReviewAddEvent;
 use App\Mail\Review\Common\AddReviewMail;
+use App\Notifications\Review\ReviewSupportNotification;
 use App\Repositories\Common\Account\AccountRepositoryInterface;
 use App\Repositories\Review\ReviewRepositoryInterface;
 use App\Repositories\Support\SupportRepositoryInterface;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
 class AddReviewToCurrentSupportAction
@@ -52,6 +55,16 @@ class AddReviewToCurrentSupportAction
             ->send(new AddReviewMail($newReview));
 
         $review = $this->reviewRepository->save($newReview);
+
+        $notifiableUser = $this->accountRepository->getUserById($request->getUserId());
+        $support = $this->supportRepository->getSupportById($request->getSupportId());
+
+        broadcast(new ReviewAddEvent($review))->toOthers();
+        // broadcast(new ReviewAddEvent($review));
+
+        $notifiableUser->notify(new ReviewSupportNotification($support, \Auth::user()));
+
+        Log::info("review: User {$request->getUserId()} added review {$review->id}");
 
         return new AddReviewToCurrentSupportResponse($review);
     }
