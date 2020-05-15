@@ -14,6 +14,8 @@ git clone <this_repo>
 cp .env.example .env
 docker-compose up -d
 docker-compose exec app composer install
+docker-compose exec app php artisan passport:install
+docker-compose exec app php artisan migrate:fresh --seed
 docker-compose exec frontend npm install
 docker-compose exec frontend npm run watch-poll
 ```
