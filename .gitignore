@@ -17,3 +17,5 @@ yarn-error.log
 /public/css/
 
 laravel-echo-server.lock
+
+/storage/docker
