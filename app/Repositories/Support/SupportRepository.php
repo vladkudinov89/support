@@ -24,6 +24,11 @@ class SupportRepository implements SupportRepositoryInterface
         return Support::find($id);
     }
 
+    public function getSearchSupports(array $ids): Collection
+    {
+        return Support::whereIn('id' , $ids)->get();
+    }
+
     public function save(Support $support): Support
     {
         $support->save();

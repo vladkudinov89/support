@@ -4,15 +4,18 @@ namespace App\Http\Controllers\Api\Admin;
 
 use App\Actions\Common\Support\DeleteSupport\DeleteSupportAction;
 use App\Actions\Common\Support\DeleteSupport\DeleteSupportRequest;
-use App\Actions\Support\Admin\GetAllSupports\GetAllSupportsAction;
-use App\Actions\Support\Admin\GetAllSupports\GetAllSupportsPresenter;
 use App\Actions\Common\Support\UpdateSupport\UpdateSupportAction;
 use App\Actions\Common\Support\UpdateSupport\UpdateSupportRequest;
+use App\Actions\Search\Support\SearchSupportAction;
+use App\Actions\Search\Support\SearchSupportRequest;
+use App\Actions\Support\Admin\GetAllSupports\GetAllSupportsAction;
+use App\Actions\Support\Admin\GetAllSupports\GetAllSupportsPresenter;
 use App\Actions\Support\Admin\ViewSupport\ViewSupportAction;
 use App\Actions\Support\Admin\ViewSupport\ViewSupportRequest;
 use App\Entities\Support;
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Requests\Support\Common\ValidateSupportRequest;
+use Illuminate\Http\Request;
 
 class SupportController extends ApiController
 {
@@ -33,6 +36,10 @@ class SupportController extends ApiController
      * @var ViewSupportAction
      */
     private $viewSupportAction;
+    /**
+     * @var SearchSupportAction
+     */
+    private $searchSupportAction;
 
     /**
      * SupportController constructor.
@@ -41,13 +48,15 @@ class SupportController extends ApiController
         GetAllSupportsAction $getAllSupportsAction,
         UpdateSupportAction $updateSupportAction,
         DeleteSupportAction $deleteSupportAction,
-        ViewSupportAction $viewSupportAction
+        ViewSupportAction $viewSupportAction,
+        SearchSupportAction $searchSupportAction
     )
     {
         $this->getAllSupportsAction = $getAllSupportsAction;
         $this->updateSupportAction = $updateSupportAction;
         $this->deleteSupportAction = $deleteSupportAction;
         $this->viewSupportAction = $viewSupportAction;
+        $this->searchSupportAction = $searchSupportAction;
     }
 
     public function allSupports()
@@ -88,5 +97,12 @@ class SupportController extends ApiController
         return $this->successResponse( $this->viewSupportAction->execute(
             new ViewSupportRequest($support->id))->toArray()
         , 201);
+    }
+
+    public function search(Request $request)
+    {
+       return $this->successResponse(
+           $this->searchSupportAction->execute(new SearchSupportRequest($request->q))->toArray()
+           , 201);
     }
 }
