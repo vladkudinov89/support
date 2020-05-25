@@ -24,3 +24,9 @@ docker-compose exec frontend npm run watch-poll
 To start your containers you have only type next command:
 ```
 make docker-up
+
+```
+To online chat in support you must start queue listen. Type next command:
+```
+docker-compose exec app php artisan queue:listen
+```
