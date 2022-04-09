@@ -28,7 +28,7 @@
     },
     "dependencies": {
         "laravel-echo": "^1.7.0",
-        "moment": "^2.25.3",
+        "moment": "^2.29.2",
         "socket.io-client": "^2.3.0"
     }
 }
